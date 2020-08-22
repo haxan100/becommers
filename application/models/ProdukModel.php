@@ -135,6 +135,31 @@ class ProdukModel extends CI_Model
 
 		return $this->db->insert('kategori', $in);
 	}
+	public function edit_kategori($in, $id)
+	{
+		$this->db->where('id_kategori', $id);
+		return $this->db->update('kategori', $in);
+	}
+	public function getKategoriByid_kategori($id_kategori)
+	{
+		$this->db->select('*');
+		$this->db->where('id_kategori', $id_kategori);
+		$query = $this->db->get('kategori');
+		return $query->result();
+		# code...
+	}
+	public function Hapuskategori($id_kategori)
+	{
+		$this->db->where('id_kategori', $id_kategori);
+
+		$this->db->delete('kategori');
+		$query = $this->db->get('kategori s');
+
+		return $query->result();
+
+
+		# code...
+	}
 
 
 

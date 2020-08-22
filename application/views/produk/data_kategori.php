@@ -59,6 +59,7 @@
 												<div class="x_content">
 													<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 														<div class="item form-group">
+															<input class="form-control" type="text" name="id_kategori" hidden id="id_kategori">
 															<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama <span class="required">*</span>
 															</label>
 															<div class="col-md-12 col-sm-12 ">
@@ -96,8 +97,8 @@
 						$("body").children().first().before($(".modal"));
 
 						var bu = '<?= base_url(); ?>';
-						var url_form_tambah = bu + 'produk/tambah_kategori_proses';
-						var url_form_ubah = bu + 'produk/ubah_kategori_proses';
+						var url_form_tambah = bu + 'admin/tambah_kategori_proses';
+						var url_form_ubah = bu + 'admin/ubah_kategori_proses';
 
 						$('body').on('click', '.btn_tambah', function() {
 							url_form = url_form_tambah;
@@ -165,7 +166,13 @@
 									})
 								}
 							}).fail(function(e) {
-								notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'terjadi kesalahan!',
+
+								})
+								// notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
 							});
 							return false;
 						});
@@ -199,7 +206,7 @@
 								[1, "desc"]
 							],
 							'ajax': {
-								url: bu + 'produk/getAllKategori',
+								url: bu + 'admin/getAllKategori',
 								type: 'POST',
 								"data": function(d) {
 									return d;
@@ -236,25 +243,75 @@
 						});
 						$('body').on('click', '.btn_edit', function() {
 							url_form = url_form_ubah;
-							// console.log(url_form);
 							var id_kategori = $(this).data('id_kategori');
 							var nama_kategori = $(this).data('nama_kategori');
+							// console.log(id_kategori);
 
 							$('#tambah_act').hide();
-							$('#nama_kategori').val(nama_kategori);
+							$('#nama').val(nama_kategori);
+							$('#id_kategori').val(id_kategori);
 							$('#Edit').show();
 						});
 
 						$('#Edit').on('click', function() {
 
 							var id_kategori = $('#id_kategori').val();
-							var nama_kategori = $('#nama_kategori').val();
+							var nama_kategori = $('#nama').val();
 							if (
 								nama_kategori
 							) {
 								$("#form").submit();
 							}
 							// return false;
+						});
+						$('body').on('click', '.hapus', function() {
+
+							var id_kategori = $(this).data('id_kategori');
+							var nama = $(this).data('nama_kategori');
+							Swal.fire({
+								title: 'Apakah Anda Yakin ?',
+								text: "Anda akan Menghapus Kategori: " + nama,
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Yes, delete it!'
+							}).then((result) => {
+
+								if (result.value) {
+									$.ajax({
+										url: bu + 'Admin/hapusKategori',
+										dataType: 'json',
+										method: 'POST',
+										data: {
+											id_kategori: id_kategori
+										}
+									}).done(function(e) {
+										// console.log(e);
+										Swal.fire(
+											'Deleted!',
+											e.message,
+											'success'
+										)
+										$('#modal-detail').modal('hide');
+										setTimeout(function() {
+											location.reload();
+										}, 4000);
+									}).fail(function(e) {
+										console.log('gagal');
+										console.log(e);
+										var message = 'Terjadi Kesalahan. #JSMP01';
+									});
+
+
+
+
+								}
+							})
+
+
+
+
 						});
 
 

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Produk extends CI_Controller {
+class Admin extends CI_Controller {
 	public function __construct()
 
 	{
@@ -136,27 +136,17 @@ class Produk extends CI_Controller {
 	public function ubah_kategori_proses()
 	{
 
-		var_dump($this->input->post());die;
+		// var_dump($this->input->post());die;
 		$nama = $this->input->post('nama', TRUE);
-		$kelas = $this->input->post('kelas', TRUE);
-		$message = 'Gagal mengedit data Kelas!<br>Silahkan lengkapi data yang diperlukan.';
+		$id_kategori = $this->input->post('id_kategori', TRUE);
+		$message = 'Gagal mengedit data Kategori!<br>Silahkan lengkapi data yang diperlukan.';
+
 		$errorInputs = array();
 		$status = true;
-
 		$in = array(
-
-			'nama_kelas' => $nama,
+			'nama_kategori' => $nama,
 		);
-		// var_dump($in);die();
-
-		// pengecekan input
-		$produk_ada = count($this->SiswaModel->isKelasAda($kelas)) == 1 ? true : false;
-
-		if (!$produk_ada) {
-			$status = false;
-			$message .= '<br>Kelas tersebut tidak ada di database!<br>Silahkan Muat ulang halaman ini!';
-		} else {
-		}
+		
 		if (empty($nama)) {
 			$status = false;
 			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
@@ -164,18 +154,36 @@ class Produk extends CI_Controller {
 
 		if ($status) {
 
-			if ($this->SiswaModel->edit_kelas($in, $kelas)) {
+			if ($this->ProdukModel->edit_kategori($in, $id_kategori)) {
 
-				$message = "Berhasil Mengubah Kelas #1";
+				$message = "Berhasil Mengubah Kategori #1";
 			}
 		} else {
-			$message = "Gagal Mengubah Siswa #1";
+			$message = "Gagal Mengubah Kategori #1";
 		}
 
 		echo json_encode(array(
 			'status' => $status,
 			'message' => $message,
 			'errorInputs' => $errorInputs
+		));
+	}
+	public function hapusKategori()
+	{
+		$id_kategori = $this->input->post('id_kategori', TRUE);
+		$data = $this->ProdukModel->getKategoriByid_kategori($id_kategori);
+		$status = false;
+		$message = 'Gagal menghapus Kategori!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Kategori yang dimaksud.';
+		} else {
+			$this->ProdukModel->Hapuskategori($id_kategori);
+			$status = true;
+			$message = 'Berhasil menghapus Kategori: <b>' . $data[0]->nama_kategori . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
 		));
 	}
 

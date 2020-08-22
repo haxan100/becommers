@@ -5,21 +5,21 @@
 							<li>
 								<a href="index.html" class="mm-active">
 									<i class="metismenu-icon pe-7s-rocket"></i>
-									Dashboard Example 1
+									Produk
 								</a>
 							</li>
-							<li class="app-sidebar__heading">UI Components</li>
+							<li class="app-sidebar__heading">Produk</li>
 							<li>
 								<a href="#">
 									<i class="metismenu-icon pe-7s-diamond"></i>
-									Elements
+									Master Produk
 									<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
 								</a>
 								<ul>
 									<li>
-										<a href="elements-buttons-standard.html">
+										<a href="Produk/Kategori">
 											<i class="metismenu-icon"></i>
-											Buttons
+											Master Kategori
 										</a>
 									</li>
 									<li>

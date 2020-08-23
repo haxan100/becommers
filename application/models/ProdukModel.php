@@ -16,7 +16,7 @@ class ProdukModel extends CI_Model
 		$from = 'produk p';
 		// custom SQL
 
-		$sql = "SELECT* FROM {$from}  
+		$sql = "SELECT* FROM {$from}  join kategori k on k.id_kategori = p.id_kategori
 		";
 		$where = "";
 		// if (isset($post['id_kelas']) && $post['id_kelas'] != 'default') {
@@ -148,6 +148,13 @@ class ProdukModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+	public function getAllKategori()
+	{
+		$this->db->select('*');
+		$query = $this->db->get('kategori');
+		return $query->result();
+		# code...
+	}
 	public function Hapuskategori($id_kategori)
 	{
 		$this->db->where('id_kategori', $id_kategori);
@@ -159,6 +166,16 @@ class ProdukModel extends CI_Model
 
 
 		# code...
+	}
+	public function select_max()
+	{
+		$this->db->select_max('id_produk');
+		return $this->db->get('produk');
+	}
+	public function tambah($in,$table)
+	{
+
+		return $this->db->insert($table, $in);
 	}
 
 

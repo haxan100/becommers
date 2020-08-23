@@ -21,4 +21,5 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
 	<link href="<?php echo base_url() . "templates/architectui-html-free/"; ?>main.css" rel="stylesheet">
+	<link href="<?php echo base_url() . "templates/vendors"; ?>/sweetalert/sweetalert2.css" rel="stylesheet">
 </head>

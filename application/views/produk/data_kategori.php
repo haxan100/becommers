@@ -4,7 +4,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="main-card mb-3 card">
-								<div class="card-header">Produk
+								<div class="card-header">Kategori Produk
 									<div class="btn-actions-pane-right">
 									</div>
 								</div>

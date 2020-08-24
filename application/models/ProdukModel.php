@@ -177,6 +177,37 @@ class ProdukModel extends CI_Model
 
 		return $this->db->insert($table, $in);
 	}
+	public function edit_produk($in, $id)
+	{
+		$this->db->where('id_produk', $id);
+		return $this->db->update('produk', $in);
+	}
+	public function update_foto($in, $id_produk)
+	{
+		$this->db->where('id_produk', $id_produk);
+		return $this->db->update('produk', $in);
+
+	}
+	public function getProdukByid_produk($id_produk)
+	{
+		$this->db->select('*');
+		$this->db->where('id_produk', $id_produk);
+		$query = $this->db->get('produk');
+		return $query->result();
+		# code...
+	}
+	public function HapusProduk($id_produk)
+	{
+		$this->db->where('id_produk', $id_produk);
+
+		$this->db->delete('produk');
+		$query = $this->db->get('produk s');
+
+		return $query->result();
+
+
+		# code...
+	}
 
 
 

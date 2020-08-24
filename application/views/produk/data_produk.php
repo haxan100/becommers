@@ -1,4 +1,10 @@
 				<div class="app-main__inner">
+					<style>
+						#image {
+							max-width: 100px;
+							max-height: 100px;
+						}
+					</style>
 
 
 					<div class="row">
@@ -47,6 +53,7 @@
 						<form id="form">
 							<div class="modal-content">
 								<div class="modal-header">
+									<input type="text" id="id_produk" name="id_produk" hidden>
 									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 									</button>
 								</div>
@@ -166,11 +173,12 @@
 
 
 
+
 						$("body").children().first().before($(".modal"));
 
 						var bu = '<?= base_url(); ?>';
 						var url_form_tambah = bu + 'admin/tambah_produk_proses';
-						var url_form_ubah = bu + 'admin/ubah_kategori_proses';
+						var url_form_ubah = bu + 'admin/ubah_produk_proses';
 
 						$('body').on('click', '.btn_tambah', function() {
 							url_form = url_form_tambah;
@@ -397,6 +405,100 @@
 								[10, 25, 50, 1000],
 								[10, 25, 50, 1000]
 							]
+
+						});
+						$('body').on('click', '.btn_edit', function() {
+							url_form = url_form_ubah;
+							var id_produk = $(this).data('id_produk');
+							var nama_produk = $(this).data('nama_produk');
+
+							var id_kategori = $(this).data('id_kategori');
+							var harga = $(this).data('harga');
+							var qty = $(this).data('qty');
+							var status_produk = $(this).data('status_produk');
+							var deskripsi = $(this).data('deskripsi');
+							var foto = $(this).data('foto');
+							console.log(id_kategori, status_produk, foto);
+							// return false;
+
+							$('#id_produk').val(id_produk);
+							$('#nama').val(nama_produk);
+							$('#kategori').val(id_kategori);
+							$('#harga').val(harga);
+							$('#qty').val(qty);
+							$('#status').val(status_produk);
+							$('#deskripsi').val(deskripsi);
+							// $('#id_kategori').val(id_kategori);
+
+
+
+							$('#tambah_act').hide();
+							$('#Edit').show();
+						});
+
+						$('#Edit').on('click', function() {
+
+							var id_kategori = $('#id_kategori').val();
+							var nama_kategori = $('#nama').val();
+							if (
+								nama_kategori
+							) {
+								$("#form").submit();
+							}
+							// return false;
+						});
+
+						$('body').on('click', '.hapus', function() {
+
+							var id_produk = $(this).data('id_produk');
+							var nama = $(this).data('nama_produk');
+							Swal.fire({
+								title: 'Apakah Anda Yakin ?',
+								text: "Anda akan Menghapus Produk: " + nama,
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Yes, delete it!'
+							}).then((result) => {
+
+								if (result.value) {
+									$.ajax({
+										url: bu + 'Admin/hapusProduk',
+										dataType: 'json',
+										method: 'POST',
+										data: {
+											id_produk: id_produk
+										}
+									}).done(function(e) {
+										// console.log(e);
+										Swal.fire(
+											'Deleted!',
+											e.message,
+											'success'
+										)
+										$('#modal-detail').modal('hide');
+										setTimeout(function() {
+											location.reload();
+										}, 4000);
+
+										datatable.ajax.reload();
+										resetForm();
+										
+									}).fail(function(e) {
+										console.log('gagal');
+										console.log(e);
+										var message = 'Terjadi Kesalahan. #JSMP01';
+									});
+
+
+
+
+								}
+							})
+
+
+
 
 						});
 

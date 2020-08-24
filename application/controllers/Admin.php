@@ -46,9 +46,10 @@ class Admin extends CI_Controller {
 			$fields[] = $row->qty . '<br>';
 			$fields[] = $status . '<br>';
 			$fields[] = $row->deskripsi . '<br>';
-			$fields[] = '<img src="upload/images/' . $row->foto . '" id="image" alt="image"><br>';
+			$fields[] = '<img src="../upload/images/produk/' . $row->foto . '" id="image" alt="image"><br>';
 			$fields[] = '
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-deskripsi="' . $row->deskripsi . '" 
 			data-id_produk="' . $row->id_produk . '" 
 			data-id_kategori="' . $row->id_kategori . '" 
 			data-nama_produk="' . $row->nama_produk . '" 
@@ -197,12 +198,12 @@ class Admin extends CI_Controller {
 		$kategori = $this->input->post('kategori', TRUE);
 		$harga = $this->input->post('harga', TRUE);
 		$qty = $this->input->post('qty', TRUE);
-		$status = $this->input->post('status', TRUE);
+		$st = $this->input->post('status', TRUE);
 		$deskripsi = $this->input->post('deskripsi', TRUE);
 		$message = 'Gagal menambah data Produk!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$st= intval($status);
+		// $st= intval($status);
 		// var_dump($st,$status);die;
 
 		$idProduk = $this->ProdukModel->select_max()->result()[0]->id_produk == 'NULL'
@@ -281,7 +282,7 @@ class Admin extends CI_Controller {
 					'nama_produk' => $nama,
 					'harga' => $harga,
 					'qty' => $qty,
-					'status_produk' => $status,
+					'status_produk' => $st,
 					'id_kategori' => $kategori,
 					'deskripsi' => $deskripsi,
 					'link' => $link,
@@ -298,6 +299,151 @@ class Admin extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 			'errorInputs' => $errorInputs
+		));
+	}
+	public function ubah_produk_proses()
+	{
+
+		// var_dump($this->input->post());die;
+		$id_produk = $this->input->post('id_produk', TRUE);
+		$nama = $this->input->post('nama', TRUE);
+		$kategori = $this->input->post('kategori', TRUE);
+		$harga = $this->input->post('harga', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		$status = $this->input->post('status', TRUE);
+		$deskripsi = $this->input->post('deskripsi', TRUE);
+
+
+		$message = 'Gagal mengedit data !<br>Silahkan lengkapi data yang diperlukan.';
+
+		$errorInputs = array();
+		$status = true;
+		$in = array(
+			// 'id_produk' => $id_produk,
+			'nama_produk' => $nama,
+			'id_kategori' => $kategori,
+			'harga' => $harga,
+			'qty' => $qty,
+			'status_produk' => $status,
+			'deskripsi' => $deskripsi,
+		);
+
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}		if (empty($kategori)) {
+			$status = false;
+			$errorInputs[] = array('#kategori', 'Silahkan Isi Kategori');
+		}		if (empty($harga)) {
+			$status = false;
+			$errorInputs[] = array('#harga', 'Silahkan Isi Harga');
+		}
+		if (empty($qty)) {
+			$status = false;
+			$errorInputs[] = array('#qty', 'Silahkan Isi qty');
+		}
+		if (empty($deskripsi)) {
+			$status = false;
+			$errorInputs[] = array('#deskripsi', 'Silahkan Isi deskripsi');
+		}
+
+		if ($status) {
+
+			if ($this->ProdukModel->edit_produk($in, $id_produk)) {
+
+				$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
+				if (!$cekFoto) {
+					$filesCount = 0;
+					$successUpload = 0;
+					$errorUpload = '';
+					$config['image_library'] = 'gd2';
+					$_FILES['f']['name']     = $_FILES['foto']['name'];
+					$_FILES['f']['type']     = $_FILES['foto']['type'];
+					$_FILES['f']['tmp_name'] = $_FILES['foto']['tmp_name'];
+					$_FILES['f']['error']     = $_FILES['foto']['error'];
+					$_FILES['f']['size']     = $_FILES['foto']['size'];
+					$config['upload_path']          = 'upload/images/produk/';
+					$config['allowed_types']        = 'jpg|jpeg|png|gif';
+					$config['max_size']             = 3 * 1024; // kByte
+					$config['max_width']            = 10 * 1024;
+					$config['max_height']           = 10 * 1024;
+					$config['file_name'] = $id_produk . "-" . date("Y-m-d-H-i-s") . ".jpg";
+					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
+					// $data_kode = array('id_user' => $id_user);
+					// $foto = $this->db->get_where('user', $data_kode);
+					// if ($foto->num_rows() > 0) {
+					// 	$pros = $foto->row();
+					// 	// var_dump($pros);die;
+					// 	$name = $pros->foto;
+					// 	if (file_exists($lok = FCPATH . '/uploads/' . $name)) {
+					// 		unlink($lok);
+					// 	}
+					// 	if (file_exists($lok = FCPATH . './assets/uploads/ktp/' . $name)) {
+					// 		unlink($lok);
+					// 	}
+					// }
+					if (!$this->upload->do_upload('f')) {
+						$errorUpload = $this->upload->display_errors() . '<br>';
+					} else {
+						$fileName = $this->upload->data()["file_name"];
+						$config['source_image'] = $config['upload_path'] . $config['file_name'];
+
+						$this->load->library('image_lib');
+						$this->load->library('upload', $config);
+
+						$imageSizeBg = $this->image_lib->get_image_properties($config['source_image'], TRUE);
+						$sizean = array();
+						$widthWm = floor(0.2 * $imageSizeBg['width']);
+						$heightWm = floor(0.2 * $imageSizeBg['height']);
+						$config['wm_type'] = 'overlay';
+						$config['wm_overlay_path'] = '/uploads/images/produk/images.png';
+						$config['wm_opacity'] = 10;
+						$config['maintain_ratio'] = TRUE;$config['wm_vrt_alignment'] = 'top';
+						$config['wm_hor_alignment'] = 'center';
+
+						$this->load->library('image_lib');
+						$this->load->library('upload', $config);
+						$this->image_lib->initialize($config);
+						$errorUpload = $this->image_lib->display_errors();
+						$fileName = $this->upload->data()["file_name"];						
+						$successUpload++;
+					}
+					$inFoto = array(
+						'foto' => $nameFoto = str_replace(' ', '_', $config['file_name']),
+					);
+					$this->ProdukModel->update_foto($inFoto, $id_produk);
+				}
+
+				$message = "Berhasil Mengubah Produk #1";
+			}
+		} else {
+			$message = "Gagal Mengubah Produk #1";
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+	public function hapusProduk()
+	{
+		$id_produk = $this->input->post('id_produk', TRUE);
+		$data = $this->ProdukModel->getProdukByid_produk($id_produk);
+		// var_dump($data);die;
+		$status = false;
+		$message = 'Gagal menghapus Produk!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Produk yang dimaksud.';
+		} else {
+			$this->ProdukModel->HapusProduk($id_produk);
+			$status = true;
+			$message = 'Berhasil menghapus Produk: <b>' . $data[0]->nama_produk . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
 		));
 	}
 

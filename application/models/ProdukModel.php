@@ -208,6 +208,13 @@ class ProdukModel extends CI_Model
 
 		# code...
 	}
+	public function getAllProduk()
+	{
+		$this->db->select('*');
+		$query = $this->db->get('produk');
+		return $query->result();
+		# code...
+	}
 
 
 

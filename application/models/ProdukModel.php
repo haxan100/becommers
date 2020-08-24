@@ -215,6 +215,13 @@ class ProdukModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+	public function getAllProdukPag($limit,$start)
+	{
+		$this->db->select('*');
+		$query = $this->db->get('produk',$limit,$start);
+		return $query->result();
+		# code...
+	}
 
 
 

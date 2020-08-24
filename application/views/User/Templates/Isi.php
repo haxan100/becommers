@@ -70,6 +70,11 @@
 					?>
 					</div>
 					<div class="clearfix"> </div>
+						<div class="text-center">
+							<?php
+							echo $this->pagination->create_links();
+							?>
+						</div>
 					</div>
 					</div>
 					</div>

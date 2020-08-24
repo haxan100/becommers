@@ -26,6 +26,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //for-mobile-apps -->
 	<!-- Custom Theme files -->
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+
+	
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />

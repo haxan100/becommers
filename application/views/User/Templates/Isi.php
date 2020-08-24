@@ -35,11 +35,11 @@
 							<div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_mobiles">
 								<div class="agile_ecommerce_tab_left mobiles_grid">
 									<div class="hs-wrapper hs-wrapper2">
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/31.jpg" alt=" " class="img-responsive" />
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/30.jpg" alt=" " class="img-responsive" />
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/27.jpg" alt=" " class="img-responsive" />
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/28.jpg" alt=" " class="img-responsive" />
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/29.jpg" alt=" " class="img-responsive" />
+										<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+										<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+										<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+										<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+										<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
 												<li>
@@ -48,12 +48,12 @@
 											</ul>
 										</div>
 									</div>
-									<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">$245</i></p>
+									<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price"><?php echo $k->harga; ?></i></p>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart" />
 										<input type="hidden" name="add" value="1" />
-										<input type="hidden" name="w3ls_item" value="Smart Phone" />
-										<input type="hidden" name="amount" value="245.00" />
+										<input type="hidden" name="w3ls_item" value="<?php echo $k->nama_produk; ?>" />
+										<input type="hidden" name="amount" value="<?php echo $k->harga; ?>" />
 										<button type="submit" class="w3ls-cart">Add to cart</button>
 									</form>
 								</div>

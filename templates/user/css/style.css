@@ -1477,7 +1477,9 @@ h2.resp-accordion {
 	width:100%;
 	font-size:14px;
 }
-.register input[type="password"],.register input[type="email"]{
+.register input[type="password"],
+.register input[type="email"],
+.register input[type="text"] {
 	margin:1em 0 0;
 }
 div#horizontalTab ul {
@@ -4989,3 +4991,4 @@ td.invert-image a img {
 		margin-bottom: 1em;
 	}
 }
+

@@ -67,7 +67,7 @@
 				<script src="<?php echo base_url() . "templates/"; ?>vendors/sweetalert/constants.js"></script>
 				<script src="<?php echo base_url() . "templates/"; ?>vendors/sweetalert/globalState.js"></script>
 				<script src="<?php echo base_url() . "templates/"; ?>vendors/sweetalert/instanceMethods.js"></script> -->
-				<script src="<?php echo base_url() . "templates/"; ?>vendors/sweetalert/sweetalert2.all.js"></script>
+				<!-- <script src="<?php echo base_url() . "templates/"; ?>vendors/sweetalert/sweetalert2.all.js"></script> -->
 
 
 				<!-- Custom Theme Scripts -->

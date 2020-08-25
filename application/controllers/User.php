@@ -22,7 +22,7 @@ public function index()
 
 		$config['base_url'] = base_url().'/User/index';
 		$config['total_rows'] = count($total);
-		$config['per_page'] = 1;
+		$config['per_page'] = 6;
 		$from = $this->uri->segment(3);
 
 		$config['display_pages'] = TRUE;

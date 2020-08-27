@@ -9,6 +9,7 @@ class User extends CI_Controller {
 	{
 	parent::__construct();
 	$this->load->model('ProdukModel');
+		$this->load->model('UserModel');
 
 	$this->load->library('form_validation');
 

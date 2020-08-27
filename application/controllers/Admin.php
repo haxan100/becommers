@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('ProdukModel');
+		$this->load->model('UserModel');
 
 		$this->load->library('form_validation');
 
@@ -444,6 +445,189 @@ class Admin extends CI_Controller {
 		echo json_encode(array(
 			'status' => $status,
 			'message' => $message,
+		));
+	}
+	public function Master_User()
+	{
+		$data['content'] = 'Admin/data_user';
+		$this->load->view('templates/index', $data);
+	}
+	public function getAllUser()
+	{
+		$dt = $this->UserModel->data_AllUser($_POST);
+		$bu = base_url();
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		$status = "";
+		foreach ($dt['data']->result() as $row) {
+			if ($row->status == 1) {
+				$status = '<div class="badge badge-success">Aktif</div>';
+			} else if($row->status == 0) {
+				$status = '<div class="badge badge-warning">Belum Aktif</div>';
+			}else {
+
+				$status = '<div class="badge badge-danger">Banned</div>';
+
+			}
+			$fields = array($no++);
+			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = $row->email . '<br>';
+			$fields[] = $row->no_phone . '<br>';
+			$fields[] = $status . '<br>';
+			$fields[] = '
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-id_user="' . $row->id_user . '" 
+			data-nama_lengkap="' . $row->nama_lengkap . '" 
+			data-email="' . $row->email . '" 
+			data-no_phone="' . $row->no_phone . '" 
+			data-status="' . $row->status . '"	
+			></i> Ubah</button>
+        <button class="btn btn-round btn-danger hapus" data-id_user="' . $row->id_user . '" data-nama_lengkap="' . $row->nama_lengkap . '"
+        >Hapus</button>              
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function tambah_user_proses()
+	{
+
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+
+
+		if ($this->form_validation->run()==FALSE){
+			$data['content'] = 'Admin/data_user';
+			$this->load->view('templates/index', $data);
+			var_dump("ekekeke");
+            // $this->load->view('form_view'); // file form_view.php
+        }
+       
+        else {      
+ 
+          $this->session->set_flashdata('succses','Data Yang anda masukan berhasil.');
+          redirect('form');
+		}
+		
+
+		var_dump($_POST);die;		
+		$nama = $this->input->post('nama', TRUE);
+		$kategori = $this->input->post('kategori', TRUE);
+		$harga = $this->input->post('harga', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		$st = $this->input->post('status', TRUE);
+		$deskripsi = $this->input->post('deskripsi', TRUE);
+		$message = 'Gagal menambah data Produk!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+		// $st= intval($status);
+		// var_dump($st,$status);die;
+
+		$idProduk = $this->ProdukModel->select_max()->result()[0]->id_produk == 'NULL'
+		? 1
+			: substr($this->ProdukModel->select_max()->result()[0]->id_produk, 3, 9);
+		if (!$idProduk) $idProduk = 0;
+
+		$idProduk = intval(preg_replace('/\D/', '', $idProduk) + 1);
+		$newIdProduk = 'P' . date('y');
+		if ($idProduk < 100000000) $newIdProduk .= '0';
+		if ($idProduk < 10000000) $newIdProduk .= '0';
+		if ($idProduk < 1000000) $newIdProduk .= '0';
+		if ($idProduk < 100000) $newIdProduk .= '0';
+		if ($idProduk < 10000) $newIdProduk .= '0';
+		if ($idProduk < 1000) $newIdProduk .= '0';
+		if ($idProduk < 100) $newIdProduk .= '0';
+		if ($idProduk < 10) $newIdProduk .= '0';
+		$newIdProduk .= $idProduk;
+		// $link =
+		$u = substr($newIdProduk, 5);
+		$n = str_replace(" ", "_", $nama);
+		$uN = substr($n, 5);
+		$link = "p" . $u . "_" . $uN;
+		// $NLink =substr($link, 5);
+		// var_dump($link,$NLink);die;
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}
+		if (empty($kategori)) {
+			$status = false;
+			$errorInputs[] = array('#kategori', 'Silahkan pilih Kategori');
+		}
+		if (empty($harga)) {
+			$status = false;
+			$errorInputs[] = array('#harga', 'Silahkan isi harga');
+		}
+		if (empty($qty)) {
+			$status = false;
+			$errorInputs[] = array('#qty', 'Silahkan isi harga');
+		}
+		$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
+		if (!$cekFoto) {
+			$_FILES['f']['name']     = $_FILES['foto']['name'];
+			$_FILES['f']['type']     = $_FILES['foto']['type'];
+			$_FILES['f']['tmp_name'] = $_FILES['foto']['tmp_name'];
+			$_FILES['f']['error']     = $_FILES['foto']['error'];
+			$_FILES['f']['size']     = $_FILES['foto']['size'];
+
+			$config['upload_path']          = './upload/images/produk';
+			$config['allowed_types']        = 'jpg|jpeg|png|gif';
+			$config['max_size']             = 3 * 1024; // kByte
+			$config['max_width']            = 10 * 1024;
+			$config['max_height']           = 10 * 1024;
+			$config['file_name'] = $newIdProduk . "-" . date("Y-m-d-H-i-s") . ".jpg";
+			$this->load->library('image_lib');
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+
+
+			$this->image_lib->resize();
+			// var_dump(!$this->upload->do_upload('f'));die;
+			// Upload file to server
+
+			if (!$this->upload->do_upload('f')) {
+				$errorUpload = $this->upload->display_errors() . '<br>';
+			} else {
+				// Uploaded file data
+				$fileName = $this->upload->data()["file_name"];
+				$foto = array(
+					'foto' => $fileName,
+				);
+				$in = array(
+					'id_produk' => $newIdProduk,
+					'foto' => $fileName,
+					'nama_produk' => $nama,
+					'harga' => $harga,
+					'qty' => $qty,
+					'status_produk' => $st,
+					'id_kategori' => $kategori,
+					'deskripsi' => $deskripsi,
+					'link' => $link,
+				);
+				// var_dump($in);die;
+				$this->ProdukModel->tambah($in, "produk");
+
+				$message = "Berhasil Menambah Produk #1";
+			}
+		} else {
+			$message = "Gagal menambah Produk #1";
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
 		));
 	}
 

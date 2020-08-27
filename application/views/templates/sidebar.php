@@ -17,15 +17,15 @@
 								</a>
 								<ul>
 									<li>
-										<a href="Produk/Kategori">
+										<a href="Admin/Kategori">
 											<i class="metismenu-icon"></i>
 											Master Kategori
 										</a>
 									</li>
 									<li>
-										<a href="elements-dropdowns.html">
+										<a href="Master_User">
 											<i class="metismenu-icon">
-											</i>Dropdowns
+											</i>Master User
 										</a>
 									</li>
 									<li>

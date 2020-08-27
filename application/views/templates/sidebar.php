@@ -17,7 +17,7 @@
 								</a>
 								<ul>
 									<li>
-										<a href="Admin/Kategori">
+										<a href="Kategori">
 											<i class="metismenu-icon"></i>
 											Master Kategori
 										</a>

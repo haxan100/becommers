@@ -17,7 +17,7 @@
 
 								<div class="row">
 									<div class="col sm-6 ml-3 pb-1 pt-1">
-										<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
+										<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target="#modalUser">Tambah</button>
 
 									</div>
 
@@ -45,98 +45,91 @@
 				</div>
 
 				<!-- modal awal -->
-				<div class="modal fade bs-example-modal-lg" id="modal-detail" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<form id="form">
-							<div class="modal-content">
+				<div class="modal fade none-border" id="modalUser">
+					<div class="modal-dialog modal-xl">
+						<div class="modal-content">
+							<form id="form">
 								<div class="modal-header">
-									<input type="text" id="id_produk" name="id_produk" hidden>
-									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-									</button>
+									<h4 class="modal-title modalProdukTitleTambah"><strong>Tambah</strong> User Baru</h4>
+									<h4 class="modal-title modalProdukTitleUbah" style="display: none"><strong>Ubah</strong> User</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								</div>
 								<div class="modal-body">
-									<h4>Detail User</h4>
-									<?php echo form_error('password'); ?>
-
-									<div class="row">
-										<div class="col-md-12 col-sm-12 ">
-											<div class="x_panel">
-
-												<div class="x_content">
-													<br />
-													<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-														<div class="item form-group">
-															<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama <span class="required">*</span>
-															</label>
-															<div class="admincol-md-12  col-sm-12 ">
-																<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama" type="text" class="form-control">
-
-															</div>
+									<p id="alertNotifModal" class="mt-2"></p>
+									<div class="row ">
+										<div class="col p-4">
+											<div class="row">
+											</div>
+											<div class="form-group">
+												<div class="form-group">
+													<label for="nama">Nama</label>
+													<input id="nama" name="nama" type="text" class="form-control">
+													<small></small>
+												</div>
+												<div class="row">
+													<div class="col-6 form-group">
+														<label for="Email">Email</label>
+														<div class="input-group">
+															<span class="input-group-prepend">
+															</span>
+															<input id="Email" name="Email" type="text" class="form-control inputEmail">
+															<small></small>
 														</div>
-
-														<div class="item form-group">
-															<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Email<span class="required">*</span>
-															</label>
-															<div class="admincol-md-12  col-sm-12 ">
-																<input id="email" name="email" class="form-control " placeholder="Isikan Email" type="text" class="form-control">
-
-															</div>
+													</div>
+													<div class="col-6 form-group">
+														<label for="password">Password</label>
+														<div class="input-group">
+															<span class="input-group-prepend">
+															</span>
+															<input id="password" name="password" type="text" class="form-control inputPassword">
+															<small></small>
 														</div>
-														<div class="item form-group">
-															<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
-															</label>
-															<div class="admincol-md-12  col-sm-12 ">
-																<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+													</div>
+												</div>
+												<div class="row">
 
-															</div>
+													<div class="col-6 form-group">
+														<label for="noTelp">No Telp</label>
+														<div class="input-group">
+															<span class="input-group-prepend">
+															</span>
+															<input id="noTelp" name="noTelp" type="text" class="form-control inputNoTelp">
+															<small></small>
 														</div>
+													</div>
+													<div class="col-6 form-group">
+														<label for="noTelp">Status</label>
+														<div class="input-group">
+															<span class="input-group-prepend">
+															</span>
 
-
-														<div class="item form-group">
-															<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">No Telp <span class="required">*</span>
-															</label>
-															<div class="admincol-md-12  col-sm-12 ">
-																<input id="no_telp" name="no_telp" class="form-control " placeholder="Isikan No telp" type="text" class="form-control">
-
-															</div>
+															<select class="form-control select col-12" id="status" name="status">
+																<option value=0>Belum Aktiv</option>
+																<option value=1>Aktiv</option>
+																<option value=2>Banned</option>
+															</select>
+															<small></small>
 														</div>
-
-														<div class="item form-group">
-															<label class="col-form-label col-md-12 col-sm-12 label-align" for="last-name">Status <span class="required">*</span>
-															</label>
-															<div class="col-sm-12">
-																<select class="form-control select col-md-12 col-sm-12 " id="status" name="status">
-																	<option value=0>Belum Aktiv</option>
-																	<option value=1>Aktiv</option>
-																	<option value=2>Banned</option>
-																</select>
-															</div>
-														</div>
-
-														<div class="ln_solid"></div>
-														<div class="item form-group">
-														</div>
-													</form>
+													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary" id="Edit">Save changes</button>
-
-									<button type="button" class="btn btn-success" id="tambah_act">Tambah</button>
-								</div>
-							</div>
-						</form>
-
+									<div class="modal-footer">
+										<button id="btnTambah" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
+										<button id="btnUbah" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+										<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+									</div>
+							</form>
+						</div>
 					</div>
 				</div>
 				<!-- modal akhir  -->
 
 				<script type="text/javascript">
 					document.addEventListener("DOMContentLoaded", function(event) {
+
 
 
 
@@ -151,6 +144,8 @@
 							url_form = url_form_tambah;
 							console.log(url_form);
 							$('#Edit').hide();
+							$('#btnUbah').hide();
+
 						});
 
 						$('#tambah_act').on('click', function() {
@@ -188,7 +183,7 @@
 										e.message,
 										'success'
 									);
-									$('#modal-detail').modal('hide');
+									$('#modalUser').modal('hide');
 									$('.modal-backdrop').hide();
 									datatable.ajax.reload();
 									resetForm();
@@ -359,18 +354,17 @@
 							]
 
 						});
+
 						$('body').on('click', '.btn_edit', function() {
 							url_form = url_form_ubah;
-							var id_produk = $(this).data('id_produk');
-							var nama_produk = $(this).data('nama_produk');
+							var id_user = $(this).data('id_user');
+							var nama_lengkap = $(this).data('nama_lengkap');
 
-							var id_kategori = $(this).data('id_kategori');
-							var harga = $(this).data('harga');
-							var qty = $(this).data('qty');
-							var status_produk = $(this).data('status_produk');
-							var deskripsi = $(this).data('deskripsi');
-							var foto = $(this).data('foto');
-							console.log(id_kategori, status_produk, foto);
+							var email = $(this).data('email');
+							var no_phone = $(this).data('no_phone');
+							var password = $(this).data('password');
+							var status = $(this).data('status');
+							console.log(id_user,nama_lengkap, email, no_phone);
 							// return false;
 
 							$('#id_produk').val(id_produk);
@@ -453,6 +447,105 @@
 
 
 						});
+
+						$('#btnTambah').on('click', function() {
+
+							var _nama = cekNama();
+							var _email = cekEmail();
+							var _password = cekPassword();
+							var _no_telp = cekNoTelp();
+
+							if (
+
+								_nama && _email && _password && _no_telp
+							) {
+								// console.log("disini");
+								$('#draft').val("1");
+								$("#form").submit();
+								// $("#form").reset();
+
+							}
+							$('#btnTambah').show();
+							return false;
+
+						});
+
+						function cekNama() {
+							var nama = $('#nama').val();
+							if (nama == '') {
+								validasi('#nama', false, 'Silahkan isi Nama');
+								$('#nama')
+									.parent()
+									.find('.input-group-text')
+									.addClass('form-control is-invalid');
+								return false;
+							} else {
+								validasi('#nama', true);
+								$('#nama')
+									.parent()
+									.find('.input-group-text')
+									.removeClass('form-control is-invalid');
+								return true;
+							}
+						}
+
+						function cekEmail() {
+							var Email = $('#Email').val();
+							if (Email == '') {
+								validasi('#Email', false, 'Silahkan isi Email');
+								$('#Email')
+									.parent()
+									.find('.input-group-text')
+									.addClass('form-control is-invalid');
+								return false;
+							} else {
+								validasi('#Email', true);
+								$('#Email')
+									.parent()
+									.find('.input-group-text')
+									.removeClass('form-control is-invalid');
+								return true;
+							}
+						}
+
+						function cekPassword() {
+							var password = $('#password').val();
+							if (password == '') {
+								validasi('#password', false, 'Silahkan isi password');
+								$('#password')
+									.parent()
+									.find('.input-group-text')
+									.addClass('form-control is-invalid');
+								return false;
+							} else {
+								validasi('#password', true);
+								$('#password')
+									.parent()
+									.find('.input-group-text')
+									.removeClass('form-control is-invalid');
+								return true;
+							}
+						}
+
+						function cekNoTelp() {
+							var noTelp = $('#noTelp').val();
+							if (noTelp == '') {
+								validasi('#noTelp', false, 'Silahkan isi noTelp');
+								$('#noTelp')
+									.parent()
+									.find('.input-group-text')
+									.addClass('form-control is-invalid');
+								return false;
+							} else {
+								validasi('#noTelp', true);
+								$('#noTelp')
+									.parent()
+									.find('.input-group-text')
+									.removeClass('form-control is-invalid');
+								return true;
+							}
+						}
+
 
 
 

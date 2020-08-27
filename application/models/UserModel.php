@@ -78,6 +78,20 @@ public function simpan_register($data)
 
 		);
 	}
+	public function edit_user($in, $id)
+	{
+		$this->db->where('id_user', $id);
+		return $this->db->update('user', $in);
+	}
+	public function cekPasswordOld($id_user)
+	{
+		$this->db->select_max('password');
+		$this->db->from('user');
+		$this->db->where('id_user', $id_user);
+		
+		
+		return $this->db->get()->result()[0];
+	}
 
                         
                             

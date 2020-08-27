@@ -62,6 +62,7 @@
 											</div>
 											<div class="form-group">
 												<div class="form-group">
+													<input type="hidden" name="id_user" id="id_user">
 													<label for="nama">Nama</label>
 													<input id="nama" name="nama" type="text" class="form-control">
 													<small></small>
@@ -81,7 +82,7 @@
 														<div class="input-group">
 															<span class="input-group-prepend">
 															</span>
-															<input id="password" name="password" type="text" class="form-control inputPassword">
+															<input id="password" name="password" type="password" class="form-control inputPassword">
 															<small></small>
 														</div>
 													</div>
@@ -138,7 +139,7 @@
 
 						var bu = '<?= base_url(); ?>';
 						var url_form_tambah = bu + 'admin/tambah_user_proses';
-						var url_form_ubah = bu + 'admin/ubah_produk_proses';
+						var url_form_ubah = bu + 'admin/ubah_user_proses';
 
 						$('body').on('click', '.btn_tambah', function() {
 							url_form = url_form_tambah;
@@ -359,22 +360,23 @@
 							url_form = url_form_ubah;
 							var id_user = $(this).data('id_user');
 							var nama_lengkap = $(this).data('nama_lengkap');
-
 							var email = $(this).data('email');
 							var no_phone = $(this).data('no_phone');
 							var password = $(this).data('password');
 							var status = $(this).data('status');
-							console.log(id_user,nama_lengkap, email, no_phone);
-							// return false;
+							console.log(password)
 
-							$('#id_produk').val(id_produk);
-							$('#nama').val(nama_produk);
-							$('#kategori').val(id_kategori);
-							$('#harga').val(harga);
-							$('#qty').val(qty);
-							$('#status').val(status_produk);
-							$('#deskripsi').val(deskripsi);
+							$('#nama').val(nama_lengkap);
+							$('#Email').val(email);
+							$('#noTelp').val(no_phone);
+							$('#status').val(status);
+							$('#password').val(password);
+							$('#id_user').val(id_user);
+							// $('#status').val(status_produk);
+							// $('#deskripsi').val(deskripsi);
 							// $('#id_kategori').val(id_kategori);
+
+							$('#modalUser').modal('show');
 
 
 
@@ -383,11 +385,14 @@
 						});
 
 						$('#Edit').on('click', function() {
-
-							var id_kategori = $('#id_kategori').val();
-							var nama_kategori = $('#nama').val();
+							var id_user = $('#id_user').val()
+							var nama_lengkap = cekNama()
+							var email = cekEmail();
+							var no_phone = cekNoTelp();
+							var status = $('#status').val();
+							var password = cekPassword();
 							if (
-								nama_kategori
+								nama_lengkap
 							) {
 								$("#form").submit();
 							}

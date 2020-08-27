@@ -483,6 +483,7 @@ class Admin extends CI_Controller {
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 			data-id_user="' . $row->id_user . '" 
 			data-nama_lengkap="' . $row->nama_lengkap . '" 
+			data-password="' . $row->password . '" 
 			data-email="' . $row->email . '" 
 			data-no_phone="' . $row->no_phone . '" 
 			data-status="' . $row->status . '"	
@@ -562,6 +563,76 @@ class Admin extends CI_Controller {
 		 else {
 			$message = "Gagal menambah User #1";
 		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+	public function ubah_user_proses()
+	{
+
+		// var_dump($this->input->post());die;
+		$nama = $this->input->post('nama', TRUE);
+		$id_user = $this->input->post('id_user', TRUE);
+		$Email = $this->input->post('Email', TRUE);
+		$password = $this->input->post('password', TRUE);
+		$noTelp = $this->input->post('noTelp', TRUE);
+		$ST = $this->input->post('status', TRUE);
+
+		$cekPasswordOld = $this->UserModel->cekPasswordOld($id_user)->password;
+		$cekPWLama = $cekPasswordOld == $password;
+
+		// var_dump($cekPasswordOld == $password);die;
+		$message = 'Gagal mengedit data User!<br>Silahkan lengkapi data yang diperlukan.';
+
+		$errorInputs = array();
+		$status = true;
+		if($cekPWLama){
+
+			$in = array(  // jika password lama dengan edit user yng baru , maka password tidak terupdate
+				'nama_lengkap' => $nama,
+				'email' => $Email,
+				'no_phone' => $noTelp,
+				'status' => $ST,
+			);
+		}else{  //jika password lama di ubah , maka password  terupdate
+
+			$in = array(
+				'nama_lengkap' => $nama,
+				'email' => $Email,
+				'no_phone' => $noTelp,
+				'status' => $ST,
+				'password' => md5($password),
+			);
+		}
+
+
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}		if (empty($Email)) {
+			$status = false;
+			$errorInputs[] = array('#email', 'Silahkan Isi Email');
+		}		if (empty($noTelp)) {
+			$status = false;
+			$errorInputs[] = array('#no$noTelp', 'Silahkan Isi No Telp');
+		}
+		if (empty($password)) {
+			$status = false;
+			$errorInputs[] = array('#password', 'Silahkan Isi Password');
+		}
+
+		if ($status) {
+
+			if ($this->UserModel->edit_user($in, $id_user)) {
+
+				$message = "Berhasil Mengubah User #1";
+			}
+		} else {
+			$message = "Gagal Mengubah User #1";
+		}
+
 		echo json_encode(array(
 			'status' => $status,
 			'message' => $message,

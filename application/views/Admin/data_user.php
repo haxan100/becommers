@@ -401,8 +401,8 @@
 
 						$('body').on('click', '.hapus', function() {
 
-							var id_produk = $(this).data('id_produk');
-							var nama = $(this).data('nama_produk');
+							var id_user = $(this).data('id_user');
+							var nama = $(this).data('nama_lengkap');
 							Swal.fire({
 								title: 'Apakah Anda Yakin ?',
 								text: "Anda akan Menghapus Produk: " + nama,
@@ -415,11 +415,11 @@
 
 								if (result.value) {
 									$.ajax({
-										url: bu + 'Admin/hapusProduk',
+										url: bu + 'Admin/hapusUser',
 										dataType: 'json',
 										method: 'POST',
 										data: {
-											id_produk: id_produk
+											id_user: id_user
 										}
 									}).done(function(e) {
 										// console.log(e);

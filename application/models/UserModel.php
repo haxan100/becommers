@@ -92,6 +92,26 @@ public function simpan_register($data)
 		
 		return $this->db->get()->result()[0];
 	}
+	public function getUserById($id_user)
+	{
+		$this->db->select('*');
+		$this->db->where('id_user', $id_user);
+		$query = $this->db->get('user');
+		return $query->result();
+		# code...
+	}
+	public function HapusUser($id_user)
+	{
+		$this->db->where('id_user', $id_user);
+
+		$this->db->delete('user');
+		$query = $this->db->get('user s');
+
+		return $query->result();
+
+
+		# code...
+	}
 
                         
                             

@@ -639,6 +639,25 @@ class Admin extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function hapusUser()
+	{
+		$id_user = $this->input->post('id_user', TRUE);
+		$data = $this->UserModel->getUserById($id_user);
+		// var_dump($data);die;
+		$status = false;
+		$message = 'Gagal menghapus User!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat User yang dimaksud.';
+		} else {
+			$this->UserModel->HapusUser($id_user);
+			$status = true;
+			$message = 'Berhasil menghapus User: <b>' . $data[0]->nama_lengkap . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
+	}
 
 
 

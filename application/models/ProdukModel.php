@@ -210,18 +210,128 @@ class ProdukModel extends CI_Model
 	}
 	public function getAllProduk()
 	{
+		// var_dump($sort);
 		$this->db->select('*');
 		$query = $this->db->get('produk');
 		return $query->result();
 		# code...
 	}
-	public function getAllProdukPag($limit,$start)
+	public function getAllProdukPag($limit,$start, $sort = "")
 	{
+		// var_dump($sort);
+		if($sort ==1){
+			$s = " `produk`.`nama_produk` ASC";
+		} else 	if ($sort == 2) {
+			// echo "sss";
+			$s = " `produk`.`nama_produk` DESC";
+		}
+
+
 		$this->db->select('*');
+		if(!empty($sort)){
+			$this->db->order_by($s);
+		}
+		
 		$query = $this->db->get('produk',$limit,$start);
-		return $query->result();
+		return 
+		$query->result();
+		
+		// var_dump($this->db->last_query());
 		# code...
 	}
+	public function getProdukByIdTipeProduk($sort = 'default')
+	{
+		// $perHal = 6;
+		// $start = ($page - 1) * $perHal;
+		// $length =  $start + $perHal;
+		// $total  = $this->getProdukByIdTipeProdukCount($id_tipe_produk, $id_tipe_bid, $search, $sort, $filter);
+		// // var_dump($total);die;
+		// // $jumlah = count($data1);
+		// $pages = ceil($total / $perHal);
+		// $table_spek = 'spek_handphone s';
+		// $col_search = 's.e';
+		// var_dump($id_tipe_produk==2);die;
+
+		$this->db->select("*")
+
+		->from('produk p')
+
+		// ->where('p.id_tipe_produk', $id_tipe_produk)
+
+			// ->where('p.id_tipe_bid', $id_tipe_bid)
+
+			->where('p.status_produk', '1');
+
+		// if ($filter != '0') {
+		// 	// $this->db->where('', $filter);		// var_dump($filter);die();
+		// 	echo "jjj";
+		// }
+		// if ($search != '') {
+
+		// 	$array_search = array(
+
+		// 		'p.judul' => $search,
+
+		// 		'p.harga_awal' => $search,
+
+		// 		$col_search => $search,
+
+		// 	);
+
+		// 	$this->db->group_start()
+
+		// 		->or_like($array_search)
+
+		// 		->group_end();
+		// }
+
+
+
+		// $this->db->join('grade g', 'p.id_grade=g.id_grade')
+
+		// ->join($table_spek, 'p.id_spek=s.id_spek')
+
+		// ->join('foto_produk f', 'p.id_produk=f.id_produk')
+
+		$this->db->group_by('id_kategori');
+
+		if ($sort != 'default') {
+
+			$this->db->order_by($sort);
+
+			// var_dump($sort);die();
+
+		}
+
+		// $this->db->limit($perHal, $start);
+
+		$query = $this->db->get()->result();
+
+		// var_dump($this->db->last_query());
+
+		// die();
+
+		// $pagination = array(
+
+		// 	// 'total_halaman' => $pages,
+
+		// 	'halaman' => $page,
+
+		// 	// 'total_data' => $total, // jumlah total
+
+		// 	'jumlah' => count($query)
+
+
+
+		// );
+
+		$output = array(
+			'data' => $query,
+			// 'page' => $pagination,
+		);
+		return $output;
+	}
+
 
 
 

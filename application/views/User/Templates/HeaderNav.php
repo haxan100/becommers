@@ -41,44 +41,43 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				<ul class="nav navbar-nav">
-					<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html" class="act">Home</a></li>
+					<li><a href="<?php echo base_url() . "user/"; ?>" class="act">Home</a></li>
 					<!-- Mega Menu -->
 					<li class="dropdown">
 						<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
 						<ul class="dropdown-menu multi-column columns-3">
 							<div class="row">
-								<div class="col-sm-3">
+								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<h6>Mobiles</h6>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html">Mobile Phones</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html">Mp3 Players <span>New</span></a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html">Popular Models</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html">All Tablets<span>New</span></a></li>
+										<h6>Top Kategori</h6>
+										<?php 
+											$sql="SELECT * FROM kategori limit 5";
+
+												$res= $this->db->query($sql);
+												foreach ($res->result() as $k) {
+										?>
+										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html"> <?= $k->nama_kategori?> </a></li>
+
+										<?php }?>
+										
+
 									</ul>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<h6>Accessories</h6>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html">Laptop</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html">Desktop</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html">Wearables <span>New</span></a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html"><i>Summer Store</i></a></li>
+										<h6>Paling Baru</h6>
+										<?php 
+											$sql="SELECT * FROM `kategori` ORDER BY `kategori`.`created_at` DESC LIMIT 5";
+
+												$res= $this->db->query($sql);
+												foreach ($res->result() as $k) {
+										?>
+
+
+										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html"><?= $k->nama_kategori ?></a></li>
+
+										<?php }?>
 									</ul>
-								</div>
-								<div class="col-sm-2">
-									<ul class="multi-column-dropdown">
-										<h6>Home</h6>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products2.html">Tv</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products2.html">Camera</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products2.html">AC</a></li>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products2.html">Grinders</a></li>
-									</ul>
-								</div>
-								<div class="col-sm-4">
-									<div class="w3ls_products_pos">
-										<h4>30%<i>Off/-</i></h4>
-										<img src="<?php echo base_url() . "templates/user/"; ?>images/1.jpg" alt=" " class="img-responsive" />
-									</div>
 								</div>
 								<div class="clearfix"></div>
 							</div>

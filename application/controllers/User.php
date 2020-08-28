@@ -17,10 +17,14 @@ class User extends CI_Controller {
 }
 
 public function index()
-{
+{	
+		if(empty($_POST)){			
+			$Do = false;	
+		}else{
+			$Do = true;	
+			$sort = $_POST['sort'];
+		}		
 		$total = $this->ProdukModel->getAllProduk();
-
-
 		$config['base_url'] = base_url().'/User/index';
 		$config['total_rows'] = count($total);
 		$config['per_page'] = 6;
@@ -63,13 +67,69 @@ public function index()
 		$this->pagination->initialize($config);
 
 		$data['page'] = $this->pagination->create_links();
+		if($Do){
 
-		$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from);
+			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from, $sort);
+		}else{
+
+			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from );
+		}
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/index',$data);
-	
                 
 }
+
+
+
+
+
+
+	public function getProduk()
+	{
+		// var_dump($_POST);die;
+		// $search = $this->input->post('search', true);
+		$sort = $this->input->post('sort', true);
+		// $filter = $this->input->post('filter', true);
+		// $page = intval($this->input->post('page', true));
+		// $page = 2;
+		// var_dump($page);die;
+		$hasil = "";
+		switch ($sort) {
+			case '0':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga_awal ASC");
+				break;
+			case '1':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.qty ASC");
+				break;
+			case '2':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.nama_produk ASC");
+				break;
+			case '3':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk( "p.nama_produk DESC");
+				break;
+			case '4':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga ASC");
+				break;
+			case '5':
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga DESC");
+				break;
+			default:
+				$hasil = $this->ProdukModel->getProdukByIdTipeProduk($sort);
+				break;
+		}
+		// var_dump($hasil); die();
+		$status = false;
+		if (count($hasil) > 0) {
+			$status = true;
+			$data = $hasil;
+			// var_dump($data);die;
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'data' => $data
+		));
+	}
+
         
 }
         

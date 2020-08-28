@@ -41,7 +41,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				<ul class="nav navbar-nav">
-					<li><a href="<?php echo base_url() . "user/"; ?>" class="act">Home</a></li>
+					<li><a href="<?php echo "user/"; ?>" class="act">Home</a></li>
 					<!-- Mega Menu -->
 					<li class="dropdown">
 						<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -56,7 +56,7 @@
 												$res= $this->db->query($sql);
 												foreach ($res->result() as $k) {
 										?>
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products.html"> <?= $k->nama_kategori?> </a></li>
+										<li><a href="<?php echo base_url() . "user/produk/".$k->id_kategori; ?>"> <?= $k->nama_kategori?> </a></li>
 
 										<?php }?>
 										
@@ -73,8 +73,7 @@
 												foreach ($res->result() as $k) {
 										?>
 
-
-										<li><a href="<?php echo base_url() . "templates/user/"; ?>products1.html"><?= $k->nama_kategori ?></a></li>
+						<li><a href="<?php echo base_url() . "user/produk/".$k->id_kategori; ?>"> <?= $k->nama_kategori?> </a></li>
 
 										<?php }?>
 									</ul>
@@ -84,12 +83,6 @@
 						</ul>
 					</li>
 					<li><a href="<?php echo base_url() . "templates/user/"; ?>about.html">About Us</a></li>
-					<li class="w3pages"><a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php echo base_url() . "templates/user/"; ?>icons.html">Web Icons</a></li>
-							<li><a href="<?php echo base_url() . "templates/user/"; ?>codes.html">Short Codes</a></li>
-						</ul>
-					</li>
 					<li><a href="<?php echo base_url() . "templates/user/"; ?>mail.html">Mail Us</a></li>
 				</ul>
 			</div>

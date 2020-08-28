@@ -219,19 +219,10 @@ class ProdukModel extends CI_Model
 	public function getAllProdukPag($limit,$start, $sort = "")
 	{
 		// var_dump($sort);
-		if($sort ==1){
-			$s = " `produk`.`nama_produk` ASC";
-		} else 	if ($sort == 2) {
-			// echo "sss";
-			$s = " `produk`.`nama_produk` DESC";
-		}
 
 
-		$this->db->select('*');
-		if(!empty($sort)){
-			$this->db->order_by($s);
-		}
-		
+
+		$this->db->select('*');		
 		$query = $this->db->get('produk',$limit,$start);
 		return 
 		$query->result();
@@ -330,6 +321,27 @@ class ProdukModel extends CI_Model
 			// 'page' => $pagination,
 		);
 		return $output;
+	}
+		public function getAllProdukAndKat($id_kategori)
+	{
+		// var_dump($sort);
+		$this->db->select('*');
+		// $this->db->from('produk p');
+		// $this->db->join('kategori k', 'k.id_kategori = p.id_kategori');
+		$this->db->where('id_kategori', $id_kategori);	
+		
+		$query = $this->db->get('produk');
+		return $query->result();
+		# code...
+	}
+		public function getAllProdukKategoriPag($limit,$start, $id_kategori)
+	{
+		$this->db->select('*');		
+		$this->db->where('id_kategori', $id_kategori);
+		
+		$query = $this->db->get('produk',$limit,$start);
+		return 
+		$query->result();
 	}
 
 

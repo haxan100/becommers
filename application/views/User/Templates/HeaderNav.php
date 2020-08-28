@@ -41,7 +41,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				<ul class="nav navbar-nav">
-					<li><a href="<?php echo "user/"; ?>" class="act">Home</a></li>
+					<li><a href="<?php echo base_url().  "user/"; ?>" class="act">Home</a></li>
 					<!-- Mega Menu -->
 					<li class="dropdown">
 						<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -82,7 +82,9 @@
 							</div>
 						</ul>
 					</li>
-					<li><a href="<?php echo base_url() . "templates/user/"; ?>about.html">About Us</a></li>
+					<li><a href="<?php echo base_url().  "user/about"; ?>">About Us</a></li>
+
+
 					<li><a href="<?php echo base_url() . "templates/user/"; ?>mail.html">Mail Us</a></li>
 				</ul>
 			</div>

@@ -77,7 +77,8 @@ public function index()
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/index',$data);
                 
-}public function produk($id_kategori)
+}
+	public function produk($id_kategori)
 {	
 	
 		$total = $this->ProdukModel->getAllProdukAndKat($id_kategori);
@@ -128,6 +129,16 @@ public function index()
 		$data['produk'] = $this->ProdukModel->getAllProdukKategoriPag($config['per_page'],$from,$id_kategori );
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/index',$data);
+                
+}
+	public function about()
+{	
+	
+		$data['isi'] = "haha";
+		// $data['produk'] = $this->load->view('User/Templates/About');
+
+		// var_dump(count($data['produk']));die;
+		$this->load->view('User/Templates/indexContent',$data);
                 
 }
 

@@ -17,7 +17,6 @@ public function simpan_register($data)
 		return $this->db->insert("user", $data);
 }
 	public function data_AllUser($post)
-
 	{
 		$columns = array(
 			'nama_lengkap',
@@ -110,6 +109,16 @@ public function simpan_register($data)
 		return $query->result();
 
 
+		# code...
+	}
+		public function getUserByEmailPass($email,$password)
+	{
+		// var_dump($password);
+		$this->db->select('*');
+		$this->db->where('email', $email);
+		$this->db->where('password', $password);
+		$query = $this->db->get('user');
+		return $query->result();
 		# code...
 	}
 

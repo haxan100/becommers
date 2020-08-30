@@ -18,6 +18,8 @@ class User extends CI_Controller {
 
 public function index()
 {
+	
+	// var_dump($_SESSION);
 	$cari= $this->input->post('Search');
 		if(!empty($cari)){
 			$total = $this->ProdukModel->getAllProdWSeacrh($cari);
@@ -182,11 +184,6 @@ public function hubungi()
 		 $this->load->view('User/Templates/Footer');
 	
 }
-
-
-
-
-
 
 	public function getProduk()
 	{

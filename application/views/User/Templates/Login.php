@@ -18,11 +18,11 @@
 									<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 										<div class="facts">
 											<div class="register">
-												<form action="#" method="post">
-													<input name="Email" placeholder="Email Address" type="text" required="">
-													<input name="Password" placeholder="Password" type="password" required="">
+												<form id="formLogin">
+													<input name="LEmail" id="LEmail" placeholder="Email Address" type="text" required="">
+													<input name="LPassword" id="LPassword"  placeholder="Password" type="password" required="">
 													<div class="sign-up">
-														<input type="submit" id="registerBtn" value="Sign in" />
+														<input type="submit" id="loginBtn" value="Sign in" />
 													</div>
 												</form>
 											</div>
@@ -35,13 +35,10 @@
 													<input placeholder="Name" name="Name" id="Name" type="text" required="">
 													<input placeholder="Email Address" name="Email" type="email" id="email" required="">
 													<input placeholder="Password" name="Password" id="password" type="password" required="">
-
-													<!-- <input placeholder="Confirm Password" name="Password" type="password" required=""> -->
-
 													<input placeholder="Confirm No Telp" name="no_phone" id="no_phone" type="text" required="">
 
 													<div class="sign-up">
-														<input type="submit" value="Create Account" />
+														<input type="submit"  id="registerBtn" value="Create Account" />
 													</div>
 												</form>
 											</div>
@@ -89,6 +86,81 @@
 				$("#formRegister").trigger('submit');
 				return false;
 
+			});
+			$('#loginBtn').on('click', function() {
+
+				var email = $("#LEmail").val();
+				var password = $("#LPassword").val();
+				// console.log(email,password);
+				$("#formLogin").trigger('submit');
+				// return false;
+			});
+
+			$("#formLogin").submit(function(e) {				
+				var email = $("#LEmail").val();
+				var password = $("#LPassword").val();
+				if (email.length == "") {
+					Swal.fire({
+						type: 'warning',
+						title: 'Oops...',
+						text: 'Email Wajib Diisi !'
+					});
+
+				} else if (password.length == "") {
+					Swal.fire({
+						type: 'warning',
+						title: 'Oops...',
+						text: 'Password Wajib Diisi !'
+					});
+				}
+				$.ajax({
+					type: 'POST',
+					url: bu + 'Register/loginUser',
+					dataType: 'json',
+					data: new FormData(this),
+					processData: false,
+					contentType: false,
+					cache: false,
+					async: false,
+				}).done(function(e) {
+					// console.log('berhasil');
+					console.log(e);
+					if (!e.error) {
+
+						// resetForm();
+						setTimeout(() => {
+						window.location = bu + 'user';
+						}, 4100);
+						Swal.fire({
+							type: 'success',
+							title: 'Hello',
+							text: 'Berhasil Login  !'
+						});
+					} else {
+						Swal.fire({
+							type: 'warning',
+							title: 'Oops...',
+							text: e.message,
+						});
+					}
+				}).fail(function(e) {
+					if (e.responseText == false) {
+						Swal.fire({
+							type: 'succes',
+							title: 'Oops...',
+							text: 'Berhasil regis : !'
+						});
+					} else {
+						console.log(e)
+						Swal.fire({
+							type: 'warning',
+							title: 'Oops...',
+							text: "Coba Beberapa saat",
+						});
+
+					}
+				})
+				return false;
 			});
 
 

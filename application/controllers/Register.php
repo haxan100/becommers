@@ -16,9 +16,10 @@ class Register extends CI_Controller {
 
 public function index()
 {
+	
                 
 }
-	public function registerUser()
+public function registerUser()
 	{
 
 		$idUser = $this->UserModel->select_max()->result()[0]->id_user == 'NULL'
@@ -72,9 +73,67 @@ public function index()
 
 
 	}
+public function loginUser()
+{
+	$email =$this->input->post('LEmail');
+	$password =md5($this->input->post('LPassword'));
+	$cekUser  = $this->UserModel->getUserByEmailPass($email,$password);
+	
+	// var_dump($cekUser);
+	if($cekUser>0){
+
+		$user= $cekUser[0];
+		// var_dump($cekUser);
+		$cekStatus = $user->status;
+		if($cekStatus==0){			
+			$error =true;
+			$msg="User Belum Aktif, Mohon Tunggu Sesaat";
+		}else if($cekStatus==2){
+			
+			$error =true;
+			$msg="User Telah Di Banned!";
+
+		}else{
+			$error =false;
+			$msg="Berhasil Login";
+
+			$newdata = array(
+			'username'  =>$user->nama_lengkap,
+			'email'     => $user->email,
+			'id_user'     => $user->id_user,
+			'no_phone'     => $user->no_phone,
+			
+			'login_user' => TRUE
+						);
+				$this->session->set_userdata($newdata);
+
+		}
+
+
+
+	}else{
+		$error =true;
+		$msg="Email Dan Password salah ";
+
+	}
+
+
+		$json = array(
+			'error' => $error,
+			'message' => $msg,
+		);
+
+		echo json_encode($json);
+		exit();
+
+}
+public function logout()
+{
+	$this->session->sess_destroy();
+	# code...
+}
+
+
         
 }
-        
-    /* End of file  Register.php */
-        
                             

@@ -82,10 +82,10 @@
 							</div>
 						</ul>
 					</li>
-					<li><a href="<?php echo base_url().  "user/about"; ?>">About Us</a></li>
+					<li><a href="<?php echo base_url().  "user/about"; ?>">Tentang Kami</a></li>
 
 
-					<li><a href="<?php echo base_url() . "templates/user/"; ?>mail.html">Mail Us</a></li>
+					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
 				</ul>
 			</div>
 		</nav>

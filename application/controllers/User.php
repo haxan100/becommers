@@ -144,6 +144,16 @@ public function index()
 		// $this->load->view('User/Templates/indexContent',$data);
                 
 }
+public function hubungi()
+{
+			$this->load->view('User/Templates/Header');
+		 $this->load->view('User/Templates/Head');
+		 $this->load->view('User/Templates/HeaderNav');
+		  $this->load->view('User/Templates/Hubungi');
+		 //  $this->load->view('User/Templates/Kontent');
+		 $this->load->view('User/Templates/Footer');
+	
+}
 
 
 

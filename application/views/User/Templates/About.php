@@ -1,7 +1,7 @@
 	<!-- banner -->
 	<div class="banner banner10">
 		<div class="container">
-			<h2>About Us</h2>
+			<h2>Tentang Kami</h2>
 		</div>
 	</div>
 	<!-- //banner -->   
@@ -10,7 +10,7 @@
 		<div class="container">
 			<ul>
 				<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
-				<li>About Us</li>
+				<li>Tentang Kami</li>
 			</ul>
 		</div>
 	</div>

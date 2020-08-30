@@ -55,7 +55,7 @@
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
 												<li>
-													<a href="#" data-toggle="modal" data-target="#myModal9"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+													<a href="#" data-toggle="modal" data-target="#myModal<?php echo $k->id_produk; ?>""><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 												</li>
 											</ul>
 										</div>
@@ -69,6 +69,53 @@
 										<button type="submit" class="w3ls-cart">Add to cart</button>
 									</form>
 								</div>
+
+									<!-- modal-video -->
+	<div class="modal video-modal fade" id="myModal<?php echo $k->id_produk; ?>" tabindex="-1" role="dialog" aria-labelledby="myModal<?php echo $k->id_produk; ?>">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+				</div>
+				<section>
+					<div class="modal-body">
+						<div class="col-md-8 modal_body_left">
+							<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" style="
+    								max-width: 200px;" />
+						</div>
+						<div class="col-md-4 modal_body_right">
+							<h4><?php echo $k->nama_produk; ?></h4>
+							<p><?php echo $k->deskripsi; ?></p>
+							<div class="rating">
+								<div class="rating-left">
+
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<div class="modal_body_right_cart simpleCart_shelfItem">
+								<p><i class="item_price"><?php echo $k->harga; ?></i></p>
+								<form action="#" method="post">
+									<input type="hidden" name="cmd" value="_cart">
+									<input type="hidden" name="add" value="1"> 
+									<input type="hidden" name="w3ls_item" value="<?php echo $k->nama_produk; ?>"> 
+									<input type="hidden" name="amount" value="<?php echo $k->harga; ?>">   
+									<button type="submit" class="w3ls-cart">Add to cart</button>
+								</form>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- akhir modal -->
+
+
+
+
+
+
 								<div class="mobiles_grid_pos">
 									<h6>New</h6>
 								</div>

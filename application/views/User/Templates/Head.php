@@ -6,6 +6,14 @@
 
 	<?php $this->load->view('User/Templates/Login') ?>
 	<script>
+		$('#transaksi').on('click', function() {
+
+				// var email = $("#LEmail").val();
+				// var password = $("#LPassword").val();
+				console.log("ssss");
+				return false;
+				$("#formLogin").trigger('submit');
+			});
 
 	</script>
 	<!-- header modal -->

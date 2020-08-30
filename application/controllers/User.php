@@ -185,7 +185,7 @@ public function hubungi()
 	
 }
 
-	public function getProduk()
+public function getProduk()
 	{
 		// var_dump($_POST);die;
 		// $search = $this->input->post('search', true);
@@ -230,6 +230,13 @@ public function hubungi()
 			'data' => $data
 		));
 	}
+	public function transaksi()
+	{
+			var_dump($_POST);die;
+		// var_dump($cari);die;
+		# code...
+	}
+
 
         
 }

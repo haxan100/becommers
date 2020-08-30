@@ -38,7 +38,8 @@
 			</div>
 		</div>
 		<div class="cart cart box_1">
-			<form action="#" method="post" class="last">
+			<!-- <form action="#" method="post" class="last"> -->
+			<form method="post" class="last">
 				<input type="hidden" name="cmd" value="_cart" />
 				<input type="hidden" name="display" value="1" />
 				<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>

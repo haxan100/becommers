@@ -67,6 +67,9 @@
 										<input type="hidden" name="w3ls_item" value="<?php echo $k->nama_produk; ?>" />
 										<input type="hidden" name="amount" value="<?php echo $k->harga; ?>" />
 										<button type="submit" class="w3ls-cart">Add to cart</button>
+
+										 <button class="add_cart btn btn-success btn-block" data-produkid="<?php echo $k->id_produk;?>" data-produknama="<?php echo $k->nama_produk;?>" data-produkharga="<?php echo $k->harga;?>">Add To Cart</button>
+                        
 									</form>
 								</div>
 
@@ -145,6 +148,26 @@
 						var bu_user = '<?= $bu_user ?>';
 
 						$(document).ready(function() {
+
+							        $('.add_cart').click(function(){
+											var produk_id    = $(this).data("produkid");
+											var produk_nama  = $(this).data("produknama");
+											var produk_harga = $(this).data("produkharga");
+											var quantity     = $('#' + produk_id).val();
+
+											console.log(produk_id,produk_nama,produk_harga,quantity);
+											return false;
+											$.ajax({
+												url : "<?php echo base_url();?>index.php/cart/add_to_cart",
+												method : "POST",
+												data : {produk_id: produk_id, produk_nama: produk_nama, produk_harga: produk_harga, quantity: quantity},
+												success: function(data){
+													$('#detail_cart').html(data);
+												}
+											});
+										});
+
+
 							// var html = $(htmlString);
 							// var body =  $('#prodak').html("ssss");
 							// console.log(body)

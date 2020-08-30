@@ -133,12 +133,15 @@ public function index()
 }
 	public function about()
 {	
-	
-		$data['isi'] = "haha";
-		// $data['produk'] = $this->load->view('User/Templates/About');
+		$this->load->view('User/Templates/Header');
+		 $this->load->view('User/Templates/Head');
+		 $this->load->view('User/Templates/HeaderNav');
+		  $this->load->view('User/Templates/About');
+		 //  $this->load->view('User/Templates/Kontent');
+		 $this->load->view('User/Templates/Footer');
 
 		// var_dump(count($data['produk']));die;
-		$this->load->view('User/Templates/indexContent',$data);
+		// $this->load->view('User/Templates/indexContent',$data);
                 
 }
 

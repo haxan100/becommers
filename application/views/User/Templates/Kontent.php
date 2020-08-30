@@ -39,7 +39,7 @@
 					</div>
                  <?php
                     $this->load->view('User/Templates/About') 
-                    ?>
+                ?>
                     
 					<div class="clearfix"> </div>
 					<div class="text-center">
@@ -52,64 +52,4 @@
 					</div>
 
 					<script>
-						var bu_user = '<?= $bu_user ?>';
-
-						$(document).ready(function() {
-							// var html = $(htmlString);
-							// var body =  $('#prodak').html("ssss");
-							// console.log(body)
-
-
-							// // var bu = '<?= base_url(); ?>';
-							// console.log(bu);
-							loadProduk();
-
-							$(".select_item").change(function() {
-								var s = $('.select_item').val();
-								// alert(s);
-								// console.log(s)
-								loadProduk()
-
-
-							});
-							var s = $('.select_item').val();
-
-							// console.log(s)
-
-							function loadProduk() {
-								$.ajax({
-									type: "POST",
-									dataType: 'json',
-									url: "<?= $bu; ?>user/index",
-									data: {				
-										sort: $('.select_item').val(),					
-									},
-								}).done(function(e) {
-									console.log(e);
-									$('.w3ls_mobiles_grid_right_grid3').html('');
-
-								}).fail(function(e) {
-									console.log(e);
-
-									
-								});
-							}
-
-
-
-
-							function formatUang(str, withRp = 0) {
-								var rp = str
-									.replace(/\D/g, "")
-									.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-								if (withRp == 1)
-									return 'Rp. ' + rp;
-								else
-									return rp;
-							}
-
-
-
-
-						});
 					</script>

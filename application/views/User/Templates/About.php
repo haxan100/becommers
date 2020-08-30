@@ -1,4 +1,21 @@
-<!-- about -->
+	<!-- banner -->
+	<div class="banner banner10">
+		<div class="container">
+			<h2>About Us</h2>
+		</div>
+	</div>
+	<!-- //banner -->   
+	<!-- breadcrumbs -->
+	<div class="breadcrumb_dress">
+		<div class="container">
+			<ul>
+				<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li>About Us</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //breadcrumbs --> 
+	<!-- about -->
 	<div class="about">
 		<div class="container">	
 			<div class="w3ls_about_grids">
@@ -35,6 +52,7 @@
 	</div>
 	<!-- //about --> 
 	<!-- team -->
+	
 	<div class="team">
 		<div class="container">
 			<h3>Meet Our Team</h3>
@@ -44,10 +62,10 @@
 					<h4>Smith Allen <span>Manager</span></h4>
 					<div class="agileits_social_button">
 						<ul>
-							<li><a href="#" class="facebook"> </a></li>
-							<li><a href="#" class="twitter"> </a></li>
-							<li><a href="#" class="google"> </a></li>
-							<li><a href="#" class="pinterest"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="twitter"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="google"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="pinterest"> </a></li>
 						</ul>
 					</div>
 				</div>
@@ -56,10 +74,10 @@
 					<h4>Laura James <span>Designer</span></h4>
 					<div class="agileits_social_button">
 						<ul>
-							<li><a href="#" class="facebook"> </a></li>
-							<li><a href="#" class="twitter"> </a></li>
-							<li><a href="#" class="google"> </a></li>
-							<li><a href="#" class="pinterest"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="twitter"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="google"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="pinterest"> </a></li>
 						</ul>
 					</div>
 				</div>
@@ -68,10 +86,10 @@
 					<h4>Crisp Doe <span>Director</span></h4>
 					<div class="agileits_social_button">
 						<ul>
-							<li><a href="#" class="facebook"> </a></li>
-							<li><a href="#" class="twitter"> </a></li>
-							<li><a href="#" class="google"> </a></li>
-							<li><a href="#" class="pinterest"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="twitter"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="google"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="pinterest"> </a></li>
 						</ul>
 					</div>
 				</div>
@@ -80,10 +98,10 @@
 					<h4>Linda Rosy <span>Quality Checker</span></h4>
 					<div class="agileits_social_button">
 						<ul>
-							<li><a href="#" class="facebook"> </a></li>
-							<li><a href="#" class="twitter"> </a></li>
-							<li><a href="#" class="google"> </a></li>
-							<li><a href="#" class="pinterest"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="twitter"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="google"> </a></li>
+							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="pinterest"> </a></li>
 						</ul>
 					</div>
 				</div>
@@ -102,7 +120,24 @@
 			<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
 				voluptatibus maiores alias consequatur aut perferendis doloribus asperiores 
 				repellat.</p>
-			<a href="products.html">Shop Now</a>
+			<a href="<?php echo base_url() . "templates/user/"; ?>products.html">Shop Now</a>
 		</div>
 	</div>
 	<!-- //team-bottom -->
+	<!-- newsletter -->
+	<div class="newsletter">
+		<div class="container">
+			<div class="col-md-6 w3agile_newsletter_left">
+				<h3>Newsletter</h3>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt.</p>
+			</div>
+			<div class="col-md-6 w3agile_newsletter_right">
+				<form action="#" method="post">
+					<input type="email" name="Email" placeholder="Email" required="">
+					<input type="submit" value="" />
+				</form>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //newsletter -->

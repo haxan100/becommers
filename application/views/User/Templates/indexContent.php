@@ -12,7 +12,8 @@
 <!-- //banner -->
 <!-- banner-bottom -->
 <?php
- $this->load->view('User/Templates/Kontent') 
+//  $this->load->view('User/Templates/Kontent') 
+echo $data;
 ?>
 
 <!-- //banner-bottom -->

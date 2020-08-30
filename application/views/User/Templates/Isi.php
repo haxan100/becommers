@@ -132,7 +132,9 @@
 									$('.w3ls_mobiles_grid_right_grid3').html('');
 
 								}).fail(function(e) {
-									console.log(e);
+									// console.log(e);
+									// $('.w3ls_mobiles_grid_right_grid3').innerHTML(e);
+
 
 									
 								});

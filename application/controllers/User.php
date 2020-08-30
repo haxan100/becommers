@@ -78,12 +78,28 @@ public function index()
 		$this->load->view('User/Templates/index',$data);
                 
 }
-	public function produk($id_kategori)
+	public function produk($id_kategori="")
 {	
-	
-		$total = $this->ProdukModel->getAllProdukAndKat($id_kategori);
+		// var_dump($_POST);die;
+		// var_dump($cari);die;
+		
 
-		$config['base_url'] = base_url().'/User/produk/'.$id_kategori;
+		if(empty($id_kategori)){
+			
+		$total = $this->ProdukModel->getAllProduk();
+		$config['base_url'] = base_url().'/User/produk/';
+		$kosong=true;
+
+
+		} else{
+
+			$total = $this->ProdukModel->getAllProdukAndKat($id_kategori);
+			$config['base_url'] = base_url().'/User/produk/'.$id_kategori;
+			$kosong=false;
+
+		}
+	
+
 		$config['total_rows'] = count($total);
 		$config['per_page'] = 6;
 		$from = $this->uri->segment(4);
@@ -125,8 +141,15 @@ public function index()
 		$this->pagination->initialize($config);
 
 		$data['page'] = $this->pagination->create_links();
+		if($kosong){
+			
+			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from );
 
-		$data['produk'] = $this->ProdukModel->getAllProdukKategoriPag($config['per_page'],$from,$id_kategori );
+		}else{
+
+			$data['produk'] = $this->ProdukModel->getAllProdukKategoriPag($config['per_page'],$from,$id_kategori );
+		}
+
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/index',$data);
                 
@@ -146,7 +169,8 @@ public function index()
 }
 public function hubungi()
 {
-			$this->load->view('User/Templates/Header');
+
+		$this->load->view('User/Templates/Header');
 		 $this->load->view('User/Templates/Head');
 		 $this->load->view('User/Templates/HeaderNav');
 		  $this->load->view('User/Templates/Hubungi');

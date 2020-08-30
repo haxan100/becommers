@@ -1,7 +1,22 @@
 <div class="header" id="home1">
 	<div class="container">
 		<div class="w3l_login">
+		<?php 
+		// var_dump($_SESSION);
+
+		if(!empty($_SESSION['login_user'])){
+
+		}else{
+			
+			?>
+
 			<a href="<?php echo base_url() . "templates/user/"; ?>#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+			
+			
+			<?php
+				}
+			?>
+
 		</div>
 		<div class="w3l_logo">
 			<h1><a href="<?php echo base_url() . "templates/user/"; ?>index.html">Electronic Store<span>Your stores. Your place.</span></a></h1>
@@ -92,6 +107,17 @@
 
 
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
+					<?php 
+					
+					if(!empty($_SESSION['login_user'])){
+
+					?>
+
+					<li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li>
+					<?php }
+					?>
+
+
 				</ul>
 			</div>
 		</nav>

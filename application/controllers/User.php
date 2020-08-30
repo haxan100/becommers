@@ -17,14 +17,20 @@ class User extends CI_Controller {
 }
 
 public function index()
-{	
-		if(empty($_POST)){			
-			$Do = false;	
-		}else{
-			$Do = true;	
-			$sort = $_POST['sort'];
-		}		
-		$total = $this->ProdukModel->getAllProduk();
+{
+	$cari= $this->input->post('Search');
+		if(!empty($cari)){
+			$total = $this->ProdukModel->getAllProdWSeacrh($cari);
+			$ada=true;
+
+			}else{
+
+			$total = $this->ProdukModel->getAllProduk();
+			$ada=false;
+
+			}
+
+	
 		$config['base_url'] = base_url().'/User/index';
 		$config['total_rows'] = count($total);
 		$config['per_page'] = 6;
@@ -67,11 +73,9 @@ public function index()
 		$this->pagination->initialize($config);
 
 		$data['page'] = $this->pagination->create_links();
-		if($Do){
-
-			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from, $sort);
+		if($ada){
+			$data['produk'] = $this->ProdukModel->getAllProdukPagCari($config['per_page'],$from, $cari );
 		}else{
-
 			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from );
 		}
 		// var_dump(count($data['produk']));die;

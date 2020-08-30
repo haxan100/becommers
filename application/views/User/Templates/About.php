@@ -20,31 +20,24 @@
 		<div class="container">	
 			<div class="w3ls_about_grids">
 				<div class="col-md-6 w3ls_about_grid_left">
-					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-						cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-						anim id est laborum.</p>
+					<p>BEECOMERS adalah Web online yang merupakan distributor spesialis penjualan barang barang elektronik rumah tangga yang telah melayani toko-toko Grosir, Semi Grosir dan Retail di seluruh Jabotabek sejak tahun 1999, Kami Dapat melayani penjualan Retail, Grosir dan Corporate secara online di seluruh Indonesia.</p>
 					<div class="col-xs-2 w3ls_about_grid_left1">
 						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</div>
 					<div class="col-xs-10 w3ls_about_grid_left2">
-						<p>Sunt in culpa qui officia deserunt mollit 
-							anim id est laborum.Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur.</p>
+						<p>Produk Kami adalah unggulan dari pabrik untuk keluarga Anda</p>
 					</div>
 					<div class="clearfix"> </div>
 					<div class="col-xs-2 w3ls_about_grid_left1">
 						<span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
 					</div>
 					<div class="col-xs-10 w3ls_about_grid_left2">
-						<p>Sunt in culpa qui officia deserunt mollit 
-							anim id est laborum.Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur.</p>
+						<p>Kecepatan adalah syarat utama Kami membuka Beecomers</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
 				<div class="col-md-6 w3ls_about_grid_right">
-					<img src="<?php echo base_url() . "templates/user/"; ?>images/52.jpg" alt=" " class="img-responsive" />
+					<img src="<?php echo base_url() . "upload/"; ?>config/about.png" alt=" " class="img-responsive" />
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -106,30 +99,19 @@
 					</div>
 				</div>
 				<div class="clearfix"> </div>
-				<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-					voluptatibus maiores alias consequatur aut perferendis doloribus asperiores 
-					repellat.</p>
+				<p>Seluruh Tim Dan Kumsumen kami adalah Keluarga Kami</p>
 			</div>
 		</div>
 	</div>
 	<!-- //team -->
 	<!-- team-bottom -->
-	<div class="team-bottom">
-		<div class="container">
-			<h3>Are You Ready For Deals? Flat <span>30% Offer </span>on Mobiles</h3>
-			<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-				voluptatibus maiores alias consequatur aut perferendis doloribus asperiores 
-				repellat.</p>
-			<a href="<?php echo base_url() . "templates/user/"; ?>products.html">Shop Now</a>
-		</div>
-	</div>
 	<!-- //team-bottom -->
 	<!-- newsletter -->
 	<div class="newsletter">
 		<div class="container">
 			<div class="col-md-6 w3agile_newsletter_left">
-				<h3>Newsletter</h3>
-				<p>Excepteur sint occaecat cupidatat non proident, sunt.</p>
+				<h3>Email</h3>
+				<p>Untuk mengetahui promo yang sedang berlangsung , mari berlangganan .</p>
 			</div>
 			<div class="col-md-6 w3agile_newsletter_right">
 				<form action="#" method="post">

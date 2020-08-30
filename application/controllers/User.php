@@ -230,9 +230,19 @@ public function getProduk()
 			'data' => $data
 		));
 	}
-	public function transaksi()
+public function transaksi()
 	{
-			var_dump($_POST);die;
+			// var_dump($_POST);
+			
+		$this->load->view('User/Templates/Header');
+		 $this->load->view('User/Templates/Head');
+		 $this->load->view('User/Templates/HeaderNav');
+			var_dump($_POST);
+
+		//   $this->load->view('User/Templates/About');
+		 //  $this->load->view('User/Templates/Kontent');
+		 $this->load->view('User/Templates/Footer');
+		//  die;
 		// var_dump($cari);die;
 		# code...
 	}

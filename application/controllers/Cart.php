@@ -30,24 +30,35 @@ public function setBid()
         $id_user = $this->session->userdata('id_user');
 		$tgl = $now;
 		$keranjangOld= $this->CartModel->getCartByIdUserAndProduk($id_user,$id_produk);
-		// var_dump($id_user);die;
+		// var_dump(count($keranjangOld)>=1);die;
+		
 
+		if(count($keranjangOld)>=1){  // jika di keranjang ada produk , maka di updte qty nya
+		$qtyOld = $keranjangOld[0]->qty;
+		$qtyNew = $qtyOld +$qty;
+				$upd  = array(
+					'qty' =>$qtyNew ,		
+				);
+				$this->CartModel->updateCart($upd,$id_produk);
 
-		$data2 = array(
-			'id_produk' => $id_produk,
-			'id_user' => $id_user,
-			// 'harga' => $harga,
-			'qty' => $qty,
-			'created_at' => $tgl,
-		);
-		if($tambahKeranjang = $this->CartModel->AddCart($data2)){
-			$msg ="Item Berhasil di Tambah Ke Keranjang";
-			$status = true;
+				$msg ="Item Berhasil di Tambah Ke Keranjang";
+				$status = true;
+
 		}else{
-			$msg ="Item Gagal di Tambah Ke Keranjang";
-			$status = false;
-
-
+			$data2 = array(
+				'id_produk' => $id_produk,
+				'id_user' => $id_user,
+				// 'harga' => $harga,
+				'qty' => $qty,
+				'created_at' => $tgl,
+			);
+			if($tambahKeranjang = $this->CartModel->AddCart($data2)){
+				$msg ="Item Berhasil di Tambah Ke Keranjang";
+				$status = true;
+			}else{
+				$msg ="Item Gagal di Tambah Ke Keranjang";
+				$status = false;
+			}
 		}
 		    $data = array(
                 'status' => $status,

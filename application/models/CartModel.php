@@ -14,11 +14,22 @@ class CartModel extends CI_Model {
 		$this->db->from('keranjang');
 		$sql =	$this->db->where('id_user', $id_user);
 		return  $sql->get()->result();	
-		
-		// var_dump($this->db->last_query());die;
-		// return 
-
-		# code...
+    }
+    public function getCartByIdUserAndProduk($id_user,$id_produk)
+    {
+        $this->db->select('qty');
+        $this->db->from('keranjang');
+        $this->db->where('id_produk', $id_produk);
+        $sql =	$this->db->where('id_user', $id_user);
+        
+      
+        return  $sql->get()->result();	
+        
+    }
+    	public function updateCart($in, $id)
+	{
+		$this->db->where('id_produk', $id);
+		return $this->db->update('keranjang', $in);
 	}
 
 

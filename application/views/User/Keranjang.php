@@ -4,6 +4,9 @@
 			<h2>Tentang Kami</h2>
 		</div>
 	</div>
+	<?php
+	$ongkir = 15000;
+	?>
 	<!-- //banner -->
 	<!-- breadcrumbs -->
 	<div class="breadcrumb_dress">
@@ -38,7 +41,15 @@
 						 <h1 class="jumbotron-heading text-center">Tidak Ada Produk Di Keranjang</h1> 
 						 <?php 
 					}else{
+						 $subtotal = 0;
 					foreach ($products as $k ) {
+
+						$total = $k->harga * $k->qty;	
+
+						$subtotal += $total;
+					
+
+				
 						
 					?>
 	
@@ -47,29 +58,27 @@
                             <td> <?= $k->nama_produk?></td>
                             <td><input class="form-control" type="text" value="<?= $k->qty?>" /></td>
                             <td class="text-right"><?= $k->harga?></td>
-                            <td class="text-right"><?= $k->harga?></td>
+                            <td class="text-right"><?= $total?></td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
 						</tr>
 
 						<?php 
-								}
+								}								
 							?>
-
-
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Sub-Total</td>
-                            <td class="text-right">255,90 €</td>
+                            <td class="text-right"><?= $subtotal; ?></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right">6,90 €</td>
+                            <td>Ongkir</td>
+                            <td class="text-right"><?= $ongkir; ?></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -77,7 +86,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td class="text-right"><strong><?= $ongkir + $subtotal ?></strong></td>
                         </tr>
 							
                     </tbody>

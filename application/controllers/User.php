@@ -231,20 +231,30 @@ public function getProduk()
 		));
 	}
 public function transaksi()
-	{
+{
 			// var_dump($_POST);
 			
-		$this->load->view('User/Templates/Header');
-		 $this->load->view('User/Templates/Head');
-		 $this->load->view('User/Templates/HeaderNav');
-			var_dump($_POST);
+			$this->load->view('User/Templates/Header');
+			$this->load->view('User/Templates/Head');
+			$this->load->view('User/Templates/HeaderNav');
+				var_dump($_POST);
 
-		//   $this->load->view('User/Templates/About');
-		 //  $this->load->view('User/Templates/Kontent');
-		 $this->load->view('User/Templates/Footer');
-		//  die;
-		// var_dump($cari);die;
-		# code...
+			//   $this->load->view('User/Templates/About');
+			//  $this->load->view('User/Templates/Kontent');
+			$this->load->view('User/Templates/Footer');
+			//  die;
+			// var_dump($cari);die;
+			# code...
+	}
+
+	public function keranjang()
+	{
+		$this->load->view('User/Templates/Header');
+		$this->load->view('User/Templates/Head');
+		$this->load->view('User/Templates/HeaderNav');
+		$data['products'] = $this->ProdukModel->getAllProduk();
+		$this->load->view('User/Keranjang',$data);
+		$this->load->view('User/Templates/Footer');
 	}
 
 

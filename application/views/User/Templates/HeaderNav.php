@@ -1,20 +1,19 @@
 <div class="header" id="home1">
 	<div class="container">
 		<div class="w3l_login">
-		<?php 
-		// var_dump($_SESSION);
+			<?php
+			// var_dump($_SESSION);
 
-		if(!empty($_SESSION['login_user'])){
+			if (!empty($_SESSION['login_user'])) {
+			} else {
 
-		}else{
-			
 			?>
 
-			<a href="<?php echo base_url() . "templates/user/"; ?>#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-			
-			
+				<a href="<?php echo base_url() . "templates/user/"; ?>#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+
+
 			<?php
-				}
+			}
 			?>
 
 		</div>
@@ -63,7 +62,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				<ul class="nav navbar-nav">
-					<li><a href="<?php echo base_url().  "user/"; ?>" class="act">Home</a></li>
+					<li><a href="<?php echo base_url() .  "user/"; ?>" class="act">Home</a></li>
 					<!-- Mega Menu -->
 					<li class="dropdown">
 						<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -72,49 +71,51 @@
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
 										<h6>Top Kategori</h6>
-										<?php 
-											$sql="SELECT * FROM kategori limit 5";
+										<?php
+										$sql = "SELECT * FROM kategori limit 5";
 
-												$res= $this->db->query($sql);
-												foreach ($res->result() as $k) {
+										$res = $this->db->query($sql);
+										foreach ($res->result() as $k) {
 										?>
-										<li><a href="<?php echo base_url() . "user/produk/".$k->id_kategori; ?>"> <?= $k->nama_kategori?> </a></li>
+											<li><a href="<?php echo base_url() . "user/produk/" . $k->id_kategori; ?>"> <?= $k->nama_kategori ?> </a></li>
 
-										<?php }?>
-										
+										<?php } ?>
+
 
 									</ul>
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
 										<h6>Paling Baru</h6>
-										<?php 
-											$sql="SELECT * FROM `kategori` ORDER BY `kategori`.`created_at` DESC LIMIT 5";
+										<?php
+										$sql = "SELECT * FROM `kategori` ORDER BY `kategori`.`created_at` DESC LIMIT 5";
 
-												$res= $this->db->query($sql);
-												foreach ($res->result() as $k) {
+										$res = $this->db->query($sql);
+										foreach ($res->result() as $k) {
 										?>
 
-						<li><a href="<?php echo base_url() . "user/produk/".$k->id_kategori; ?>"> <?= $k->nama_kategori?> </a></li>
+											<li><a href="<?php echo base_url() . "user/produk/" . $k->id_kategori; ?>"> <?= $k->nama_kategori ?> </a></li>
 
-										<?php }?>
+										<?php } ?>
 									</ul>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 						</ul>
 					</li>
-					<li><a href="<?php echo base_url().  "user/about"; ?>">Tentang Kami</a></li>
+					<li><a href="<?php echo base_url() .  "user/about"; ?>">Tentang Kami</a></li>
 
-
-					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
-					<?php 
 					
-					if(!empty($_SESSION['login_user'])){
+					
+					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
+					<li><a href="<?php echo base_url() .  "user/keranjang"; ?>">Keranjang</a></li>
+					<?php
+
+					if (!empty($_SESSION['login_user'])) {
 
 					?>
 
-					<li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li>
+						<li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li>
 					<?php }
 					?>
 

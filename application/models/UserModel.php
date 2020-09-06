@@ -121,6 +121,10 @@ public function simpan_register($data)
 		return $query->result();
 		# code...
 	}
+	public function AddCart($data)
+	{
+		return $this->db->insert('keranjang', $data);
+	}
 
                         
                             

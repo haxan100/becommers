@@ -211,7 +211,7 @@
 
 
 		$('body').on('click', '.btnMinus', function() {
-				var id_produk = $(this).data('id_produk');
+				var id_keranjang = $(this).data('id_keranjang');
 				var qty = 1;
 				var stat = 0;
 				// console.log(harga)
@@ -222,7 +222,7 @@
 					dataType: 'json',
 					url: "<?= $bu; ?>Cart/updateQtyCart",
 					data: {
-						id_produk: id_produk,
+						id_keranjang: id_keranjang,
 						stat: stat,
 						qty: qty,
 					},
@@ -240,7 +240,7 @@
 				});
 		});
 		$('body').on('click', '.btnPlus', function() {
-			var id_produk = $(this).data('id_produk');
+			var id_keranjang = $(this).data('id_keranjang');
 			var qty = 1;
 			var stat = 1;
 			// console.log(harga)
@@ -251,7 +251,7 @@
 				dataType: 'json',
 				url: "<?= $bu; ?>Cart/updateQtyCart",
 				data: {
-					id_produk: id_produk,
+					id_keranjang: id_keranjang,
 					stat: stat,
 					qty: qty,
 				},
@@ -270,9 +270,7 @@
 		});
 
 		$('body').on('click', '.btnHapus', function() {
-
-				var id_kategori = $(this).data('id_kategori');
-				var nama = $(this).data('nama_kategori');
+				var id_keranjang = $(this).data('id_keranjang');
 				Swal.fire({
 					title: 'Apakah Anda Yakin ?',
 					text: "Anda akan Menghapus item dari keranjang ? ",
@@ -282,14 +280,13 @@
 					cancelButtonColor: '#d33',
 					confirmButtonText: 'Yes, delete it!'
 				}).then((result) => {
-
 					if (result.value) {
 						$.ajax({
-							url: bu + 'Admin/hapusKategori',
+							type: "POST",
 							dataType: 'json',
-							method: 'POST',
+							url: "<?= $bu; ?>Cart/hapusQtyCart",
 							data: {
-								id_kategori: id_kategori
+								id_keranjang: id_keranjang
 							}
 						}).done(function(e) {
 							// console.log(e);
@@ -297,11 +294,9 @@
 								'Deleted!',
 								e.message,
 								'success'
-							)
-							$('#modal-detail').modal('hide');
-							setTimeout(function() {
-								location.reload();
-							}, 4000);
+							)							
+								datatable.ajax.reload();
+							
 						}).fail(function(e) {
 							console.log('gagal');
 							console.log(e);

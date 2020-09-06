@@ -28,7 +28,7 @@ class CartModel extends CI_Model {
     }
     	public function updateCart($in, $id)
 	{
-		$this->db->where('id_produk', $id);
+		$this->db->where('id_keranjang', $id);
 		return $this->db->update('keranjang', $in);
 	}
 		public function getAllCartByUser($id_user)
@@ -50,10 +50,10 @@ class CartModel extends CI_Model {
 		$columnsSearch = array(
 			'nama_produk',
 		);
-		$from = 'produk p';
+		$from = 'keranjang k';
 		// custom SQL
 
-		$sql = "SELECT*,k.qty as qty  FROM {$from}  join keranjang k on k.id_produk = p.id_produk
+		$sql = "SELECT k.*,k.qty as qty,p.harga,p.foto,p.nama_produk FROM {$from}  join produk p on p.id_produk = k.id_produk
 		";
 		$where = "";
 		$whereTemp = "";
@@ -100,6 +100,29 @@ class CartModel extends CI_Model {
 
 		);
 	}
+		public function HapusCart($id_keranjang)
+	{
+		$this->db->where('id_keranjang', $id_keranjang);
+
+		$this->db->delete('keranjang');
+		$query = $this->db->get('keranjang s');
+
+		return $query->result();
+
+
+		# code...
+	}
+	    public function getCartByIdUserAndIdKeranj($id_user,$id_keranjang)
+    {
+        $this->db->select('qty');
+        $this->db->from('keranjang');
+        $this->db->where('id_keranjang', $id_keranjang);
+        $sql =	$this->db->where('id_user', $id_user);
+        
+      
+        return  $sql->get()->result();	
+        
+    }
 
 
 

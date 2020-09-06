@@ -10,6 +10,8 @@ class User extends CI_Controller {
 	parent::__construct();
 	$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
+		$this->load->model('CartModel');
+
 
 	$this->load->library('form_validation');
 
@@ -23,7 +25,7 @@ public function index()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}
@@ -101,7 +103,7 @@ public function index()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}
@@ -184,7 +186,7 @@ public function index()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}
@@ -205,7 +207,7 @@ public function hubungi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}
@@ -270,7 +272,7 @@ public function transaksi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}
@@ -296,7 +298,7 @@ public function transaksi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
 		}

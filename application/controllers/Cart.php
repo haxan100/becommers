@@ -10,6 +10,7 @@ class Cart extends CI_Controller {
 		parent::__construct();
 		$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
+		$this->load->model('CartModel');
 
 		$this->load->library('form_validation');
 
@@ -28,6 +29,7 @@ public function setBid()
 		 $now = date('Y-m-d H:i:s');		 
         $id_user = $this->session->userdata('id_user');
 		$tgl = $now;
+		$keranjangOld= $this->CartModel->getCartByIdUserAndProduk($id_user,$id_produk);
 		// var_dump($id_user);die;
 
 
@@ -38,7 +40,7 @@ public function setBid()
 			'qty' => $qty,
 			'created_at' => $tgl,
 		);
-		if($tambahKeranjang = $this->UserModel->AddCart($data2)){
+		if($tambahKeranjang = $this->CartModel->AddCart($data2)){
 			$msg ="Item Berhasil di Tambah Ke Keranjang";
 			$status = true;
 		}else{

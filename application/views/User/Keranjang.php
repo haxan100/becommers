@@ -5,7 +5,9 @@
 		</div>
 	</div>
 	<?php
-	$ongkir = 15000;
+	$ongkir = 15000;	
+	$bu = base_url();
+	$bu_user = $bu . 'user/';
 	?>
 	<style>
 	img{
@@ -133,7 +135,7 @@
                     </tbody>
 					<tfoot>
                             <tr>
-                                <th colspan="6" style="text-align:right">Totalnya</th>
+                                <th colspan="6" style="text-align:right">Totalnya <?= $ongkir + $subtotal ?></th>
                                 <th ></th>
                             </tr>
                         </tfoot>
@@ -164,7 +166,7 @@
 
 	<script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function(event) {
-		
+			var bu_user = '<?= $bu_user ?>';
 			var bu = '<?= base_url(); ?>';
 
 			var datatable = $('#keranjang').DataTable({
@@ -206,6 +208,66 @@
 				},
 
 			});
+
+
+		$('body').on('click', '.btnMinus', function() {
+				var id_produk = $(this).data('id_produk');
+				var qty = 1;
+				var stat = 0;
+				// console.log(harga)
+				$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
+				$('.btn-tawar').prop('disabled', true);
+				$.ajax({
+					type: "POST",
+					dataType: 'json',
+					url: "<?= $bu; ?>Cart/updateQtyCart",
+					data: {
+						id_produk: id_produk,
+						stat: stat,
+						qty: qty,
+					},
+				}).done(function(e) {
+					if (e.status) {
+					datatable.ajax.reload();
+					} else {
+						
+					Swal.fire(
+						'error',
+							e.msg,
+							'error'
+						);
+					}
+				});
+		});
+		$('body').on('click', '.btnPlus', function() {
+			var id_produk = $(this).data('id_produk');
+			var qty = 1;
+			var stat = 1;
+			// console.log(harga)
+			$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
+			$('.btn-tawar').prop('disabled', true);
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: "<?= $bu; ?>Cart/updateQtyCart",
+				data: {
+					id_produk: id_produk,
+					stat: stat,
+					qty: qty,
+				},
+			}).done(function(e) {
+				if (e.status) {
+				datatable.ajax.reload();
+				} else {
+					
+				Swal.fire(
+					'error',
+						e.msg,
+						'error'
+					);
+				}
+			});
+		});
 
 		$('body').on('click', '.btnHapus', function() {
 

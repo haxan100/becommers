@@ -88,10 +88,10 @@ public function getAllCartByUser()
 			$fields = array($no++);
 			$fields[] = '<img src="' . base_url() . 'upload/images/produk/' . $row->foto . '"/>';
 			$fields[] = $row->nama_produk . '<br>';
-			$fields[] = '<td><button class="btn btn-primary" 					type="button">-</button>
+			$fields[] = '<td><button class="btn btn-primary btnMinus" data-id_produk="' . $row->id_produk . '"					type="button">-</button>
 
 								<input class="formInput" type="text" value="' .$row->qty . '" />
-								<button class="btn btn-primary" type="button">+</button></td><br>';
+					<button class="btn btn-primary btnPlus" data-id_produk="' . $row->id_produk . '"	 type="button">+</button></td><br>';
 
 
 			$fields[] = $row->harga . '<br>';
@@ -109,10 +109,45 @@ public function getAllCartByUser()
 		echo json_encode($datatable);
 
 		exit();
-	}
+}
+
+
+public function updateQtyCart()
+{
+	
+		$id_produk = $this->input->post('id_produk', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		$now = date('Y-m-d H:i:s');		 
+		$id_user = $this->session->userdata('id_user');
+		$tgl = $now;
+		$stat = $this->input->post('stat', TRUE);
+
+		$keranjangOld= $this->CartModel->getCartByIdUserAndProduk($id_user,$id_produk);
+		$qtyOld = $keranjangOld[0]->qty;
+
+		if($stat){ // jika true maka akan bertambah
+				$qtyNew = $qtyOld +1;
+		}else{  // jika false maka akan berkurang
+			$qtyNew = $qtyOld -1;
+		}			
+
+		$upd  = array(
+			'qty' =>$qtyNew ,		
+		);
+
+		$this->CartModel->updateCart($upd,$id_produk);
+
+		$msg ="Item Berhasil di Tambah Ke Keranjang";
+		$status = true;
+		
+			    $data = array(
+                'status' => $status,
+                'msg' => $msg,
+            );
+            echo json_encode($data);
+}
+
         
 }
-        
-    /* End of file  Cart.php */
         
                             

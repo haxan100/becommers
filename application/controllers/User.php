@@ -19,7 +19,7 @@ class User extends CI_Controller {
 public function index()
 {
 	
-			if(!empty($id_user)){
+			if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -96,7 +96,7 @@ public function index()
 {	
 		// var_dump($_POST);die;
 		// var_dump($cari);die;
-		if(!empty($id_user)){
+		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -179,7 +179,7 @@ public function index()
 {	
 
 		// var_dump($_SESSION);
-		if(!empty($id_user)){
+		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -199,7 +199,7 @@ public function index()
 }
 public function hubungi()
 {
-			if(!empty($id_user)){
+			if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -263,7 +263,7 @@ public function getProduk()
 	}
 public function transaksi()
 {
-			if(!empty($id_user)){
+			if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -287,7 +287,8 @@ public function transaksi()
 
 	public function keranjang()
 	{
-		if(!empty($id_user)){
+		// var_dump($_SESSION);
+		if(empty($id_user)){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];

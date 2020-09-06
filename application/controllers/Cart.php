@@ -67,6 +67,49 @@ public function setBid()
             echo json_encode($data);
 
 }
+public function getAllCartByUser()
+	{
+		$dt = $this->CartModel->data_AllCartByUser($_POST);
+		$bu = base_url();
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;		
+		$subtotal = 0;
+		$status="";
+		foreach ($dt['data']->result() as $row) {
+
+			$total = $row->harga * $row->qty;	
+			$subtotal += $total;					
+
+			$fields = array($no++);
+			$fields[] = '<img src="' . base_url() . 'upload/images/produk/' . $row->foto . '"/>';
+			$fields[] = $row->nama_produk . '<br>';
+			$fields[] = '<td><button class="btn btn-primary" 					type="button">-</button>
+
+								<input class="formInput" type="text" value="' .$row->qty . '" />
+								<button class="btn btn-primary" type="button">+</button></td><br>';
+
+
+			$fields[] = $row->harga . '<br>';
+			$fields[] = $total. '<br>';
+			$fields[] = '
+        <button class="btn btn-round btn-danger btnHapus" data-id_produk="' . $row->id_produk . '" data-nama_produk="' . $row->nama_produk . '"
+        >Hapus</button>              
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
         
 }
         

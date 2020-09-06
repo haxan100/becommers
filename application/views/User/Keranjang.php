@@ -14,9 +14,12 @@
 
 
 	}
+	.dataTables_filter,.dataTables_paginate {
+		display: none;
+		}
 	.formInput {
     display: table-caption;
-    width: 75%;
+    max-width: 35%;
     height: 33px;
     padding: 6px 12px;
     font-size: 14px;
@@ -37,7 +40,7 @@
 	<!-- //banner -->
 	<!-- breadcrumbs -->
 	<div class="breadcrumb_dress">
-		<div class="container">
+		<div class="container mb-7">
 			<ul>
 				<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Tentang Kami</li>
@@ -46,14 +49,15 @@
 	</div>
 	<!-- //breadcrumbs -->
 	<!-- about -->
-<div class="container mb-4">
+<div class="container  mt-4 mb-7">
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped mt-4" id="keranjang">
                     <thead>
                         <tr>
-                            <th scope="col"> </th>
+                            <th scope="col"> No</th>
+                            <th scope="col">Foto </th>
                             <th scope="col">Nama Produk</th>
                             <th scope="col" class="text-center">Quantity</th>
                             <th scope="col" class="text-right">Harga</th>
@@ -96,7 +100,7 @@
 							</td>
 
                             <td class="text-right"><?= $total?></td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                            <td class="text-right"><button class="btn btn-sm btn-danger btnHapus"><i class="fa fa-trash"></i> </button> </td>
 						</tr>
 
 						<?php 
@@ -127,6 +131,12 @@
                         </tr>
 							
                     </tbody>
+					<tfoot>
+                            <tr>
+                                <th colspan="6" style="text-align:right">Totalnya</th>
+                                <th ></th>
+                            </tr>
+                        </tfoot>
                 </table>
             </div>
         </div>
@@ -151,5 +161,110 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(event) {
+		
+			var bu = '<?= base_url(); ?>';
+
+			var datatable = $('#keranjang').DataTable({
+				dom: "Bfrltip",
+				// 'pageLength': 10,
+				 "lengthChange":false,
+				"responsive": true,
+				"processing": true,
+				"bProcessing": true,
+				"autoWidth": false,
+				"serverSide": true,
+				    //  "paging":   false,
+					"ordering": false,
+					"info":     false,
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+					{
+						"targets": 2,
+						"className": "dt-head-center"
+					}
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'Cart/getAllCartByUser',
+					type: 'POST',
+					"data": function(d) {
+						return d;
+					}
+				},
+
+			});
+
+		$('body').on('click', '.btnHapus', function() {
+
+				var id_kategori = $(this).data('id_kategori');
+				var nama = $(this).data('nama_kategori');
+				Swal.fire({
+					title: 'Apakah Anda Yakin ?',
+					text: "Anda akan Menghapus item dari keranjang ? ",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, delete it!'
+				}).then((result) => {
+
+					if (result.value) {
+						$.ajax({
+							url: bu + 'Admin/hapusKategori',
+							dataType: 'json',
+							method: 'POST',
+							data: {
+								id_kategori: id_kategori
+							}
+						}).done(function(e) {
+							// console.log(e);
+							Swal.fire(
+								'Deleted!',
+								e.message,
+								'success'
+							)
+							$('#modal-detail').modal('hide');
+							setTimeout(function() {
+								location.reload();
+							}, 4000);
+						}).fail(function(e) {
+							console.log('gagal');
+							console.log(e);
+							var message = 'Terjadi Kesalahan. #JSMP01';
+						});
+
+
+
+
+					}
+				})
+
+
+
+
+			});
+
+
+
+
+
+
+
+
+	});	
+	</script>
 
 	<!-- //newsletter -->

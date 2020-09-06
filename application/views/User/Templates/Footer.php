@@ -1,6 +1,17 @@
 <div class="footer">
 
 <script src="<?php echo base_url() . "templates/user/"; ?>js/minicart.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js
+"></script>
+<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+
+<!-- <script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-buttons/js/dataTables.buttons.min.js"></script> -->
+
+<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+
+<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+
+
 <script>
 	w3ls.render();
 

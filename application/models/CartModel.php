@@ -39,7 +39,67 @@ class CartModel extends CI_Model {
 		
 		$sql =	$this->db->where('id_user', $id_user);
 		return  $sql->get()->result();	
-    }
+	}
+		public function data_AllCartByUser($post)
+
+	{
+		$columns = array(
+			'nama_produk',
+		);
+		// untuk search
+		$columnsSearch = array(
+			'nama_produk',
+		);
+		$from = 'produk p';
+		// custom SQL
+
+		$sql = "SELECT*,k.qty as qty  FROM {$from}  join keranjang k on k.id_produk = p.id_produk
+		";
+		$where = "";
+		$whereTemp = "";
+		
+		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
+
+		else if ($whereTemp != '') $where .= $whereTemp;
+		
+		if (isset($post['search']['value']) && $post['search']['value'] != '') {
+			$search = $post['search']['value'];
+			$whereTemp = "";
+
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+				
+				if ($i < count($columnsSearch) - 1) {
+
+					$whereTemp .= ' OR ';
+				}
+			}
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+			else $where .= $whereTemp;
+		}
+
+		if ($where != '') $sql .= ' WHERE (' . $where . ')';
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+		$count = $this->db->query($sql);
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		$data  = $this->db->query($sql);
+		return array(
+
+			'totalData' => $totaldata,
+
+			'data' => $data,
+
+		);
+	}
 
 
 

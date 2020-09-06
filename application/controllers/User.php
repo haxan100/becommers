@@ -23,8 +23,9 @@ public function index()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 	
 	// var_dump($_SESSION);
@@ -100,8 +101,9 @@ public function index()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 		
 
@@ -177,14 +179,14 @@ public function index()
 }
 	public function about()
 {	
-
-		// var_dump($_SESSION);
+	
 		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+			$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 		$this->load->view('User/Templates/Header');
 		 $this->load->view('User/Templates/Head');
@@ -203,8 +205,9 @@ public function hubungi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 
 		$this->load->view('User/Templates/Header');
@@ -267,8 +270,9 @@ public function transaksi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 			// var_dump($_POST);
 			
@@ -292,8 +296,9 @@ public function transaksi()
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->UserModel->getCartIdUser($id_user);
-			$data['jml']=count($jml);
+		$jml = $this->UserModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
 		}
 		$this->load->view('User/Templates/Header');
 		$this->load->view('User/Templates/Head');

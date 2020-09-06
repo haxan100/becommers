@@ -127,10 +127,13 @@ public function simpan_register($data)
 	}
 	public function getCartIdUser($id_user)
 	{
-		$this->db->select('*');
+		$this->db->select('sum(qty) as total');
 		$this->db->from('keranjang');
 		$sql =	$this->db->where('id_user', $id_user);
-		return $sql->get()->result();	
+		return  $sql->get()->result();	
+		
+		// var_dump($this->db->last_query());die;
+		// return 
 
 		# code...
 	}

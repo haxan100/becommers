@@ -293,21 +293,32 @@ public function transaksi()
 
 	public function keranjang()
 	{
-		// var_dump($_SESSION);
-		if(empty($id_user)){
+		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
-		}else{
+
+			$data['products'] = "";
+			$this->load->view('User/Templates/Header');
+			$this->load->view('User/Templates/Head');
+			$this->load->view('User/Templates/HeaderNav',$data);
+		
+			$this->load->view('User/Keranjang',$data);
+			$this->load->view('User/Templates/Footer');
+
+		}else{ // jika user  login
 			$id_user = $_SESSION['id_user'];
-		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			// var_dump($jml);
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			$data['jml']=$jml;
+			// $data['products'] = $this->CartModel->getAllCartByUser($id_user);
+			$data['products'] = $this->CartModel->getAllCartByUser($id_user);
+			$this->load->view('User/Templates/Header');
+			$this->load->view('User/Templates/Head');
+			$this->load->view('User/Templates/HeaderNav',$data);
+		
+			$this->load->view('User/Keranjang',$data);
+			$this->load->view('User/Templates/Footer');
+			
 		}
-		$this->load->view('User/Templates/Header');
-		$this->load->view('User/Templates/Head');
-		$this->load->view('User/Templates/HeaderNav',$data);
-		$data['products'] = $this->ProdukModel->getAllProduk();
-		$this->load->view('User/Keranjang',$data);
-		$this->load->view('User/Templates/Footer');
+
 	}
 
 

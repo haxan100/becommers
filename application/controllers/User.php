@@ -18,6 +18,13 @@ class User extends CI_Controller {
 
 public function index()
 {
+			if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 	
 	// var_dump($_SESSION);
 	$cari= $this->input->post('Search');
@@ -88,6 +95,13 @@ public function index()
 {	
 		// var_dump($_POST);die;
 		// var_dump($cari);die;
+		if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 		
 
 		if(empty($id_kategori)){
@@ -162,9 +176,18 @@ public function index()
 }
 	public function about()
 {	
+
+		// var_dump($_SESSION);
+		if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 		$this->load->view('User/Templates/Header');
 		 $this->load->view('User/Templates/Head');
-		 $this->load->view('User/Templates/HeaderNav');
+		 $this->load->view('User/Templates/HeaderNav' ,$data);
 		  $this->load->view('User/Templates/About');
 		 //  $this->load->view('User/Templates/Kontent');
 		 $this->load->view('User/Templates/Footer');
@@ -175,10 +198,17 @@ public function index()
 }
 public function hubungi()
 {
+			if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 
 		$this->load->view('User/Templates/Header');
 		 $this->load->view('User/Templates/Head');
-		 $this->load->view('User/Templates/HeaderNav');
+		 $this->load->view('User/Templates/HeaderNav',$data);
 		  $this->load->view('User/Templates/Hubungi');
 		 //  $this->load->view('User/Templates/Kontent');
 		 $this->load->view('User/Templates/Footer');
@@ -232,11 +262,18 @@ public function getProduk()
 	}
 public function transaksi()
 {
+			if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 			// var_dump($_POST);
 			
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
-			$this->load->view('User/Templates/HeaderNav');
+			$this->load->view('User/Templates/HeaderNav',$data);
 				var_dump($_POST);
 
 			//   $this->load->view('User/Templates/About');
@@ -249,9 +286,16 @@ public function transaksi()
 
 	public function keranjang()
 	{
+		if(!empty($id_user)){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->UserModel->getCartIdUser($id_user);
+			$data['jml']=count($jml);
+		}
 		$this->load->view('User/Templates/Header');
 		$this->load->view('User/Templates/Head');
-		$this->load->view('User/Templates/HeaderNav');
+		$this->load->view('User/Templates/HeaderNav',$data);
 		$data['products'] = $this->ProdukModel->getAllProduk();
 		$this->load->view('User/Keranjang',$data);
 		$this->load->view('User/Templates/Footer');

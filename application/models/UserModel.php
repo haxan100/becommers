@@ -125,6 +125,15 @@ public function simpan_register($data)
 	{
 		return $this->db->insert('keranjang', $data);
 	}
+	public function getCartIdUser($id_user)
+	{
+		$this->db->select('*');
+		$this->db->from('keranjang');
+		$sql =	$this->db->where('id_user', $id_user);
+		return $sql->get()->result();	
+
+		# code...
+	}
 
                         
                             

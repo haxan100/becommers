@@ -1,3 +1,30 @@
+<style>
+.notif{
+	z-index: -1;
+    position: absolute;
+    right: 7%;
+    top: -3%;
+    width: 35px;
+    height: 35px;
+    background: #ff6650;
+    border-radius: 50px;
+    -webkit-border-radius: 43px;
+}
+.badge {
+    position: absolute;
+    top: 1px;
+    right: 7px;
+    padding: 8px 10px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    z-index: -1;
+
+}
+
+
+</style>
+
 <div class="header" id="home1">
 	<div class="container">
 		<div class="w3l_login">
@@ -105,10 +132,15 @@
 					</li>
 					<li><a href="<?php echo base_url() .  "user/about"; ?>">Tentang Kami</a></li>
 
+					<?php 
+					// var_dump($jml);
 					
+					
+					?>
 					
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
-					<li><a href="<?php echo base_url() .  "user/keranjang"; ?>">Keranjang</a></li>
+
+					<li><a href="<?php echo base_url() . "user/"; ?>hubungi"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge"><?=$jml?></span></i></a></li>
 					<?php
 
 					if (!empty($_SESSION['login_user'])) {

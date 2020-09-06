@@ -62,7 +62,7 @@
 										</div>
 										<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price"><?php echo $k->harga; ?></i></p>
 
-									<button class="btn btn-block biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
+									<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
 									data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>"
 									
 									>
@@ -99,7 +99,13 @@
 																	<input type="hidden" name="add" value="1">
 																	<input type="hidden" name="w3ls_item" value="<?php echo $k->nama_produk; ?>">
 																	<input type="hidden" name="amount" value="<?php echo $k->harga; ?>">
-																	<button type="submit" class="w3ls-cart">Add to cart</button>
+														
+															<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
+															data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>"
+															
+															>
+																	Tambah Ke Keranjang
+																</button>
 																</form>
 															</div>
 														</div>

@@ -33,7 +33,7 @@ class CartModel extends CI_Model {
 	}
 		public function getAllCartByUser($id_user)
 	{
-		$this->db->select('*');
+		$this->db->select('*,keranjang.qty as qty');
 		$this->db->from('keranjang');
 		$this->db->join('produk', 'produk.id_produk = keranjang.id_produk');
 		

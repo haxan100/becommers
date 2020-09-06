@@ -16,33 +16,87 @@
 	</div>
 	<!-- //breadcrumbs -->
 	<!-- about -->
-	<div class="about">
-		<div class="container">
-			<div class="w3ls_about_grids">
-				<ul class="products">
-					<?php
-						// var_dump($products);
-
-
-					 foreach ($products as $p) :
-						// var_dump($products);
-
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Nama Produk</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-right">Harga</th>
+                            <th scope="col" class="text-right">Harga Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+					<?php 
+					if(empty($products)){ 
+						?>
+						 <h1 class="jumbotron-heading text-center">Tidak Ada Produk Di Keranjang</h1> 
+						 <?php 
+					}else{
+					foreach ($products as $k ) {
 						
-					 
-					 ?>
-						<li>
-							<h3><?php echo $p->id_produk; ?></h3>
+					?>
+	
+                        <tr>
+                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                            <td> <?= $k->nama_produk?></td>
+                            <td><input class="form-control" type="text" value="<?= $k->qty?>" /></td>
+                            <td class="text-right"><?= $k->harga?></td>
+                            <td class="text-right"><?= $k->harga?></td>
+                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+						</tr>
 
-							<small>&euro;<?php echo $p->harga; ?></small>
-							<?php echo form_open('cart/add_cart_item'); ?>
-							<fieldset>
-								<label>Quantity</label>
-					
-							</fieldset>
-							<?php echo form_close(); ?>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+						<?php 
+								}
+							?>
+
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right">255,90 €</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping</td>
+                            <td class="text-right">6,90 €</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>346,90 €</strong></td>
+                        </tr>
+							
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                </div>
+				<?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

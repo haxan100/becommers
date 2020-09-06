@@ -7,6 +7,33 @@
 	<?php
 	$ongkir = 15000;
 	?>
+	<style>
+	img{
+		
+    max-width: 100px;
+
+
+	}
+	.formInput {
+    display: table-caption;
+    width: 75%;
+    height: 33px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+	
+	</style>
 	<!-- //banner -->
 	<!-- breadcrumbs -->
 	<div class="breadcrumb_dress">
@@ -54,10 +81,20 @@
 					?>
 	
                         <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                            <td><img src="<?= base_url() ?>upload/images/produk/<?= $k->foto?>" /> </td>
                             <td> <?= $k->nama_produk?></td>
-                            <td><input class="form-control" type="text" value="<?= $k->qty?>" /></td>
-                            <td class="text-right"><?= $k->harga?></td>
+
+                            <td><button class="btn btn-primary" type="button">-</button>
+							
+							<input class="formInput" type="text" value="<?= $k->qty?>" />
+
+							<button class="btn btn-primary" type="button">+</button></td>
+
+						
+                            <td class="text-right">
+							<?= $k->harga?>
+							</td>
+
                             <td class="text-right"><?= $total?></td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
 						</tr>

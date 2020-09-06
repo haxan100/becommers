@@ -18,6 +18,7 @@ class User extends CI_Controller {
 
 public function index()
 {
+	
 			if(!empty($id_user)){
 			$data['jml']=0;
 		}else{

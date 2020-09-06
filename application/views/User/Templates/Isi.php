@@ -168,7 +168,6 @@
 								qty: qty,
 							},
 						}).done(function(e) {
-							// console.log(e);
 							if (e.status) {
 							// console.log(e);
 							Swal.fire(
@@ -176,6 +175,9 @@
 									e.msg,
 									'success'
 								);
+								    setTimeout(function(){
+									location.reload();
+								}, 2000); 
 	
 							} else {
 								// alert(e.msg);

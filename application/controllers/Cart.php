@@ -81,10 +81,9 @@ public function getAllCartByUser()
 		$subtotal = 0;
 		$status="";
 		foreach ($dt['data']->result() as $row) {
-			// var_dump($row->id_keranjang);
 
 			$total = $row->harga * $row->qty;	
-			$subtotal += $total;					
+			$subtotal += intVal($total);					
 
 			$fields = array($no++);
 			$fields[] = '<img src="' . base_url() . 'upload/images/produk/' . $row->foto . '"/>';
@@ -95,8 +94,10 @@ public function getAllCartByUser()
 					<button class="btn btn-primary btnPlus" data-id_keranjang="' . $row->id_keranjang . '"	 type="button">+</button></td><br>';
 
 
-			$fields[] = $row->harga . '<br>';
-			$fields[] = $total. '<br>';
+			$fields[] = intVal($row->harga) . '<br>';
+			$fields[] = intVal($total);
+			// var_dump(intVal($row->harga));
+
 			$fields[] = '
         <button class="btn btn-round btn-danger btnHapus" data-id_keranjang="' . $row->id_keranjang . '"	 data-nama_produk="' . $row->nama_produk . '"
         >Hapus</button>              

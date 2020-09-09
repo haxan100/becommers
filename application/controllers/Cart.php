@@ -90,7 +90,9 @@ public function getAllCartByUser()
 			$fields[] = $row->nama_produk . '<br>';
 			$fields[] = '<td><button class="btn btn-primary btnMinus" data-id_keranjang="' . $row->id_keranjang . '"					type="button">-</button>
 
-								<input class="formInput" type="text" value="' .$row->qty . '" />
+								<input class="formInput TexMasuk" type="text" data-id_keranjang="' . $row->id_keranjang . '" value="' .$row->qty . '" />
+
+
 					<button class="btn btn-primary btnPlus" data-id_keranjang="' . $row->id_keranjang . '"	 type="button">+</button></td><br>';
 
 
@@ -182,6 +184,35 @@ public function hapusQtyCart()
             );
             echo json_encode($data);
 }
+	public function updateCartByQTY()
+	{
+
+		$id_keranjang = $this->input->post('id_keranjang', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		if ($qty <= 0) {
+			$qty = 1;
+		}
+		$now = date('Y-m-d H:i:s');
+		$id_user = $this->session->userdata('id_user');
+		$tgl = $now;
+		$stat = $this->input->post('stat', TRUE);
+		$upd  = array(
+			'qty' => $qty,
+		);
+
+		if($this->CartModel->updateCart($upd, $id_keranjang)){
+
+			$msg = "Item Berhasil di Di Ubah";
+			$status = true;
+		}
+
+
+		$data = array(
+			'status' => $status,
+			'msg' => $msg,
+		);
+		echo json_encode($data);
+	}
 
         
 }

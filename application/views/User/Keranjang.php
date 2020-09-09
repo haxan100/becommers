@@ -187,7 +187,7 @@
 						return intVal(a) + intVal(b);
 					}, 0)
 					$(api.column(3).footer()).html("<b>Total</b> : ");
-					$(api.column(6).footer()).html("Rp."+p);
+					$(api.column(6).footer()).html("Rp." + p);
 				},
 
 				"columnDefs": [{
@@ -219,6 +219,42 @@
 
 			});
 
+			jQuery('body').on('keyup', '.TexMasuk', function() {
+				var qty = $(this).val();
+				var id = $(this).data('id_keranjang');
+				if (qty <= 0) {
+					Swal.fire(
+						'error',
+						'Input Tidak Boleh Kurang Dari 1',
+						'error'
+					);
+					$(this).val(1);
+
+				}
+				// console.log($(this).val(), $(this).data('id_keranjang'))
+
+				$.ajax({
+					type: "POST",
+					dataType: 'json',
+					url: "<?= $bu; ?>Cart/updateCartByQTY",
+					data: {
+						id_keranjang: id,
+						qty: qty,
+					},
+				}).done(function(e) {
+					if (e.status) {
+						datatable.ajax.reload();
+					} else {
+
+						Swal.fire(
+							'error',
+							e.msg,
+							'error'
+						);
+					}
+				});
+
+			});
 
 			$('body').on('click', '.btnMinus', function() {
 				var id_keranjang = $(this).data('id_keranjang');

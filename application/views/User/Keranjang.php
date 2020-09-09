@@ -140,7 +140,7 @@
 					<div class="col-sm-12 col-md-6 text-right">
 						<!-- <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button> -->
 
-						<a type="button" class="btn btn-block  btn-success  text-uppercase" href="<?php echo base_url() ?>user/produk/">Checkout</a>
+						<a type="button" class="btn btn-block  btn-success  text-uppercase" href="<?php echo base_url() ?>user/cekout/">Checkout</a>
 					</div>
 				<?php } ?>
 				</div>

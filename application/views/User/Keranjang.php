@@ -182,7 +182,7 @@
 					};
 
 					var api = this.api();
-					console.log(api.column(5).data());
+					// console.log(api.column(5).data());
 					var p = api.column(5).data().reduce(function(a, b) {
 						return intVal(a) + intVal(b);
 					}, 0)

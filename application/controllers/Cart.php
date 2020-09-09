@@ -130,7 +130,21 @@ public function updateQtyCart()
 		if($stat){ // jika true maka akan bertambah
 				$qtyNew = $qtyOld +1;
 		}else{  // jika false maka akan berkurang
-			$qtyNew = $qtyOld -1;
+			// var_dump($qtyOld);die;
+			if($qtyOld==1){
+				$msg = "Item Minimal 1";
+				$status = false;
+
+				$data = array(
+					'status' => $status,
+					'msg' => $msg,
+				);
+				echo json_encode($data);
+				die;
+			}else{
+
+				$qtyNew = $qtyOld -1;
+			}
 		}			
 
 		$upd  = array(

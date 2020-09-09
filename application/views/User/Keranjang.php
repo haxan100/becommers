@@ -193,7 +193,7 @@
 						return intVal(a) + intVal(b);
 					}, 0)
 					$(api.column(3).footer()).html("<b>Total</b> : ");
-					$(api.column(6).footer()).html("Rp." + p);
+					$(api.column(6).footer()).html("Rp." + formatUang(p));
 				},
 
 				"columnDefs": [{
@@ -366,6 +366,16 @@
 
 			});
 
+
+			function formatUang(str) {
+				// console.log(str);
+				var rp = str.toString()
+					.replace(/\D/g, "")
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				// return 'Rp. ' + rp;
+				if (str < 0) rp += ' (rugi)';
+				return rp;
+			}
 
 
 

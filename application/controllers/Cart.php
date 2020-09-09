@@ -96,8 +96,8 @@ public function getAllCartByUser()
 					<button class="btn btn-primary btnPlus" data-id_keranjang="' . $row->id_keranjang . '"	 type="button">+</button></td><br>';
 
 
-			$fields[] = intVal($row->harga) . '<br>';
-			$fields[] = intVal($total);
+			$fields[] = $this->formatUang(intVal($row->harga)) . '<br>';
+			$fields[] = $this->formatUang(intVal($total));
 			// var_dump(intVal($row->harga));
 
 			$fields[] = '
@@ -212,6 +212,12 @@ public function hapusQtyCart()
 			'msg' => $msg,
 		);
 		echo json_encode($data);
+	}
+	public function formatUang($str, $withRp = 0)
+	{
+		return $withRp == 1
+			? 'Rp. ' . number_format($str, 0, '.', ',')
+			: number_format($str, 0, '.', ',');
 	}
 
         

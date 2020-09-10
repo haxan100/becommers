@@ -114,8 +114,6 @@ public function getAllCartByUser()
 
 		exit();
 }
-
-
 public function updateQtyCart()
 {
 	

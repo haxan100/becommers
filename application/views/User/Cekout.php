@@ -1,6 +1,14 @@
 <div class="breadcrumb_dress" style="
     margin-bottom: 30px;
 ">
+	<style>
+		img {
+
+			max-width: 100px;
+
+
+		}
+	</style>
 	<div class="container mb">
 		<ul>
 			<?php
@@ -28,65 +36,50 @@
 	<div class="row cart-body">
 		<form class="form-horizontal" method="post" action="">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
-				<!--REVIEW ORDER-->
+
+
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						Review Order <div class="pull-right"><small><a class="afix-1" href="#">Edit Cart</a></small></div>
 					</div>
 					<div class="panel-body">
-						<div class="form-group">
-							<div class="col-sm-3 col-xs-3">
-								<img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
+						<?php
+						// var_dump($products);
+						$subtotal = 0;
+						foreach ($products as $key) {
+							$total = $key->harga * $key->qty;
+
+							$subtotal += $total;
+
+						?>
+							<div class="form-group">
+								<div class="col-sm-3 col-xs-3">
+									<img src="<?= base_url() ?>upload/images/produk/<?= $key->foto ?>" />
+								</div>
+								<div class="col-sm-6 col-xs-6">
+									<div class="col-xs-12"><?= $key->nama_produk ?></div>
+									<div class="col-xs-12"><small>Quantity:<span><?= $key->qty ?></span></small></div>
+								</div>
+								<div class="col-sm-3 col-xs-3 text-right">
+									<h6><span>Rp.</span><?= $total ?></h6>
+								</div>
 							</div>
-							<div class="col-sm-6 col-xs-6">
-								<div class="col-xs-12">Product name</div>
-								<div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
-							</div>
-							<div class="col-sm-3 col-xs-3 text-right">
-								<h6><span>$</span>25.00</h6>
-							</div>
-						</div>
-						<div class="form-group">
-							<hr />
-						</div>
-						<div class="form-group">
-							<div class="col-sm-3 col-xs-3">
-								<img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
-							</div>
-							<div class="col-sm-6 col-xs-6">
-								<div class="col-xs-12">Product name</div>
-								<div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
-							</div>
-							<div class="col-sm-3 col-xs-3 text-right">
-								<h6><span>$</span>25.00</h6>
-							</div>
-						</div>
-						<div class="form-group">
-							<hr />
-						</div>
-						<div class="form-group">
-							<div class="col-sm-3 col-xs-3">
-								<img class="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
-							</div>
-							<div class="col-sm-6 col-xs-6">
-								<div class="col-xs-12">Product name</div>
-								<div class="col-xs-12"><small>Quantity:<span>2</span></small></div>
-							</div>
-							<div class="col-sm-3 col-xs-3 text-right">
-								<h6><span>$</span>50.00</h6>
-							</div>
-						</div>
-						<div class="form-group">
-							<hr />
-						</div>
+						<?php
+						}
+						?>
+
+						<hr>
+						<hr>
+						<!-- // shipping -->
+
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Subtotal</strong>
-								<div class="pull-right"><span>$</span><span>200.00</span></div>
+								<div class="pull-right"><span>$</span><span><?= $subtotal ?></span></div>
 							</div>
 							<div class="col-xs-12">
 								<small>Shipping</small>
-								<div class="pull-right"><span>-</span></div>
+								<div class="pull-right"><span></span></div>
 							</div>
 						</div>
 						<div class="form-group">
@@ -98,10 +91,13 @@
 								<div class="pull-right"><span>$</span><span>150.00</span></div>
 							</div>
 						</div>
+
+						<!-- // shipping -->
 					</div>
 				</div>
 				<!--REVIEW ORDER END-->
 			</div>
+
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
 				<!--SHIPPING METHOD-->
 				<div class="panel panel-info">
@@ -228,6 +224,7 @@
 			getOrigin(origin, des, qty, option);
 		}
 	});
+
 	function getOrigin(origin, des, qty, cour) {
 		var $op = $("#hasil");
 		console.log(origin, des, qty, cour);
@@ -252,6 +249,7 @@
 			// console.log(data);
 		});
 	}
+
 	function getKota(idpro) {
 		var $op = $("#sel2");
 		$.ajax({

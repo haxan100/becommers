@@ -175,7 +175,7 @@
 				"info": false,
 				"deferRender": false,
 				// data: dataSet,
-				pageLength: 3,
+				pageLength: 100,
 				"deferRender": false,
 				"footerCallback": function(tfoot, data, start, end, display) {
 

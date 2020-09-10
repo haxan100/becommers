@@ -122,7 +122,30 @@ class CartModel extends CI_Model {
       
         return  $sql->get()->result();	
         
-    }
+	}
+	    public function AddTransaksi($data)
+	{
+		 $this->db->insert('transaksi', $data);
+		 return $this->db->insert_id();
+	}
+		    public function AddAlamat($data)
+	{
+		 $this->db->insert('alamat', $data);
+		 return $this->db->insert_id();
+	}
+		public function getCartByIdUser($id_user)
+	{
+		$this->db->select('*');
+		$this->db->from('keranjang');
+		$sql =	$this->db->where('id_user', $id_user);
+		return  $sql->get()->result();	
+	}
+		    public function AddDetailTransaksi($data)
+	{
+		 $this->db->insert('detail_transaksi', $data);
+		 return $this->db->insert_id();
+	}
+
 
 
 

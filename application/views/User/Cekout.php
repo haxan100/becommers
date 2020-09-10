@@ -143,7 +143,7 @@
 						<div class="form-group">
 							<div class="col-md-12"><strong>Kode Pos:</strong></div>
 							<div class="col-md-12">
-								<input type="text" name="kode_pos" class="form-control" value="" />
+								<input type="text" name="kode_pos" class="form-control"  id="kode_pos" value="" />
 							</div>
 						</div>
 						<div class="">
@@ -195,12 +195,21 @@
 		var ongkir =  $('#rajaOngkir').val();
 		var id_user = $('#id_user').val();
 
-		console.log(kurir=="",kurir,bank)
+		// console.log(kode_pos)
 		if(kurir==""){
-			alert("Kurir harus di Pilih!")
+			// alert("Kurir harus di Pilih!")
+			Swal.fire(
+				'error',
+				'Kurir harus di Pilih!',
+				'error'
+			);
 			return false;
 		}		if(bank==""){
-			alert("Bank harus di Pilih!")
+			Swal.fire(
+				'error',
+				'Bank Hrus Di Pilih',
+				'error'
+			);
 			return false;
 		}
 
@@ -220,12 +229,22 @@
 				kode_pos: kode_pos,
 			},
 		}).done(function(data) {
-			console.log(data);
-			return false;
+			if(data.status){
+			Swal.fire(
+				'succes',
+				'oke!',
+				'succes'
+			);
+			}
 
-		}).fail(function(data) {
-			console.log(data);
-			return false;
+			console.log(data)
+			Swal.fire(
+				'error',
+				data.msg,
+				'error'
+			);
+			// console.log(data);
+			// return false;
 
 		});
 	

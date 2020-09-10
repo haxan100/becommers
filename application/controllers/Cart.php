@@ -217,8 +217,25 @@ public function hapusQtyCart()
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
 	}
+	function generateRandomString($length = 10) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	}
+	 $tgl = date('Y');
+	 
+	// var_dump($tgl);die;
+
+	
+    return "TR_".$tgl.$randomString;
+}
 	public function setPayment()
 	{ 
+	 	$now = date('Y-m-d H:i:s');
+		$ran = $this->generateRandomString();
+		// var_dump($ran);die;
         $id_user = $this->input->post('id_user', true);
         $alamat = $this->input->post('alamat', true);
         $provinsi = $this->input->post('provinsi', true);
@@ -227,9 +244,72 @@ public function hapusQtyCart()
         $kode_pos = $this->input->post('kode_pos', true);
         $bank = $this->input->post('bank', true);
         $ongkir = $this->input->post('ongkir', true);
-        $total = $this->input->post('total', true);
-	}
+		$total = $this->input->post('total', true);
+		
+		$tgl = $now;
+		// var_dump($kode_pos);die;
+		// var_dump(empty($alamat) or empty($provinsi) or empty($kota) or empty($kurir) or empty($kode_pos) or empty($bank));die;
+
+		$dataAlamat = array(
+			'alamat' => $alamat,
+			'provinsi' => $provinsi,
+			'kota' => $kota,
+			'kode_pos' => $kode_pos,
+			'created_at' => $tgl,	
+		);
+
+
+
+		if(empty($alamat) or empty($provinsi) or empty($kota) or empty($kurir) or empty($kode_pos) or empty($bank) ){
+				$status = false;
+               $msg = "Harap Di Isi Semua";
+		}else{
+				$id_alamat = $this->CartModel->AddAlamat($dataAlamat);
+				
+				$dataTransaksi = array(
+				'id_user' => $id_user,
+				'id_alamat' => $id_alamat,
+				'id_method' => $bank,
+				'bayar' => $total,
+				'ongkir' => $ongkir,
+				'jumlah' => $ongkir + $total,	
+				'kode_transaksi' => $ran,	
+			);
+
 	
+			$id_transaksi = $this->CartModel->AddTransaksi($dataTransaksi);
+		$cartUser=$this->CartModel->getCartByIdUser($id_user);
+			// var_dump($cartUser);
+			foreach ($cartUser as $key ) {
+		
+				$dataDetailTransaksi = array(
+					'id_transaksi' => $id_transaksi,
+					'id_user' =>  $key->id_user,
+					'id_produk' =>  $key->id_produk,
+					'qty' =>  $key->qty,
+				);
+			// echo $key->id_produk;
+			$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
+			}
+
+
+			$status = true;
+            $msg = "Harap tunggu";
+			
+		}
+
+
+		    $data = array(
+                'status' => $status,
+                'msg' => $msg,
+			);
+			
+            echo json_encode($data);
+            die();
+
+
+	}
+
 
 
 

@@ -5,8 +5,13 @@
 		img {
 
 			max-width: 100px;
+			max-height: 100px;
 
 
+		}
+
+		.panel-body {
+			padding: 2em 2em 23px 2em !important;
 		}
 	</style>
 	<div class="container mb">
@@ -75,11 +80,15 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Subtotal</strong>
-								<div class="pull-right"><span>$</span><span><?= $subtotal ?></span></div>
+								<div class="pull-right" id="subtotal" data-sub="<?= $subtotal ?>"><span>$</span><span><?= $subtotal ?></span></div>
 							</div>
 							<div class="col-xs-12">
 								<small>Shipping</small>
-								<div class="pull-right"><span></span></div>
+								<div class="pull-right ongkosKirim"><span></span></div>
+							</div>
+							<div class="col-xs-12">
+								<small>Kurir</small>
+								<div class="pull-right Logistik"><span></span></div>
 							</div>
 						</div>
 						<div class="form-group">
@@ -88,7 +97,9 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Order Total</strong>
-								<div class="pull-right"><span>$</span><span>150.00</span></div>
+								<div class="pull-right OrderTotal">
+									<span><?= $subtotal ?></span>
+								</div>
 							</div>
 						</div>
 
@@ -142,6 +153,17 @@
 						</div>
 					</div>
 				</div>
+				<ul class="nav nav-pills nav-stacked">
+					<select class="form-control" id="bank" >
+						<option value=""> Pilih Pembayaran</option>
+						<option value="jne">JNE</option>
+						<option value="tiki">TIKI</option>
+						<option value="pos">POS Indonesia</option>
+					</select>
+					</li>
+				</ul>
+				<br />
+				<a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
 				<!--SHIPPING METHOD END-->
 
 			</div>
@@ -157,6 +179,11 @@
 <script type="text/javascript">
 	var bu_user = '<?= $bu_user ?>';
 	var bu = '<?= base_url(); ?>';
+	var subtotal = $('#subtotal').data('sub');
+
+	var OrderTotal = $(".OrderTotal");
+	console.log(subtotal);
+	OrderTotal.html(subtotal);
 
 	function getSpekFromPortal(id = '') {
 		var $op = $("#sel1"),
@@ -226,8 +253,9 @@
 	});
 
 	function getOrigin(origin, des, qty, cour) {
-		var $op = $("#hasil");
-		console.log(origin, des, qty, cour);
+		var $tarif = $(".ongkosKirim");
+		var $kurir = $(".Logistik");
+		console.log(origin, des, qty, OrderTotal);
 		var i, j, x = "";
 		$.ajax({
 			url: bu + 'User/tarif/',
@@ -238,12 +266,16 @@
 				cour: cour,
 			},
 		}).done(function(data) {
+			console.log(data)
 			var kurir = data[0].code;
 			var nama_kurir = data[0].name;
 			var tarif = data[0].costs[0].cost[0].value;
 			x += "<p class='mb-0'><b>(" + kurir + " )</b> : " + nama_kurir + "</p>";
 			x += tarif + "<br>";
-			$op.html(x);
+			$tarif.html(tarif);
+			$kurir.html(nama_kurir);
+			OrderTotal.html(tarif + subtotal);
+			console.log(tarif + subtotal)
 
 		}).fail(function(data) {
 			// console.log(data);

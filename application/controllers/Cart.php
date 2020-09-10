@@ -217,6 +217,21 @@ public function hapusQtyCart()
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
 	}
+	public function setPayment()
+	{ 
+        $id_user = $this->input->post('id_user', true);
+        $alamat = $this->input->post('alamat', true);
+        $provinsi = $this->input->post('provinsi', true);
+        $kota = $this->input->post('kota', true);
+        $kurir = $this->input->post('kurir', true);
+        $kode_pos = $this->input->post('kode_pos', true);
+        $bank = $this->input->post('bank', true);
+        $ongkir = $this->input->post('ongkir', true);
+        $total = $this->input->post('total', true);
+	}
+	
+
+
 
         
 }

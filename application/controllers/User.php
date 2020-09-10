@@ -324,7 +324,6 @@ public function transaksi()
 	{
 		if (empty($_SESSION['id_user'])) {
 			$data['jml'] = 0;
-
 			$data['products'] = "";
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
@@ -453,6 +452,7 @@ public function transaksi()
 		// var_dump($data);
 		echo json_encode($data['rajaongkir']['results']);
 	}
+
 
 
 

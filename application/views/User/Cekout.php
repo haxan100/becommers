@@ -20,6 +20,7 @@
 			$ongkir = 15000;
 			$bu = base_url();
 			$bu_user = $bu . 'user/';
+			// var_dump($_SESSION['id_user']);
 			?>
 			<li><a href="http://localhost/becommers/templates/user/index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 			<li>Tentang Kami</li>
@@ -39,13 +40,14 @@
 		</div>
 	</div>
 	<div class="row cart-body">
-		<form class="form-horizontal" method="post" action="">
+		<form class="form-horizontal">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
+			<input type="hidden" name="id_user" id="id_user"  value="<?= $_SESSION['id_user']?>">
 
 
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						Review Order <div class="pull-right"><small><a class="afix-1" href="#">Edit Cart</a></small></div>
+						Review Order <div class="pull-right"><small><a class="afix-1" href="<?php echo base_url() . "user/keranjang"; ?>">Edit Cart</a></small></div>
 					</div>
 					<div class="panel-body">
 						<?php
@@ -59,13 +61,14 @@
 						?>
 							<div class="form-group">
 								<div class="col-sm-3 col-xs-3">
+								<!-- <input type="text" class="id_produk" name="idProduk" value="<?= $key->id_produk ?>"> -->
 									<img src="<?= base_url() ?>upload/images/produk/<?= $key->foto ?>" />
 								</div>
 								<div class="col-sm-6 col-xs-6">
-									<div class="col-xs-12"><?= $key->nama_produk ?></div>
-									<div class="col-xs-12"><small>Quantity:<span><?= $key->qty ?></span></small></div>
+									<div name="<?= $key->nama_produk ?> " class="col-xs-12"><?= $key->nama_produk ?></div>
+									<div class="col-xs-12" name="<?= $key->qty ?>"><small>Quantity:<span><?= $key->qty ?></span></small></div>
 								</div>
-								<div class="col-sm-3 col-xs-3 text-right">
+								<div class="col-sm-3 col-xs-3 text-right" name="<?= $total ?>">
 									<h6><span>Rp.</span><?= $total ?></h6>
 								</div>
 							</div>
@@ -80,7 +83,7 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Subtotal</strong>
-								<div class="pull-right" id="subtotal" data-sub="<?= $subtotal ?>"><span>$</span><span><?= $subtotal ?></span></div>
+								<div class="pull-right" id="subtotal" name="<?= $subtotal ?>" data-sub="<?= $subtotal ?>"><span>$</span><span><?= $subtotal ?></span></div>
 							</div>
 							<div class="col-xs-12">
 								<small>Shipping</small>
@@ -97,7 +100,7 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Order Total</strong>
-								<div class="pull-right OrderTotal">
+								<div class="pull-right OrderTotal" name="<?= $subtotal ?>">
 									<span><?= $subtotal ?></span>
 								</div>
 							</div>
@@ -122,7 +125,7 @@
 						<div class="form-group">
 							<div class="col-md-12"><strong>Alamat:</strong></div>
 							<div class="col-md-12">
-								<input type="text" name="alamat" class="form-control" value="" />
+								<input type="text" name="alamat" class="form-control" value="" id="alamat" />
 							</div>
 						</div>
 						<div class="">
@@ -145,7 +148,7 @@
 						</div>
 						<div class="">
 							<select class="form-control" id="kurir" disabled>
-								<option value=""> Pilih Kurir</option>
+								<option value="" > Pilih Kurir</option>
 								<option value="jne">JNE</option>
 								<option value="tiki">TIKI</option>
 								<option value="pos">POS Indonesia</option>
@@ -154,16 +157,18 @@
 					</div>
 				</div>
 				<ul class="nav nav-pills nav-stacked">
-					<select class="form-control" id="bank" >
+					<select class="form-control" id="bank">
 						<option value=""> Pilih Pembayaran</option>
-						<option value="jne">JNE</option>
-						<option value="tiki">TIKI</option>
-						<option value="pos">POS Indonesia</option>
+						<option value="1">BCA</option>
+						<option value="2">BNI</option>
+						<option value="3">MANDIRI</option>
+						<option value="4">BRI</option>
 					</select>
 					</li>
 				</ul>
+				<input type="hidden" id="rajaOngkir" value="">
 				<br />
-				<a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+				<button href="" id="btnSubmit" type="button" class="btn btn-success btn-lg btn-block" role="button">Pay</button>
 				<!--SHIPPING METHOD END-->
 
 			</div>
@@ -177,12 +182,61 @@
 </div>
 <hr>
 <script type="text/javascript">
+
+	$('#btnSubmit').on('click', function() {
+
+		var alamat = $('#alamat').val();
+		var provinsi = $('#sel1').find(':selected').data('prov');
+		var kota = $('#sel2').find(':selected').data('kota');
+		var kode_pos = $('#kode_pos').val();
+		var kurir = $('#kurir').val();
+		var bank = $('#bank').val();
+		var total = <?= $total ?>;
+		var ongkir =  $('#rajaOngkir').val();
+		var id_user = $('#id_user').val();
+
+		console.log(kurir=="",kurir,bank)
+		if(kurir==""){
+			alert("Kurir harus di Pilih!")
+			return false;
+		}		if(bank==""){
+			alert("Bank harus di Pilih!")
+			return false;
+		}
+
+		$.ajax({
+			type: "POST",
+			dataType: 'json',
+			url: "<?= $bu; ?>Cart/setPayment",
+			data: {
+				alamat: alamat,
+				provinsi: provinsi,
+				kota: kota,
+				kurir: kurir,
+				bank: bank,
+				total: total,
+				ongkir: ongkir,
+				id_user: id_user,
+				kode_pos: kode_pos,
+			},
+		}).done(function(data) {
+			console.log(data);
+			return false;
+
+		}).fail(function(data) {
+			console.log(data);
+			return false;
+
+		});
+	
+	});
+
 	var bu_user = '<?= $bu_user ?>';
 	var bu = '<?= base_url(); ?>';
 	var subtotal = $('#subtotal').data('sub');
 
 	var OrderTotal = $(".OrderTotal");
-	console.log(subtotal);
+	// console.log(subtotal);
 	OrderTotal.html(subtotal);
 
 	function getSpekFromPortal(id = '') {
@@ -196,8 +250,9 @@
 			// console.log(data);
 			$.each(data, function(i, field) {
 
-				$op.append('<option value="' + field.province_id + '">' + field.province + '</option>');
-				$op1.append('<option value="' + field.province_id + '">' + field.province + '</option>');
+				$op.append('<option value="' + field.province_id + ' " data-prov="' + field.province + '" >' + field.province + '</option>');
+
+				$op1.append('<option value="' + field.province_id + ' >' + field.province + '</option>');
 
 			});
 		}).fail(function(data) {
@@ -255,7 +310,7 @@
 	function getOrigin(origin, des, qty, cour) {
 		var $tarif = $(".ongkosKirim");
 		var $kurir = $(".Logistik");
-		console.log(origin, des, qty, OrderTotal);
+		// console.log(origin, des, qty, OrderTotal);
 		var i, j, x = "";
 		$.ajax({
 			url: bu + 'User/tarif/',
@@ -266,7 +321,7 @@
 				cour: cour,
 			},
 		}).done(function(data) {
-			console.log(data)
+			// console.log(data)
 			var kurir = data[0].code;
 			var nama_kurir = data[0].name;
 			var tarif = data[0].costs[0].cost[0].value;
@@ -275,7 +330,7 @@
 			$tarif.html(tarif);
 			$kurir.html(nama_kurir);
 			OrderTotal.html(tarif + subtotal);
-			console.log(tarif + subtotal)
+			$("#rajaOngkir").val(tarif);
 
 		}).fail(function(data) {
 			// console.log(data);
@@ -292,7 +347,7 @@
 			// console.log(data);
 			$.each(data, function(i, field) {
 
-				$op.append('<option value="' + field.city_id + '">' + field.type + ' ' + field.city_name + '</option>');
+				$op.append('<option  data-kota="' + field.city_name + ' " value="' + field.city_id + '">' + field.type + ' ' + field.city_name + '</option>');
 
 			});
 		}).fail(function(data) {

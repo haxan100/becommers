@@ -294,7 +294,7 @@ public function hapusQtyCart()
 
 
 			$status = true;
-            $msg = "Harap tunggu";
+            $msg = "Harap tunggu, anda akan dialihkan ke halaman pembayaran";
 			
 		}
 

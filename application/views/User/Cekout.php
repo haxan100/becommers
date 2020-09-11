@@ -42,7 +42,7 @@
 	<div class="row cart-body">
 		<form class="form-horizontal">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
-			<input type="hidden" name="id_user" id="id_user"  value="<?= $_SESSION['id_user']?>">
+				<input type="hidden" name="id_user" id="id_user" value="<?= $_SESSION['id_user'] ?>">
 
 
 				<div class="panel panel-info">
@@ -61,7 +61,7 @@
 						?>
 							<div class="form-group">
 								<div class="col-sm-3 col-xs-3">
-								<!-- <input type="text" class="id_produk" name="idProduk" value="<?= $key->id_produk ?>"> -->
+									<!-- <input type="text" class="id_produk" name="idProduk" value="<?= $key->id_produk ?>"> -->
 									<img src="<?= base_url() ?>upload/images/produk/<?= $key->foto ?>" />
 								</div>
 								<div class="col-sm-6 col-xs-6">
@@ -143,12 +143,12 @@
 						<div class="form-group">
 							<div class="col-md-12"><strong>Kode Pos:</strong></div>
 							<div class="col-md-12">
-								<input type="text" name="kode_pos" class="form-control"  id="kode_pos" value="" />
+								<input type="text" name="kode_pos" class="form-control" id="kode_pos" value="" />
 							</div>
 						</div>
 						<div class="">
 							<select class="form-control" id="kurir" disabled>
-								<option value="" > Pilih Kurir</option>
+								<option value=""> Pilih Kurir</option>
 								<option value="jne">JNE</option>
 								<option value="tiki">TIKI</option>
 								<option value="pos">POS Indonesia</option>
@@ -182,7 +182,6 @@
 </div>
 <hr>
 <script type="text/javascript">
-
 	$('#btnSubmit').on('click', function() {
 
 		var alamat = $('#alamat').val();
@@ -192,11 +191,11 @@
 		var kurir = $('#kurir').val();
 		var bank = $('#bank').val();
 		var total = <?= $total ?>;
-		var ongkir =  $('#rajaOngkir').val();
+		var ongkir = $('#rajaOngkir').val();
 		var id_user = $('#id_user').val();
 
 		// console.log(kode_pos)
-		if(kurir==""){
+		if (kurir == "") {
 			// alert("Kurir harus di Pilih!")
 			Swal.fire(
 				'error',
@@ -204,7 +203,8 @@
 				'error'
 			);
 			return false;
-		}		if(bank==""){
+		}
+		if (bank == "") {
 			Swal.fire(
 				'error',
 				'Bank Hrus Di Pilih',
@@ -229,12 +229,14 @@
 				kode_pos: kode_pos,
 			},
 		}).done(function(data) {
-			if(data.status){
-			Swal.fire(
-				'succes',
-				'oke!',
-				'succes'
-			);
+			if (data.status) {
+				Swal.fire(
+					'succes',
+					'oke!',
+					'succes'
+				);
+				location.href = "http://example.com";
+
 			}
 
 			console.log(data)
@@ -247,7 +249,7 @@
 			// return false;
 
 		});
-	
+
 	});
 
 	var bu_user = '<?= $bu_user ?>';

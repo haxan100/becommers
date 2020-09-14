@@ -452,6 +452,25 @@ public function transaksi()
 		// var_dump($data);
 		echo json_encode($data['rajaongkir']['results']);
 	}
+		public function pembayaran()
+	{
+		if (empty($_SESSION['id_user'])) {
+		
+		redirect('user','refresh');
+		
+		} else { // jika user  login
+			$id_user = $_SESSION['id_user'];
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+			$data['jml'] = $jml;
+			$data['products'] = $this->CartModel->getAllCartByUser($id_user);
+			$this->load->view('User/Templates/Header');
+			$this->load->view('User/Templates/Head');
+			$this->load->view('User/Templates/HeaderNav', $data);
+
+			$this->load->view('User/Cekout', $data);
+			$this->load->view('User/Templates/Footer');
+		}
+	}
 
 
 

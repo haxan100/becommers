@@ -235,7 +235,7 @@
 					'oke!',
 					'succes'
 				);
-				location.href = "http://example.com";
+				location.href = "<?= $bu; ?>User/pembayaran";
 
 			}
 

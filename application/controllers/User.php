@@ -461,13 +461,17 @@ public function transaksi()
 		} else { // jika user  login
 			$id_user = $_SESSION['id_user'];
 			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+			$transaksi =
+			$this->CartModel->getTransaksidUser($id_user)[0];
+			var_dump($transaksi);
+
 			$data['jml'] = $jml;
-			$data['products'] = $this->CartModel->getAllCartByUser($id_user);
+			$data['transaksi'] =  $transaksi;
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
 			$this->load->view('User/Templates/HeaderNav', $data);
 
-			$this->load->view('User/Cekout', $data);
+			$this->load->view('User/Pembayaran', $data);
 			$this->load->view('User/Templates/Footer');
 		}
 	}

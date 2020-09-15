@@ -183,18 +183,19 @@
 <hr>
 <script type="text/javascript">
 	$('#btnSubmit').on('click', function() {
-
+		var subTot = $('#subtotal').data('sub');
 		var alamat = $('#alamat').val();
 		var provinsi = $('#sel1').find(':selected').data('prov');
 		var kota = $('#sel2').find(':selected').data('kota');
 		var kode_pos = $('#kode_pos').val();
 		var kurir = $('#kurir').val();
 		var bank = $('#bank').val();
-		var total = <?= $total ?>;
+		var total = subTot;
 		var ongkir = $('#rajaOngkir').val();
 		var id_user = $('#id_user').val();
 
-		// console.log(kode_pos)
+		// console.log(subTot)
+		// return false;
 		if (kurir == "") {
 			// alert("Kurir harus di Pilih!")
 			Swal.fire(

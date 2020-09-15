@@ -145,6 +145,15 @@ class CartModel extends CI_Model {
 		 $this->db->insert('detail_transaksi', $data);
 		 return $this->db->insert_id();
 	}
+	public function getTransaksidUser($id_user)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$sql =	$this->db->where('id_user', $id_user);
+		$sql =	$this->db->where('status', 0);
+	return	  $sql->get()->result();
+		// var_dump($this->db->last_query());
+	}
 
 
 

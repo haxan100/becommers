@@ -151,7 +151,7 @@ class CartModel extends CI_Model {
 		$this->db->from('transaksi');
 		$sql =	$this->db->where('id_user', $id_user);
 		$sql =	$this->db->where('status', 0);
-	return	  $sql->get()->result();
+		return	  $sql->get()->result();
 		// var_dump($this->db->last_query());
 	}
 

@@ -463,7 +463,7 @@ public function transaksi()
 			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			$transaksi =
 			$this->CartModel->getTransaksidUser($id_user)[0];
-			var_dump($transaksi);
+			// var_dump($transaksi);
 
 			$data['jml'] = $jml;
 			$data['uang'] = $this->formatUang($transaksi->jumlah);

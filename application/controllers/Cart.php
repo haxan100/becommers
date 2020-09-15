@@ -290,7 +290,12 @@ public function hapusQtyCart()
 				);
 			// echo $key->id_produk;
 			$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
+
+			$this->CartModel->HapusCart($key->id_keranjang);
+
 			}
+
+
 
 
 			$status = true;

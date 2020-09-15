@@ -466,6 +466,8 @@ public function transaksi()
 			var_dump($transaksi);
 
 			$data['jml'] = $jml;
+			$data['uang'] = $this->formatUang($transaksi->jumlah);
+			
 			$data['transaksi'] =  $transaksi;
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
@@ -476,6 +478,12 @@ public function transaksi()
 		}
 	}
 
+	public function formatUang($str, $withRp = 0)
+	{
+		return $withRp == 1
+			? 'Rp. ' . number_format($str, 0, '.', ',')
+			: number_format($str, 0, '.', ',');
+	}
 
 
 

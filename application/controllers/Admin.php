@@ -756,10 +756,12 @@ class Admin extends CI_Controller {
 			} else {
 				$bank = '<div class="badge badge-success">Transfer  Mandiri</div>';
 			}
-
+			$kodTrans = ' <a href="#" class="tomboldetail"  data-id_transaksi="' . $row->id_transaksi . '"data-id_user="' . $row->id_user . '">
+		' . $row->kode_transaksi . '
+		</a>';
 			$fields = array($no++);
 			$fields[] = $row->nama_lengkap . '<br>';
-			$fields[] = $row->kode_transaksi . '<br>';
+			$fields[] = $kodTrans. '<br>';
 			$fields[] = $row->no_phone . '<br>';
 			$fields[] = $row->qty . '<br>';
 			$fields[] = $this->formatUang($row->bayar) . 				'<br>' . 										$this->formatUang($row->ongkir);
@@ -867,6 +869,127 @@ class Admin extends CI_Controller {
 			'message' => $message,
 		));
 
+	}
+		public function Transaksi_detail()
+	{
+		$data['content'] = 'Admin/detail_transaksi';
+		$this->load->view('templates/index', $data);
+	}
+			public function getAllTransaksiDetail()
+	{
+
+		var_dump($_POST);die;
+		$dt = $this->TransaksiModel->data_AllTransaksi($_POST);
+		$bu = base_url();
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		$status = "";
+		foreach ($dt['data']->result() as $row) {
+			if ($row->status == 1) {
+				$status = '<div class="badge badge-success">Sudah Bayar</div>';
+
+
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+				<button class="btn btn-round btn-warning btnInputResi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Masukan Resi</button>
+
+
+				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+				>Hapus</button>       ';
+				if ($row->kurir !=0) {
+			$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+				<button class="btn btn-round btn-warning confirmBarang"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i>Konfirm Sukses</button> ';
+					
+				}
+
+			} else if($row->status == 0) {
+				$status = '<div class="badge badge-warning">Belum Bayar</div>';
+				
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+					<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Konfirm Bayar</button>
+
+
+				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+				>Hapus</button>       ';
+
+
+			}else {
+				$status = '<div class="badge badge-info">Transaksi Selesai</div>';
+				
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Lihat Detail</button>
+				<br>  ';
+
+			}
+			if ($row->id_method == 1) {
+				$bank = '<div class="badge badge-success">Transfer BCA</div>';
+			} else if ($row->id_method == 0) {
+				$bank = '<div class="badge badge-success">Transfer BRI </div>';
+			} else {
+				$bank = '<div class="badge badge-success">Transfer  Mandiri</div>';
+			}
+			$kodTrans = ' <a href="#" class="tomboldetail"  data-id_transaksi="' . $row->id_transaksi . '"data-id_user="' . $row->id_user . '">
+		' . $row->kode_transaksi . '
+		</a>';
+			$fields = array($no++);
+			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = $kodTrans. '<br>';
+			$fields[] = $row->no_phone . '<br>';
+			$fields[] = $row->qty . '<br>';
+			$fields[] = $this->formatUang($row->bayar) . 				'<br>' . 										$this->formatUang($row->ongkir);
+			$fields[] = $this->formatUang($row->jumlah) . 				'<br>';
+			$fields[] = $status . '<br>';
+			$fields[] = $bank . '<br>';
+			$fields[] = $tombol;
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
 	}
 
 

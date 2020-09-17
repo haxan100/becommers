@@ -1,6 +1,10 @@
 		<?php
 		$ba = base_url() . "admin/";
 		// var_dump($ba);
+        $urlid = $this->uri->segment(3);
+        $urltransaksi = $this->uri->segment(4);
+
+        // var_dump($urlid,$urltransaksi);die;
 		?>				
 				<div class="app-main__inner">
 					<style>
@@ -10,6 +14,8 @@
 						}
 					</style>
 
+                    <input type="hidden" id="id_user" value="<?= $urlid ?>" />
+                    <input type="hidden" id="id_transaksi" value="<?= $urltransaksi ?>" />
 
 					<div class="row">
 						<div class="col-md-12">
@@ -380,7 +386,10 @@
 				'/' + $(this).data('id_transaksi');
 		});
 
+          var  id = $('#id_user').val();
+            var tra= $('#id_transaksi').val();
 
+       
 
 
 
@@ -582,10 +591,12 @@
 								[1, "desc"]
 							],
 							'ajax': {
-								url: bu + 'Admin/getAllTransaksi',
+								url: bu + 'Admin/getAllTransaksiDetail',
 								type: 'POST',
 								"data": function(d) {
 									// d.id_kelas = id_kelas;
+                            d.id_user = id;
+                            d.id_transaksi = tra;
 
 									return d;
 								}

@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
+		$this->load->model('TransaksiModel');
 
 		$this->load->library('form_validation');
 
@@ -657,6 +658,73 @@ class Admin extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 		));
+	}
+	public function Transaksi()
+	{
+		$data['content'] = 'Admin/data_transaksi';
+		$this->load->view('templates/index', $data);
+	}
+		public function getAllTransaksi()
+	{
+		$dt = $this->TransaksiModel->data_AllTransaksi($_POST);
+		$bu = base_url();
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		$status = "";
+		foreach ($dt['data']->result() as $row) {
+			if ($row->status == 1) {
+				$status = '<div class="badge badge-success">Sudah Bayar</div>';
+			} else if($row->status == 0) {
+				$status = '<div class="badge badge-warning">Belum Bayar</div>';
+			}else {
+				$status = '<div class="badge badge-info">Transaksi Selesai</div>';
+			}
+			if ($row->id_method == 1) {
+				$bank = '<div class="badge badge-success">Transfer BCA</div>';
+			} else if ($row->id_method == 0) {
+				$bank = '<div class="badge badge-success">Transfer BRI </div>';
+			} else {
+				$bank = '<div class="badge badge-success">Transfer  Mandiri</div>';
+			}
+
+			$fields = array($no++);
+			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = $row->kode_transaksi . '<br>';
+			$fields[] = $row->no_phone . '<br>';
+			$fields[] = $row->qty . '<br>';
+			$fields[] = $this->formatUang($row->bayar) . 				'<br>' . 										$this->formatUang($row->ongkir);
+			$fields[] = $this->formatUang($row->jumlah) . 				'<br>';
+			$fields[] = $status . '<br>';
+			$fields[] = $bank . '<br>';
+			$fields[] = '
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-id_transaksi="' . $row->id_transaksi . '" 
+			data-kode_transaksi="' . $row->kode_transaksi . '"  
+			data-status="' . $row->status . '"	
+			></i> Ubah</button>
+        <button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+        >Hapus</button>              
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function formatUang($str, $withRp = 0)
+	{
+		return $withRp == 1
+			? 'Rp. ' . number_format($str, 0, '.', ',')
+			: number_format($str, 0, '.', ',');
 	}
 
 

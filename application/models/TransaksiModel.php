@@ -86,6 +86,19 @@ public function login(){
 		$this->db->where('id_transaksi', $id_transaksi);
 		return $this->db->update('transaksi', $in);
 	}
+	    public function update_resi($in, $id_transaksi)
+    {
+
+        $this->db->where('id_transaksi', $id_transaksi);
+
+        return $this->db->update('transaksi', $in);
+        // return $data;
+        // var_dump($in);
+        // die();
+
+
+
+    }
 
 
                         

@@ -679,10 +679,69 @@ class Admin extends CI_Controller {
 		foreach ($dt['data']->result() as $row) {
 			if ($row->status == 1) {
 				$status = '<div class="badge badge-success">Sudah Bayar</div>';
+
+
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+				<button class="btn btn-round btn-warning btnInputResi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Masukan Resi</button>
+
+
+				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+				>Hapus</button>       ';
+
 			} else if($row->status == 0) {
 				$status = '<div class="badge badge-warning">Belum Bayar</div>';
+				
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+					<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Konfirm Bayar</button>
+
+
+				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+				>Hapus</button>       ';
+
+
 			}else {
 				$status = '<div class="badge badge-info">Transaksi Selesai</div>';
+				
+				$tombol ='
+				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Ubah</button>
+				<br>
+
+					<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Konfirm Bayar</button>
+
+
+				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
+				>Hapus</button>       ';
+
 			}
 			if ($row->id_method == 1) {
 				$bank = '<div class="badge badge-success">Transfer BCA</div>';
@@ -701,25 +760,7 @@ class Admin extends CI_Controller {
 			$fields[] = $this->formatUang($row->jumlah) . 				'<br>';
 			$fields[] = $status . '<br>';
 			$fields[] = $bank . '<br>';
-			$fields[] = '
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
-			data-id_transaksi="' . $row->id_transaksi . '" 
-			data-kode_transaksi="' . $row->kode_transaksi . '"  
-			data-status="' . $row->status . '"	
-			></i> Ubah</button>
-			<br>
-
-				<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
-				data-id_transaksi="' . $row->id_transaksi . '" 
-				data-kode_transaksi="' . $row->kode_transaksi . '"  
-				data-status="' . $row->status . '"	
-				></i> Konfirm Bayar</button>
-
-
-        <button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
-        >Hapus</button>              
-
-        ';
+			$fields[] = $tombol;
 			$datatable['data'][] = $fields;
 		}
 
@@ -762,6 +803,38 @@ class Admin extends CI_Controller {
 		));
 
 	}
+	  public function Resi()
+  {
+	//   var_dump($_POST);die;
+    $id_transaksi = $this->input->post('id_transaksi', TRUE);
+    $resi = $this->input->post('nomor_resi', TRUE);
+    $kurir = $this->input->post('kurir', TRUE);
+    $message = 'Gagal menambahkan Resi!<br>Silahkan lengkapi data yang diperlukan.';
+    $errorInputs = array();
+    $statusnya = true;
+    $in = array(
+      'kurir' => $kurir,
+      'resi' => $resi,
+      // 'password' => 	$this->bizEncrypt($password),
+    );
+    if (empty($resi)) {
+      $statusnyanya = false;
+      $errorInputs[] = array('#resi', 'Silahkan Masukan Resi');
+    }
+    if ($statusnya) {
+      if ($this->TransaksiModel->update_resi($in, $id_transaksi))
+    $message = 'Berhasil  Mengubah Resi';
+
+    } else {
+      $message = 'Gagal ';
+    }
+    echo json_encode(array(
+      'status' => $statusnya,
+      'message' => $message,
+      'errorInputs' => $errorInputs
+    ));
+
+  }
 
 
 

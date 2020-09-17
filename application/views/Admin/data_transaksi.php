@@ -1,3 +1,7 @@
+		<?php
+		$ba = base_url() . "admin/";
+		// var_dump($ba);
+		?>				
 				<div class="app-main__inner">
 					<style>
 						#image {
@@ -46,7 +50,66 @@
 						</div>
 					</div>
 				</div>
+<!-- Modal Untuk Memasukan Nomor resi -->
+		<div class="modal fade none-border" role="dialog" id="btnInputResi">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<form id="form">
+						<div class="modal-header">
+							<h4 class="modal-title modalTitleTambah"><strong>Masukan Nomor Resi</strong></h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p id="alertNotifModal" class="mt-2"></p>
+							<input id="id_transaksi" name="id_transaksi" value="" type="hidden">
+							<div class="row ">
+								<div class="col p-6">
+									<div class="row">
+										<div class="col form-group">
+											<label for="kode_transaksi">Kode Transaksi </label>
+											<input id="kode_transaksi" name="kode_transaksi" readonly class="form-control" type="text">
 
+											<small>
+
+											</small>
+										</div>
+										</div>
+										<div class="row">
+										<div class="col-6 form-group">
+											<label for="nomor_resi">Pilih Kurir</label>
+							<select class="custom-select kurir">
+								<option value="0">Pilih Kurir</option>
+								<option value="1">JNE</option>
+								<option value="2">TIKI</option>
+								<option value="3">POS</option>
+							</select>
+
+											<small></small>
+										</div>
+											<div class="col-6 form-group">
+											<label for="nomor_resi">Nomor Resi </label>
+											<input id="nomor_resi" name="nomor_resi" placeholder="Masukan Resi" required type="text" class="form-control">
+
+											<small></small>
+										</div>
+											
+								
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<!-- <button type="button" id="btnTambahAdmin" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button> -->
+							<button type="button" id="btnSaves" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+							<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+						</div>
+				</div>
+				</form>
+			</div>
+		</div>
 				<!-- modal awal -->
 				<div class="modal fade none-border" id="modalUser">
 					<div class="modal-dialog modal-xl">
@@ -187,6 +250,82 @@
 
 
 						});
+
+
+				$('body').on('click', '.btnInputResi', function() {
+					
+					
+			$('#kode_transaksi').val($(this).attr('data-kode_transaksi'));
+							// console.log("ssssss");
+							$('#id_transaksi').val($(this).attr('data-id_transaksi'));
+
+							var nomor_resi = $(this).attr('data-resi');
+							$('#nomor_resi').val(nomor_resi);
+							
+							$('#btnInputResi').modal('show');
+							$('#modalMetodPeng').modal('show');
+					});
+
+
+			$('#btnSaves').on('click', function() {
+				
+				var id_transaksi = $('#id_transaksi').val();
+				var kurir = $('.kurir').val();
+				var nomor_resi = $('#nomor_resi').val();
+				// console.log(nomor_resi,kurir,id_transaksi);		
+				// 	return false;
+				$('#btnInputResi').modal('hide');
+				$('#modalMetodPeng').modal('hide');
+				if (nomor_resi == '') {
+					$('*[for="nomor_resi"] > small').html('Harap diisi!');
+					alert('harap isi Resi!');
+				} 	else if (kurir == 0) {		
+					alert('harap pilih Kurir!');
+				} else {
+					$.ajax({
+						url: '<?= $ba ?>/Resi ',
+						dataType: 'json',
+						method: 'POST',
+						data: {
+							id_transaksi: id_transaksi,
+							nomor_resi: nomor_resi,
+							kurir: kurir,
+						}
+					}).done(function(e) {
+						Swal.fire(
+										':)',
+										e.message,
+										'success'
+									);
+						$('#nomor_resi').val('');
+						var alert = '';
+						if (e.status) {
+						console.log(e);
+
+							notifikasi('#alertNotif', e.message, false);
+							$('#dt_user').modal('hide');
+							datatable.ajax.reload();
+
+						} else {
+						console.log(e);
+
+							notifikasi('#alertNotif', e.message, true);
+
+						}
+					}).fail(function(e) {
+
+						console.log('gagal');
+						console.log(e);
+						var message = 'Terjadi Kesalahan. #JSMP01';
+						notifikasi('#alertNotif', message, true);
+					});
+
+				}
+
+			});
+
+
+
 
 
 

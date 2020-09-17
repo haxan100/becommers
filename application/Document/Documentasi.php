@@ -16,6 +16,11 @@ transaksi :
 	2: bri
 	3: mandiri
 	4: bni
+	-kurir:
+	1: jne
+	2: tiki
+	3: pos
+
 
 
 

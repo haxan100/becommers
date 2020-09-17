@@ -73,6 +73,19 @@ public function login(){
 
 		);
 	}
+		public function getTransaksiById($id_transaksi)
+	{
+		$this->db->select('*');
+		$this->db->where('id_transaksi', $id_transaksi);
+		$query = $this->db->get('transaksi');
+		return $query->result();
+		# code...
+	}
+		public function edit_Transaksi($id_transaksi, $in)
+	{
+		$this->db->where('id_transaksi', $id_transaksi);
+		return $this->db->update('transaksi', $in);
+	}
 
 
                         

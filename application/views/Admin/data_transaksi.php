@@ -135,6 +135,58 @@
 					document.addEventListener("DOMContentLoaded", function(event) {
 
 
+						$('body').on('click', '.btn_Konfirmasi', function() {
+
+							var kode_transaksi = $(this).data('kode_transaksi');
+							var id_transaksi = $(this).data('id_transaksi');
+							Swal.fire({
+								title: 'Apakah Anda Yakin ?',
+								text: "Konfirmasi Pembayaran: " + kode_transaksi,
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Konfirmasi Pembayaran'
+							}).then((result) => {
+								if (result.value) {
+									$.ajax({
+										url: bu + 'Admin/editStatus',
+										dataType: 'json',
+										method: 'POST',
+										data: {
+											id_transaksi: id_transaksi
+										}
+									}).done(function(e) {
+										console.log(e);
+										Swal.fire(
+											'Deleted!',
+											e.message,
+											'success'
+										)
+										$('#modal-detail').modal('hide');
+										// setTimeout(function() {
+										// 	location.reload();
+										// }, 4000);
+
+										datatable.ajax.reload();
+										resetForm();
+
+									}).fail(function(e) {
+										console.log('gagal');
+										console.log(e);
+										var message = 'Terjadi Kesalahan. #JSMP01';
+									});
+
+
+
+
+								}
+							})
+
+
+
+
+						});
 
 
 

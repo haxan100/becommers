@@ -707,6 +707,15 @@ class Admin extends CI_Controller {
 			data-kode_transaksi="' . $row->kode_transaksi . '"  
 			data-status="' . $row->status . '"	
 			></i> Ubah</button>
+			<br>
+
+				<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Konfirm Bayar</button>
+
+
         <button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
         >Hapus</button>              
 
@@ -725,6 +734,33 @@ class Admin extends CI_Controller {
 		return $withRp == 1
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
+	}
+	public function editStatus()
+	{
+
+		$id_transaksi = $this->input->post('id_transaksi', TRUE);
+
+		$data = $this->TransaksiModel->getTransaksiById($id_transaksi);
+		// var_dump($data);die;
+		$status = false;
+		$message = 'Gagal Mangubah Transaksi!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Transaksi yang dimaksud.';
+		} else {
+
+			$in = array(
+				'status' => 1,
+			);
+
+			$this->TransaksiModel->edit_Transaksi($id_transaksi,$in);
+			$status = true;
+			$message = 'Berhasil mengubah Transaksi: <b>' . $data[0]->kode_transaksi . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
+
 	}
 
 

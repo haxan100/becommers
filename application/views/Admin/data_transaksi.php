@@ -252,19 +252,17 @@
 						});
 
 
-				$('body').on('click', '.btnInputResi', function() {
-					
-					
-			$('#kode_transaksi').val($(this).attr('data-kode_transaksi'));
-							// console.log("ssssss");
-							$('#id_transaksi').val($(this).attr('data-id_transaksi'));
+				$('body').on('click', '.btnInputResi', function() {						
+					$('#kode_transaksi').val($(this).attr('data-kode_transaksi'));
+					// console.log("ssssss");
+					$('#id_transaksi').val($(this).attr('data-id_transaksi'));
 
-							var nomor_resi = $(this).attr('data-resi');
-							$('#nomor_resi').val(nomor_resi);
-							
-							$('#btnInputResi').modal('show');
-							$('#modalMetodPeng').modal('show');
-					});
+					var nomor_resi = $(this).attr('data-resi');
+					$('#nomor_resi').val(nomor_resi);
+					
+					$('#btnInputResi').modal('show');
+					$('#modalMetodPeng').modal('show');
+				});
 
 
 			$('#btnSaves').on('click', function() {
@@ -323,6 +321,60 @@
 				}
 
 			});
+
+			$('body').on('click', '.confirmBarang', function() {
+
+			var kode_transaksi = $(this).data('kode_transaksi');
+			var id_transaksi = $(this).data('id_transaksi');
+			Swal.fire({
+				title: 'Konfirm Item Diterima User ?',
+				text: "Konfirmasi Transaksi: " + kode_transaksi +"  ( aksi ini tidak dapat di ubah setelahnya)",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Konfirmasi Sukses'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						url: bu + 'Admin/editStatusSelesai',
+						dataType: 'json',
+						method: 'POST',
+						data: {
+							id_transaksi: id_transaksi
+						}
+					}).done(function(e) {
+						console.log(e);
+						Swal.fire(
+							'Deleted!',
+							e.message,
+							'success'
+						)
+						$('#modal-detail').modal('hide');
+						// setTimeout(function() {
+						// 	location.reload();
+						// }, 4000);
+
+						datatable.ajax.reload();
+						resetForm();
+
+					}).fail(function(e) {
+						console.log('gagal');
+						console.log(e);
+						var message = 'Terjadi Kesalahan. #JSMP01';
+					});
+
+
+
+
+				}
+			})
+
+
+
+
+		});
+
 
 
 

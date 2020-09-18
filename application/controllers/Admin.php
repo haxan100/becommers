@@ -699,13 +699,13 @@ class Admin extends CI_Controller {
 				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
 				>Hapus</button>       ';
 				if ($row->kurir !=0) {
-			$tombol ='
-				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
-				data-id_transaksi="' . $row->id_transaksi . '" 
-				data-kode_transaksi="' . $row->kode_transaksi . '"  
-				data-status="' . $row->status . '"	
-				></i> Ubah</button>
-				<br>
+				$tombol ='
+					<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+					data-id_transaksi="' . $row->id_transaksi . '" 
+					data-kode_transaksi="' . $row->kode_transaksi . '"  
+					data-status="' . $row->status . '"	
+					></i> Ubah</button>
+					<br>
 
 				<button class="btn btn-round btn-warning confirmBarang"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 					data-id_transaksi="' . $row->id_transaksi . '" 

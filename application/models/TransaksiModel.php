@@ -98,7 +98,74 @@ public function login(){
 
 
 
-    }
+	}
+		public function data_AllDetailTransaksi($post)
+	{
+		$columns = array(
+			'nama_lengkap',
+			'email',
+		);
+		// untuk search
+		$columnsSearch = array(
+			'nama_lengkap',
+			'email',
+		);
+		$from = 'detail_transaksi t';
+		$join = ' produk p';
+		// custom SQL
+
+		$sql = "SELECT *FROM {$from}  inner join {$join} on p.id_produk=t.id_produk inner join user u on u.id_user=t.id_user
+		where t.id_user='{$post['id_user']}' and id_transaksi={$post['id_transaksi']}
+		";
+		$where = "";
+		$whereTemp = "";
+
+		if ($whereTemp != '' && $where != ''
+		) $where .= " AND (" . $whereTemp . ")";
+
+		else if ($whereTemp != ''
+		) $where .= $whereTemp;
+
+		if (isset($post['search']['value']) && $post['search']['value'] != '') {
+			$search = $post['search']['value'];
+			$whereTemp = "";
+
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+
+				if ($i < count($columnsSearch) - 1) {
+
+					$whereTemp .= ' OR ';
+				}
+			}
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+			else $where .= $whereTemp;
+		}
+
+		if ($where != '') $sql .= ' WHERE (' . $where . ')';
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+		$count = $this->db->query($sql);
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		// var_dump($sql);
+		$data  = $this->db->query($sql);
+
+		return array(
+
+			'totalData' => $totaldata,
+
+			'data' => $data,
+
+		);
+	}
 
 
                         

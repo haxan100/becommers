@@ -184,32 +184,32 @@
 
 					<div class="modal-body mx-3">
 						<div class="md-form mb-5">
-							<i class="fas fa-user prefix grey-text"></i>
+							<i class="glyphicon glyphicon-user prefix grey-text"></i>
 							<input type="text" id="nama" name="nama" class="form-control validate">
 							<label data-error="wrong" data-success="right" for="form3">Your name</label>
 						</div>
 
 						<div class="md-form mb-4">
-							<i class="fas fa-envelope prefix grey-text"></i>
+							<i class="glyphicon glyphicon-envelope prefix grey-text"></i>
 							<input type="text" id="emails" name="emails" class="form-control validate">
 							<label data-error="wrong" data-success="right" for="form2">Your email</label>
 						</div>
 
 						<div class="md-form mb-4">
-							<i class="fas fa-envelope prefix grey-text"></i>
+							<i class="glyphicon glyphicon-earphone prefix grey-text"></i>
 							<input type="number" id="no_phones" name="no_phones" class="form-control validate">
 							<label data-error="wrong" data-success="right" for="form3">Your Phone</label>
 						</div>
 
 						<div class="md-form mb-4">
-							<i class="fas fa-envelope prefix grey-text"></i>
+							<i class="glyphicon glyphicon-eye-open prefix grey-text"></i>
 							<input type="password" id="passwords" name="passwords" class="form-control validate">
 							<label data-error="wrong" data-success="right" for="form2">Your Password</label>
 						</div>
 
 					</div>
 					<div class="modal-footer d-flex justify-content-center">
-						<button type="button" class="btn btn-indigo btnSave">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+						<button type="button" class="btn btn-indigo btnSave">Edit <i class="glyphicon glyphicon-edit ml-1"></i></button>
 					</div>
 				</div>
 			</div>
@@ -279,16 +279,16 @@
 							var alert = '';
 							if (e.status) {
 								console.log(e);
-								notifikasi('#alertNotif', e.message, false);
+								// notifikasi('#alertNotif', e.message, false);
 								$('#dt_user').modal('hide');
 								datatable.ajax.reload();
 							} else {
 								console.log(e);
-								notifikasi('#alertNotif', e.message, true);
+								// notifikasi('#alertNotif', e.message, true);
 							}
 						}).fail(function(e) {
 							var message = 'Terjadi Kesalahan. #JSMP01';
-							notifikasi('#alertNotif', message, true);
+							// notifikasi('#alertNotif', message, true);
 						});
 					}
 

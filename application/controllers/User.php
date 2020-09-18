@@ -268,7 +268,7 @@ public function getProduk()
 	}
 public function transaksi()
 {
-			if(empty($_SESSION['id_user'])){
+		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -289,7 +289,7 @@ public function transaksi()
 			//  die;
 			// var_dump($cari);die;
 			# code...
-	}
+}
 
 	public function keranjang()
 	{
@@ -501,8 +501,64 @@ public function transaksi()
 	}
 	public function editProfile()
 	{
-		var_dump($_POST);die;
-		# code...
+		// var_dump($_POST);die;
+		$id_user = $this->input->post('id_user');
+		$nama = $this->input->post('nama');
+		$no_phone = $this->input->post('no_phone');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		if ($id_user=="") {
+			$status= false;
+			$msg ="Tidak Ada User";
+		} else 		if ($nama == "") {
+			$status = false;
+			$msg = "Masukan Nama";
+		} else 		if ($no_phone == "") {
+			$status = false;
+			$msg = "Masukan Nomor Telpon";
+		} else 		if ($email == "") {
+			$status = false;
+			$msg = "Masukan Email";
+		}else{
+			// var_dump($password=="");die;
+			if($password==""){
+				$in = array(
+					'no_phone' => $no_phone,
+					'email' => $email,
+					'nama_lengkap' => $nama,
+				);
+			}else{
+				$password = md5($password);
+				$in = array(
+					'no_phone' => $no_phone,
+					'email' => $email,
+					'nama_lengkap' => $nama,
+					'password' => $password,
+				);
+			}
+
+			$edit = $this->UserModel->edit_user($in, $id_user);
+			if ($edit) {
+				$status = true;
+				$msg = "User Berhasil Di Ubah";
+				
+			}else{
+				$status = false;
+				$msg = "User Gagal Di Ubah";
+			}
+
+
+
+		}
+		$json = array(
+			'status' => $status,
+			'message' => $msg,
+		);
+
+		echo json_encode($json);
+		exit();
+		
+	
 	}
 
 

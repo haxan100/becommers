@@ -194,6 +194,8 @@ public function logout()
 		// var_dump(count($data['produk']));die;
 		$this->session->sess_destroy();
 		$this->load->view('User/Templates/index',$data);
+
+		return redirect('user'); 
                 
 
 	# code...

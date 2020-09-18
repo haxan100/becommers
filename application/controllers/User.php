@@ -499,6 +499,11 @@ public function transaksi()
 		// $this->load->view('User/Templates/indexContent',$data);
 
 	}
+	public function editProfile()
+	{
+		var_dump($_POST);die;
+		# code...
+	}
 
 
 

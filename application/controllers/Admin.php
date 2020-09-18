@@ -744,6 +744,7 @@ class Admin extends CI_Controller {
 				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 				data-id_transaksi="' . $row->id_transaksi . '" 
 				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-id_alamat="' . $row->id_alamat . '"  
 				data-status="' . $row->status . '"	
 				></i> Lihat Detail</button>
 				<br>  ';
@@ -903,6 +904,37 @@ class Admin extends CI_Controller {
 		}
 
 
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function getDetailPertrans()
+
+	{
+		// var_dump($_POST);die;
+		$id_transaksi = $this->input->post('id_transaksi', TRUE);
+
+		$dt = $this->TransaksiModel->getDetPerTrans($_POST, $id_transaksi);
+
+		$datatable['draw']            = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		$no = $start + 1;
+		foreach ($dt['data']->result() as $row) {
+			// var_dump(($row));die();
+
+			$fields = array($no++);
+			$fields[] = $row->nama_lengkap;
+			$fields[] = $row->no_phone . '<br>' . $row->email;
+			$fields[] = $row->alamat;
+			$fields[] = $row->provinsi;
+			$fields[] = $row->kota;
+			$fields[] = $row->kode_pos;
+			$datatable['data'][] = $fields;
+		}
 
 		echo json_encode($datatable);
 

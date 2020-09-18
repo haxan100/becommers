@@ -166,6 +166,94 @@ public function login(){
 
 		);
 	}
+	public function getDetPerTrans($post, $id_transaksi)
+
+	{
+
+		$from = 'transaksi t';
+
+		$columns = array(
+
+			// 'u.nama_lengkap',
+			'u.nama_lengkap',
+
+		);
+		$columnsSearch = array(
+
+			'nama_lengkap',
+
+		);
+		$sql = "SELECT *  FROM {$from}
+
+                join user u on t.id_user=u.id_user
+
+                join alamat a on a.id_alamat=t.id_alamat
+
+                WHERE id_transaksi='$id_transaksi'";
+		$where = "";
+		$whereTemp = "";
+
+		if (isset($post['date']) && $post['date'] != '') {
+
+			$date = explode(' / ', $post['date']);
+
+			$selectDate = $_POST['selectDate'];
+
+			if (count($date) == 1) {
+
+				$whereTemp .= "(" . $selectDate . "  LIKE '%" . $post['date'] . "%')";
+			} else {
+				$whereTemp .= "(date_format($selectDate, \"%Y-%m-%d\") >='$date[0]' AND date_format($selectDate, \"%Y-%m-%d\") <= '$date[1]')";
+			}
+		}
+
+		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
+		else if ($whereTemp != '') $where .= $whereTemp;
+		$status_search = isset($post['search']['value']) && $post['search']['value'] != '';
+
+		if ($status_search) {
+
+			$search = $post['search']['value'];
+			$whereTemp = "";
+
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+				if ($i < count($columnsSearch) - 1) {
+
+					$whereTemp .= ' OR ';
+				}
+			}
+
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+
+			else $where .= $whereTemp;
+		}
+		if ($where != '') $sql .= " AND (" . $where . ")";
+		else $sql .= $where;
+		//SORT Kolom
+
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+		$count = $this->db->query($sql);
+		// hitung semua data
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		$data  = $this->db->query($sql);
+		return array(
+
+			'totalData' => $totaldata,
+
+			'data' => $data,
+
+		);
+	}
+
 
 
                         

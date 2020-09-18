@@ -376,11 +376,6 @@ public function transaksi()
 			return $response;
 		}
 	}
-
-
-
-
-
 	function _api_ongkir($data)
 	{
 		$curl = curl_init();
@@ -412,8 +407,6 @@ public function transaksi()
 			return $response;
 		}
 	}
-
-
 	public function provinsi()
 	{
 
@@ -421,9 +414,6 @@ public function transaksi()
 		$data = json_decode($provinsi, true);
 		echo json_encode($data['rajaongkir']['results']);
 	}
-
-
-
 	public function kota($provinsi = "")
 	{
 		if (!empty($provinsi)) {
@@ -439,7 +429,6 @@ public function transaksi()
 			show_404();
 		}
 	}
-
 	public function tarif()
 	{
 
@@ -483,6 +472,32 @@ public function transaksi()
 		return $withRp == 1
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
+	}
+	public function profile()
+	{
+
+		if (empty($_SESSION['id_user'])) {
+			$data['jml'] = 0;
+		} else {
+			$id_user = $_SESSION['id_user'];
+			// var_dump($id_user);
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+			$data['user'] = $this->UserModel->getUserById($id_user)[0];
+			// var_dump($jml);
+			
+			$data['jml'] = $jml;
+
+		}
+		$this->load->view('User/Templates/Header');
+		$this->load->view('User/Templates/Head');
+		$this->load->view('User/Templates/HeaderNav', $data);
+		$this->load->view('User/Profile',$data);
+		//  $this->load->view('User/Templates/Kontent');
+		$this->load->view('User/Templates/Footer');
+
+		// var_dump(count($data['produk']));die;
+		// $this->load->view('User/Templates/indexContent',$data);
+
 	}
 
 

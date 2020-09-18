@@ -1,28 +1,44 @@
 <style>
-.notif{
-	z-index: -1;
-    position: absolute;
-    right: 7%;
-    top: -3%;
-    width: 35px;
-    height: 35px;
-    background: #ff6650;
-    border-radius: 50px;
-    -webkit-border-radius: 43px;
-}
-.badge {
-    position: absolute;
-    top: 1px;
-    right: 7px;
-    padding: 8px 10px;
-    border-radius: 50%;
-    background: red;
-    color: white;
-    z-index: -1;
+	.dropdown-menu.columns-3s {
+		min-width: 238px;
+		padding: 30px 30px;
+		/* left: -130%; */
+		border-radius: 11px;
+	}
 
-}
+	.multi-column-dropdown li a {
+		display: block !important;
+		clear: both !important;
+		line-height: 1.428571429 !important;
+		color: #fff !important;
+		white-space: normal !important;
+		font-weight: 500 !important;
+		text-decoration: none !important;
+	}
 
+	.notif {
+		z-index: -1;
+		position: absolute;
+		right: 7%;
+		top: -3%;
+		width: 35px;
+		height: 35px;
+		background: #ff6650;
+		border-radius: 50px;
+		-webkit-border-radius: 43px;
+	}
 
+	.badge {
+		position: absolute;
+		top: 1px;
+		right: 7px;
+		padding: 8px 10px;
+		border-radius: 50%;
+		background: red;
+		color: white;
+		z-index: -1;
+
+	}
 </style>
 
 <div class="header" id="home1">
@@ -132,22 +148,52 @@
 					</li>
 					<li><a href="<?php echo base_url() .  "user/about"; ?>">Tentang Kami</a></li>
 
-					<?php 
+					<?php
 					// var_dump($jml);
-					
-					
+
+
 					?>
-					
+
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
 
-					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge"><?=$jml?></span></i></a></li>
+					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge"><?= $jml ?></span></i></a></li>
 					<?php
 
 					if (!empty($_SESSION['login_user'])) {
 
 					?>
+						<li>
+						<li class="dropdown">
+							<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3s">
+								<div class="row">
+									<ul class="multi-column-dropdown">
+										<li><a type="button" class="btn 		btn-primary" href="<?php echo base_url() . "User/"; ?>Profile">
+												<p class="text-white">Profile</p>
+											</a>
+										</li>
 
-						<li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li>
+										<li><a type="button" class="btn 		btn-info" href="<?php echo base_url() . "User/"; ?>Pesanan">
+												<p class="text-white">Pesanan</p>
+											</a>
+										</li>
+
+										<li><a type="button" class="btn 		btn-danger" href="<?php echo base_url() . "Register/"; ?>logout">
+												<p class="text-white">Logout</p>
+											</a>
+										</li>
+
+
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+							</ul>
+						</li>
+
+						</li>
+
+
+						<!-- <li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li> -->
 					<?php }
 					?>
 

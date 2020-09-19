@@ -60,7 +60,7 @@
 												</ul>
 											</div>
 										</div>
-										<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price"><?php echo $k->harga; ?></i></p>
+										<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i></p>
 
 									<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
 									data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>"
@@ -93,7 +93,7 @@
 																<div class="clearfix"> </div>
 															</div>
 															<div class="modal_body_right_cart simpleCart_shelfItem">
-																<p><i class="item_price"><?php echo $k->harga; ?></i></p>
+																<p><i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i></p>
 																<form action="#" method="post">
 																	<input type="hidden" name="cmd" value="_cart">
 																	<input type="hidden" name="add" value="1">
@@ -130,7 +130,12 @@
 					</div>
 					<?php 	}
 
-
+						 function formatUang($str, $withRp = 0)
+						{
+							return $withRp == 1
+								? 'Rp. ' . number_format($str, 0, '.', ',')
+								: number_format($str, 0, '.', ',');
+						}
 
 					?>
 					</div>

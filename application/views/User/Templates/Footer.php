@@ -33,7 +33,7 @@
 				<p>Untuk Informasi, Hubungi kami Di</p>
 				<ul class="address">
 					<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Pasar cengkareng, <span>jakarta Barat.</span></li>
-					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="<?p	hp echo base_url() . "templates/user/"; ?>mailto:info@example.com">info@cengkareng.com</a></li>
+					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="<?php echo base_url() . "templates/user/"; ?>mailto:info@example.com">info@cengkareng.com</a></li>
 					<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
 				</ul>
 			</div>

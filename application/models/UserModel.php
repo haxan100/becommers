@@ -119,6 +119,7 @@ public function simpan_register($data)
 		$this->db->where('password', $password);
 		$query = $this->db->get('user');
 		return $query->result();
+		// var_dump( $this->db->last_query());die;
 		# code...
 	}
 

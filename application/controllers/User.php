@@ -28,58 +28,45 @@ public function index()
 		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			// var_dump($jml);
 			$data['jml']=$jml;
-		}
-	
+		}	
 	// var_dump($_SESSION);
 	$cari= $this->input->post('Search');
 		if(!empty($cari)){
 			$total = $this->ProdukModel->getAllProdWSeacrh($cari);
 			$ada=true;
-
 			}else{
-
 			$total = $this->ProdukModel->getAllProduk();
 			$ada=false;
-
 			}
-
 	
 		$config['base_url'] = base_url().'/User/index';
 		$config['total_rows'] = count($total);
 		$config['per_page'] = 6;
 		$from = $this->uri->segment(3);
-
 		$config['display_pages'] = TRUE;
 		$config['use_page_numbers'] = TRUE;
-
 		//Encapsulate whole pagination 
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
-
 		//First link of pagination
 		$config['first_link'] = 'First';
 		$config['first_tag_open'] = '<li>>';
 		$config['first_tag_close'] = '</li>';
-
 		//Customizing the “Digit” Link
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
-
 		//For PREVIOUS PAGE Setup
 		$config['prev_link'] = 'prev';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
-
 		//For NEXT PAGE Setup
 		$config['next_link'] = 'Next';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';
-
 		//For LAST PAGE Setup
 		$config['last_link'] = 'Last';
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
-
 		//For CURRENT page on which you are
 		$config['cur_tag_open'] = '<li class="active"><a href="#">';
 		$config['cur_tag_close'] = '</a></li>';
@@ -92,7 +79,7 @@ public function index()
 			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from );
 		}
 		// var_dump(count($data['produk']));die;
-		$this->load->view('User/Templates/index',$data);
+		$this->load->view('User/Templates/Index',$data);
                 
 }
 	public function produk($id_kategori="")
@@ -176,7 +163,7 @@ public function index()
 		}
 
 		// var_dump(count($data['produk']));die;
-		$this->load->view('User/Templates/index',$data);
+		$this->load->view('User/Templates/Index',$data);
                 
 }
 	public function about()
@@ -198,7 +185,7 @@ public function index()
 		 $this->load->view('User/Templates/Footer');
 
 		// var_dump(count($data['produk']));die;
-		// $this->load->view('User/Templates/indexContent',$data);
+		// $this->load->view('User/Templates/IndexContent',$data);
                 
 }
 public function hubungi()
@@ -496,7 +483,7 @@ public function transaksi()
 		$this->load->view('User/Templates/Footer');
 
 		// var_dump(count($data['produk']));die;
-		// $this->load->view('User/Templates/indexContent',$data);
+		// $this->load->view('User/Templates/IndexContent',$data);
 
 	}
 	public function editProfile()
@@ -559,6 +546,31 @@ public function transaksi()
 		exit();
 		
 	
+	}
+	public function Pesanan()
+	{
+
+		if (empty($_SESSION['id_user'])) {
+			$data['jml'] = 0;
+		} else {
+			$id_user = $_SESSION['id_user'];
+			// var_dump($id_user);
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+			$data['user'] = $this->UserModel->getUserById($id_user)[0];
+			// var_dump($jml);
+
+			$data['jml'] = $jml;
+		}
+		$this->load->view('User/Templates/Header');
+		$this->load->view('User/Templates/Head');
+		$this->load->view('User/Templates/HeaderNav', $data);
+		$this->load->view('User/Profile', $data);
+		//  $this->load->view('User/Templates/Kontent');
+		$this->load->view('User/Templates/Footer');
+
+		// var_dump(count($data['produk']));die;
+		// $this->load->view('User/Templates/IndexContent',$data);
+
 	}
 
 

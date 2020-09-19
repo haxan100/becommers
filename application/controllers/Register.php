@@ -80,8 +80,8 @@ public function loginUser()
 	$password =md5($this->input->post('LPassword'));
 	$cekUser  = $this->UserModel->getUserByEmailPass($email,$password);
 	
-	// var_dump($cekUser);
-	if($cekUser>0){
+	// var_dump($cekUser, $cekUser>0);
+	if(count($cekUser)>0){
 
 		$user= $cekUser[0];
 		// var_dump($cekUser);
@@ -109,8 +109,6 @@ public function loginUser()
 				$this->session->set_userdata($newdata);
 
 		}
-
-
 
 	}else{
 		$error =true;

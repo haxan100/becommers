@@ -1,5 +1,5 @@
-<?php $this->load->view('User/Templates/header') ?>
-<?php $this->load->view('User/Templates/head') ?>
+<?php $this->load->view('User/Templates/Header') ?>
+<?php $this->load->view('User/Templates/Head') ?>
 <?php $this->load->view('User/Templates/HeaderNav') ?>
 
 

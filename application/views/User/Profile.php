@@ -4,7 +4,7 @@
 			<h2>Profile User</h2>
 		</div>
 	</div>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.lite.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.lite.min.css"> -->
 
 	<!-- jQuery library -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"></script>
@@ -58,6 +58,10 @@
 			padding-top: 5%;
 			padding-bottom: 5%;
 			padding-left: 5%;
+		}
+
+		.dropdown-menu {
+			background-color: #3C43A4;
 		}
 	</style>
 	<!-- //banner -->

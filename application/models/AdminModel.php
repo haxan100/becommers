@@ -24,6 +24,15 @@ public function login(){
 		$this->db->where('id_admin', $id);
 		$this->db->update('admin');
 	}
+	public function getAdminByID($id)
+	{
+		$this->db->select('*');
+		$this->db->from('admin');
+		$this->db->where('id_admin', $id);
+
+
+		return  $this->db->get()->row_array();
+	}
                         
                             
                         

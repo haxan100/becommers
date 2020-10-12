@@ -978,6 +978,15 @@ class Admin extends CI_Controller {
 		redirect('Admin/Admin');
 
 	}
+	public function detail($id)
+	{
+		// $this->CekSuper();
+		// $data = $this->user->getcurrency();
+
+		$data['admin'] = $this->admin->getAdminByID($id);
+		$data['content'] = 'Admin/detail_admin';
+		$this->load->view('templates/index', $data);
+	}
 
 
 }

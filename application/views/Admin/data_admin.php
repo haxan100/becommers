@@ -89,7 +89,7 @@
 																	<?php } ?>
 																</td>
 																<td>
-																	<a href="<?= base_url(); ?>AdminMenu/detail/<?= $us['id_admin'] ?>">
+																	<a href="<?= base_url(); ?>Admin/detail/<?= $us['id_admin'] ?>">
 																		<button class="btn btn-outline-primary mr-2">Lihat</button>
 																	</a>
 

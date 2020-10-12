@@ -962,6 +962,22 @@ class Admin extends CI_Controller {
 		redirect('Admin/Admin');
 	}
 
+	public function ubahSuperAdmin($id)
+	{
+			$this->session->set_flashdata('ubah', 'Versi Admin Berhasil di ubah');
+		// $this->CekSuper();
+		$this->admin->ubahKeSuperAdmin($id,1);
+		redirect('Admin/Admin');
+
+	}
+	public function ubahNonSuperAdmin($id)
+	{
+			$this->session->set_flashdata('ubah', 'Versi Admin Berhasil di ubah');
+		// $this->CekSuper();
+		$this->admin->ubahKeSuperAdmin($id,0);
+		redirect('Admin/Admin');
+
+	}
 
 
 }

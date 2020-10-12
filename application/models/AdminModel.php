@@ -17,7 +17,13 @@ public function login(){
 		$this->db->set('status', $ubah);
 		$this->db->where('id_admin', $id);
 		$this->db->update('admin');
-	} 
+	}
+	public function ubahKeSuperAdmin($id,$ubah)
+	{
+		$this->db->set('id_role', $ubah);
+		$this->db->where('id_admin', $id);
+		$this->db->update('admin');
+	}
                         
                             
                         

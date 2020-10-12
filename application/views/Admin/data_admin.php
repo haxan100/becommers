@@ -92,6 +92,7 @@
 																	<a href="<?= base_url(); ?>AdminMenu/detail/<?= $us['id_admin'] ?>">
 																		<button class="btn btn-outline-primary mr-2">Lihat</button>
 																	</a>
+
 																	<?php if ($us['status'] == 0) { ?>
 																		<a href="<?= base_url(); ?>Admin/ubahAktivAdmin/<?= $us['id_admin'] ?>">
 																			<button class="btn btn-outline-success text-red mr-2">aktiv</button>
@@ -101,6 +102,20 @@
 																			<button class="btn btn-outline-dark text-dark mr-2"> Non Aktif</button>
 																		</a>
 																	<?php } ?>
+
+
+																	<?php if ($us['id_role'] == 0) { ?>
+																		<a href="<?= base_url(); ?>Admin/ubahSuperAdmin/<?= $us['id_admin'] ?>">
+																			<button class="btn btn-outline-success text-red mr-2">Super Admin</button>
+																		</a>
+																	<?php } else { ?>
+																		<a href="<?= base_url(); ?>Admin/ubahNonSuperAdmin/<?= $us['id_admin'] ?>">
+																			<button class="btn btn-outline-dark text-dark mr-2">Admin</button>
+																		</a>
+																	<?php } ?>
+
+
+
 																	<a href="<?= base_url(); ?>AdminMenu/hapusAdmin/<?= $us['id_admin'] ?>">
 																		<button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Hapus</button>
 																	</a>

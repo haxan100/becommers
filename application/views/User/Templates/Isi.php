@@ -6,6 +6,7 @@
 
 					?>
 
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 					<div class="clearfix"> </div>
 					<style>
@@ -20,12 +21,44 @@
 						<div class="w3ls_mobiles_grid_right_grid2_left">
 							<!-- <h3>Showing Results: 0-1</h3> -->
 						</div>
-						<div class="banner">
+						<div id="tes-carousel" class="carousel slide" data-ride="carousel">
+							<!-- indikator -->
+							<ol class="carousel-indicators">
+								<li data-target="#tes-carousel" data-slide-to="0" class="active"></li>
+								<li data-target="#tes-carousel" data-slide-to="1"></li>
+								<li data-target="#tes-carousel" data-slide-to="2"></li>
+							</ol>
+
+							<div class="carousel-inner">
+								<div class="item active">
+									<img src="<?= base_url() ?>upload/images/banner/b1.jpg" alt="Demo 1">
+								</div>
+
+								<div class="item">
+									<img src="<?= base_url() ?>upload/images/banner/bg1.jpg" alt="Demo 2">
+								</div>
+
+								<div class="item">
+									<img src="<?= base_url() ?>upload/images/banner/bg2.jpg" alt="Demo 3">
+								</div>
+							</div>
+
+							<!-- kontrol-->
+							<a class="carousel-control left" href="#tes-carousel" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="carousel-control right" href="#tes-carousel" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+						<!-- <div class="banner">
 							<div class="container">
 								<h3>Electronic Store, <span>Special Offers</span></h3>
 							</div>
-						</div>
-						<div class="w3ls_mobiles_grid_right_grid2_right">
+						</div> -->
+						<!-- <div class="w3ls_mobiles_grid_right_grid2_right">
 							<select name="select_item" class="select_item">
 								<option value="0">Default sorting</option>
 								<option value="1">Sort by popularity</option>
@@ -34,7 +67,7 @@
 								<option value="4">0-9</option>
 								<option value="5">9-0</option>
 							</select>
-						</div>
+						</div> -->
 						<div class="clearfix"> </div>
 					</div>
 
@@ -62,10 +95,7 @@
 										</div>
 										<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i></p>
 
-									<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
-									data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>"
-									
-									>
+										<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>">
 											Tambah Ke Keranjang
 										</button>
 									</div>
@@ -99,13 +129,10 @@
 																	<input type="hidden" name="add" value="1">
 																	<input type="hidden" name="w3ls_item" value="<?php echo $k->nama_produk; ?>">
 																	<input type="hidden" name="amount" value="<?php echo $k->harga; ?>">
-														
-															<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar"
-															data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>"
-															
-															>
-																	Tambah Ke Keranjang
-																</button>
+
+																	<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>">
+																		Tambah Ke Keranjang
+																	</button>
 																</form>
 															</div>
 														</div>
@@ -130,7 +157,7 @@
 					</div>
 					<?php 	}
 
-						 function formatUang($str, $withRp = 0)
+						function formatUang($str, $withRp = 0)
 						{
 							return $withRp == 1
 								? 'Rp. ' . number_format($str, 0, '.', ',')
@@ -155,73 +182,73 @@
 					<script>
 						var bu_user = '<?= $bu_user ?>';
 
-				$(document).ready(function() {
-				$('.btn-tawar').on('click', function() {
-						var id_produk = $(this).data('produkid');
-						var harga = $(this).data('produkharga');
-						var qty = 1;
-						// console.log(harga)
-						$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
-						$('.btn-tawar').prop('disabled', true);
-						$.ajax({
-							type: "POST",
-							dataType: 'json',
-							url: "<?= $bu; ?>Cart/setBid",
-							data: {
-								id_produk: id_produk,
-								harga: harga,
-								qty: qty,
-							},
-						}).done(function(e) {
-							if (e.status) {
-							// console.log(e);
-							Swal.fire(
-									':)',
-									e.msg,
-									'success'
-								);
-								    setTimeout(function(){
-									location.reload();
-								}, 2000); 
-	
-							} else {
-								// alert(e.msg);
-							
-								// console.log("gagal");
-						Swal.fire(
-							'error',
-								e.msg,
-								'error'
-							);
-							}
-						}).fail(function(e) {
-							Swal.fire(
-								'error',
-								e.msg,
-								'error'
-							);
+						$(document).ready(function() {
+							$('.btn-tawar').on('click', function() {
+								var id_produk = $(this).data('produkid');
+								var harga = $(this).data('produkharga');
+								var qty = 1;
+								// console.log(harga)
+								$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
+								$('.btn-tawar').prop('disabled', true);
+								$.ajax({
+									type: "POST",
+									dataType: 'json',
+									url: "<?= $bu; ?>Cart/setBid",
+									data: {
+										id_produk: id_produk,
+										harga: harga,
+										qty: qty,
+									},
+								}).done(function(e) {
+									if (e.status) {
+										// console.log(e);
+										Swal.fire(
+											':)',
+											e.msg,
+											'success'
+										);
+										setTimeout(function() {
+											location.reload();
+										}, 2000);
 
-						}).always(function(e) {
-							setTimeout(() => {
-								$('.btn-tawar').html('Tambah Ke Keranjang');
-								$('.btn-tawar').prop('disabled', false);
-							}, 100);
-						});
-					})
+									} else {
+										// alert(e.msg);
 
-							$('#post').submit(function( event ) {
+										// console.log("gagal");
+										Swal.fire(
+											'error',
+											e.msg,
+											'error'
+										);
+									}
+								}).fail(function(e) {
+									Swal.fire(
+										'error',
+										e.msg,
+										'error'
+									);
 
-							var postingData = $( this ).serializeArray();
-							event.preventDefault();
-							console.log(postingData)
-							return false
+								}).always(function(e) {
+									setTimeout(() => {
+										$('.btn-tawar').html('Tambah Ke Keranjang');
+										$('.btn-tawar').prop('disabled', false);
+									}, 100);
+								});
+							})
+
+							$('#post').submit(function(event) {
+
+								var postingData = $(this).serializeArray();
+								event.preventDefault();
+								console.log(postingData)
+								return false
 
 								$.ajax({
-								url: '<?= base_url(); ?>Cart/addCarst',
+									url: '<?= base_url(); ?>Cart/addCarst',
 									type: "POST",
 									data: postingData,
 									dataType: 'json',
-									success: function(data){
+									success: function(data) {
 										console.log(data);
 									}
 								});

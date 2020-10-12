@@ -151,6 +151,64 @@
 						Tables
 					</a>
 				</li>
+				<li class="app-sidebar__heading">Produk</li>
+				<li>
+					<a href="#">
+						<i class="metismenu-icon pe-7s-diamond"></i>
+						Master Admin
+						<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+					</a>
+					<ul>
+						<li>
+							<a href="<?= $ba; ?>admin">
+								<i class="metismenu-icon"></i>
+								Master Admin
+							</a>
+						</li>
+						<li>
+							<a href="<?= $ba; ?>Master_User">
+								<i class="metismenu-icon">
+								</i>Profile
+							</a>
+						</li>
+						<li>
+							<a href="elements-icons.html">
+								<i class="metismenu-icon">
+								</i>Icons
+							</a>
+						</li>
+						<li>
+							<a href="elements-badges-labels.html">
+								<i class="metismenu-icon">
+								</i>Badges
+							</a>
+						</li>
+						<li>
+							<a href="elements-cards.html">
+								<i class="metismenu-icon">
+								</i>Cards
+							</a>
+						</li>
+						<li>
+							<a href="elements-list-group.html">
+								<i class="metismenu-icon">
+								</i>List Groups
+							</a>
+						</li>
+						<li>
+							<a href="elements-navigation.html">
+								<i class="metismenu-icon">
+								</i>Navigation Menus
+							</a>
+						</li>
+						<li>
+							<a href="elements-utilities.html">
+								<i class="metismenu-icon">
+								</i>Utilities
+							</a>
+						</li>
+					</ul>
+				</li>
 				<li class="app-sidebar__heading">Widgets</li>
 				<li>
 					<a href="dashboard-boxes.html">
@@ -163,25 +221,6 @@
 					<a href="forms-controls.html">
 						<i class="metismenu-icon pe-7s-mouse">
 						</i>Forms Controls
-					</a>
-				</li>
-				<li>
-					<a href="forms-layouts.html">
-						<i class="metismenu-icon pe-7s-eyedropper">
-						</i>Forms Layouts
-					</a>
-				</li>
-				<li>
-					<a href="forms-validation.html">
-						<i class="metismenu-icon pe-7s-pendrive">
-						</i>Forms Validation
-					</a>
-				</li>
-				<li class="app-sidebar__heading">Charts</li>
-				<li>
-					<a href="charts-chartjs.html">
-						<i class="metismenu-icon pe-7s-graph2">
-						</i>ChartJS
 					</a>
 				</li>
 				<li class="app-sidebar__heading">PRO Version</li>

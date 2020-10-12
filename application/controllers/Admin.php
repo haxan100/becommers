@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
 		$this->load->model('UserModel');
 		$this->load->model('TransaksiModel');
 
+		$this->load->model('AdminModel', 'admin');
 		$this->load->library('form_validation');
 
 		$this->load->helper('url');
@@ -939,6 +940,12 @@ class Admin extends CI_Controller {
 		echo json_encode($datatable);
 
 		exit();
+	}
+	public function admin()
+	{
+		$data['admin'] = $this->admin->getAllAdmin();
+		$data['content'] = 'Admin/data_admin';
+		$this->load->view('templates/index', $data);
 	}
 
 

@@ -33,6 +33,15 @@ public function login(){
 
 		return  $this->db->get()->row_array();
 	}
+	public function ubahdatapassword($data)
+	{
+		// var_dump($data);
+		$this->db->set('password', $data['password']);
+
+		$this->db->where('id_admin', $data['id']);
+		$this->db->update('admin', $data);
+	}
+
                         
                             
                         

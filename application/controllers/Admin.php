@@ -987,6 +987,29 @@ class Admin extends CI_Controller {
 		$data['content'] = 'Admin/detail_admin';
 		$this->load->view('templates/index', $data);
 	}
+	public function ubahpass()
+	{
+		// var_dump($_POST);die;
+		$this->form_validation->set_rules('password', 'password', 'trim|prep_for_form');
+
+		if ($this->form_validation->run() == TRUE) {
+			$id = $this->input->post('id');
+			$data = $this->input->post('password');
+			$dataencrypt = md5($data);
+
+			$data             = [
+				'id_admin'            => html_escape($this->input->post('id', TRUE)),
+				'password'      => $dataencrypt
+			];
+
+				$this->admin->ubahdatapassword($data);
+				$this->session->set_flashdata('ubah', 'Password Telah Di ganti');
+				redirect('Admin/detail/' . $id);
+			
+		} else {
+			redirect('Admin/Admin');
+		}
+	}
 
 
 }

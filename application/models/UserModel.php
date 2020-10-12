@@ -123,6 +123,7 @@ public function simpan_register($data)
 		# code...
 	}
 
+
                         
                             
                         

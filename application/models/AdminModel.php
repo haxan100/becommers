@@ -12,6 +12,12 @@ public function login(){
 	{
 		return $this->db->get('admin')->result_array();
 	}
+	public function ubahAdminAktiv($id,$ubah)
+	{
+		$this->db->set('status', $ubah);
+		$this->db->where('id_admin', $id);
+		$this->db->update('admin');
+	} 
                         
                             
                         

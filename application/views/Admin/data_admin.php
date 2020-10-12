@@ -15,12 +15,14 @@
 				<br>
 				<?php if ($this->session->flashdata('demo') or $this->session->flashdata('hapus')) : ?>
 					<div class="alert alert-danger" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<?php echo $this->session->flashdata('demo'); ?>
 						<?php echo $this->session->flashdata('hapus'); ?>
 					</div>
 				<?php endif; ?>
 				<?php if ($this->session->flashdata('ubah') or $this->session->flashdata('tambah')) : ?>
-					<div class="alert alert-danger" role="alert">
+					<div class="alert alert-success" role="alert">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<?php echo $this->session->flashdata('ubah'); ?>
 						<?php echo $this->session->flashdata('tambah'); ?>
 					</div>
@@ -90,13 +92,13 @@
 																	<a href="<?= base_url(); ?>AdminMenu/detail/<?= $us['id_admin'] ?>">
 																		<button class="btn btn-outline-primary mr-2">Lihat</button>
 																	</a>
-																	<?php if ($us['id_role'] == 0) { ?>
-																		<a href="<?= base_url(); ?>AdminMenu/ubahSuper/<?= $us['id_admin'] ?>">
-																			<button class="btn btn-outline-success text-red mr-2">Super Admin</button>
+																	<?php if ($us['status'] == 0) { ?>
+																		<a href="<?= base_url(); ?>Admin/ubahAktivAdmin/<?= $us['id_admin'] ?>">
+																			<button class="btn btn-outline-success text-red mr-2">aktiv</button>
 																		</a>
 																	<?php } else { ?>
-																		<a href="<?= base_url(); ?>AdminMenu/UbahAdmin/<?= $us['id_admin'] ?>">
-																			<button class="btn btn-outline-dark text-dark mr-2"> Admin</button>
+																		<a href="<?= base_url(); ?>Admin/ubahNonAktivAdmin/<?= $us['id_admin'] ?>">
+																			<button class="btn btn-outline-dark text-dark mr-2"> Non Aktif</button>
 																		</a>
 																	<?php } ?>
 																	<a href="<?= base_url(); ?>AdminMenu/hapusAdmin/<?= $us['id_admin'] ?>">

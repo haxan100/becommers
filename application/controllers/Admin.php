@@ -947,6 +947,20 @@ class Admin extends CI_Controller {
 		$data['content'] = 'Admin/data_admin';
 		$this->load->view('templates/index', $data);
 	}
+	public function ubahAktivAdmin($id)
+	{
+		$this->session->set_flashdata('ubah', 'Status Berhasil di ubah');
+		// $this->CekSuper();
+		$this->admin->ubahAdminAktiv($id,1);
+		redirect('Admin/Admin');
+	}
+	public function ubahNonAktivAdmin($id)
+	{
+		$this->session->set_flashdata('ubah', 'Status Berhasil di ubah');
+		// $this->CekSuper();
+		$this->admin->ubahAdminAktiv($id,0);
+		redirect('Admin/Admin');
+	}
 
 
 

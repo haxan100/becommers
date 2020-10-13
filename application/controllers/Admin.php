@@ -1113,5 +1113,80 @@ class Admin extends CI_Controller {
 			'message' => $message,
 		));
 	}
+	public function tambah_admin_proses()
+	{
+		// $u = $this->input->post('upload');
+		// $gambar = $_FILES['fotopelanggan']['name'];
+		// var_dump($_POST);die;
+		
+		$config['upload_path']     = 'upload/images/admin/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['max_size']         = '100000';
+		$config['file_name']     = 'name';
+		$config['encrypt_name']     = true;
+		$this->load->library('upload', $config);
+		
+		// var_dump($this->upload->do_upload('fotopelanggan'));
+		if ($this->upload->do_upload('fotopelanggan')) {
+			
+                $foto = html_escape($this->upload->data('file_name'));
+            } else {
+                $foto = 'noimage.jpg';
+			}
+		// var_dump($foto);
+		// die;				
+		$nama = $this->input->post('nama', TRUE);
+		$username = $this->input->post('username', TRUE);
+		$email = $this->input->post('Email', TRUE);
+		$password = $this->input->post('password', TRUE);
+		$noTelp = $this->input->post('noTelp', TRUE);
+		$st = $this->input->post('status', TRUE);
+		$admin_ver = $this->input->post('admin_ver', TRUE);
+
+		$message = 'Gagal menambah data Admin!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}
+		if (empty($email)) {
+			$status = false;
+			$errorInputs[] = array('#email', 'Silahkan Isi');
+		}
+		if (empty($password)) {
+			$status = false;
+			$errorInputs[] = array('#password', 'Silahkan isi password');
+		}
+		if (empty($noTelp)) {
+			$status = false;
+			$errorInputs[] = array('#noTelp', 'Silahkan isi noTelp');
+		}
+		$in = array(
+
+			'nama_admin' => $nama,
+			'username' => $username,
+			'password' => md5($password),
+			'email' => $email,
+			'id_role' => $admin_ver,
+			'image' => $foto,
+			'no_telepon' => $noTelp,
+			'status' => $st,
+		);
+		// var_dump($in);die;
+		if ($this->admin->tambah($in, 'admin')) {
+
+			$message = "Berhasil Menambah Admin #1";
+		} else {
+			$message = "Gagal menambah Admin #1";
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+	
 
 }

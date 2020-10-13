@@ -10,8 +10,9 @@
 		<div class="card mt-3">
 			<div class="card-body">
 				<div>
-					<a class="btn btn-info" href="<?= base_url(); ?>AdminMenu/tambah">
-						<i class="mdi mdi-plus-circle-outline"></i>Tambah Admin</a>
+					<!-- <a class="btn btn-info" href="<?= base_url(); ?>Admin/tambah"> -->
+					<!-- <i class="mdi mdi-plus-circle-outline"></i>Tambah Admin</a> -->
+					<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target="#modalUser">Tambah</button>
 				</div>
 				<br>
 				<?php if ($this->session->flashdata('demo') or $this->session->flashdata('hapus')) : ?>
@@ -141,13 +142,209 @@
 		</div>
 	</div>
 
+	<!-- modal awal -->
+	<div class="modal fade none-border" id="modalUser">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<form id="form">
+					<div class="modal-header">
+						<h4 class="modal-title modalProdukTitleTambah"><strong>Tambah</strong> Admin Baru</h4>
+						<h4 class="modal-title modalProdukTitleUbah" style="display: none"><strong>Ubah</strong> User</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p id="alertNotifModal" class="mt-2"></p>
+						<div class="row ">
+							<div class="col p-4">
+								<div class="row">
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-6 form-group">
+											<!-- <input type="hidden" name="id_user" id="id_user"> -->
+											<label for="nama">Nama</label>
+											<input id="nama" name="nama" type="text" class="form-control">
+											<small></small>
+										</div>
+										<div class="col-6 form-group">
+											<label for="nama">User Name</label>
+											<input id="username" name="username" type="text" class="form-control">
+											<small></small>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 form-group">
+											<label for="Email">Email</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+												<input id="Email" name="Email" type="text" class="form-control inputEmail">
+												<small></small>
+											</div>
+										</div>
+										<div class="col-6 form-group">
+											<label for="password">Password</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+												<input id="password" name="password" type="password" class="form-control inputPassword">
+												<small></small>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+
+										<div class="col-6 form-group">
+											<label for="noTelp">No Telp</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+												<input id="noTelp" name="noTelp" type="text" class="form-control inputNoTelp">
+												<small></small>
+											</div>
+										</div>
+										<div class="col-6 form-group">
+											<label for="noTelp">Status</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+
+												<select class="form-control select col-12" id="status" name="status">
+													<option value=0>Belum Aktiv</option>
+													<option value=1>Aktiv</option>
+												</select>
+												<small></small>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 form-group">
+											<label for="noTelp">Admin Ver</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+
+
+												<select class="form-control select col-12" id="admin_ver" name="admin_ver">
+													<option value=0>Admin</option>
+													<option value=1>Super Admin</option>
+												</select>
+												<small></small>
+											</div>
+										</div>
+										<div class="col-6 form-group">
+											<label for="noTelp">Foto</label>
+											<div class="input-group">
+												<span class="input-group-prepend">
+												</span>
+												<input type="file" class="form-control" name="fotopelanggan" id="fotopelanggan" class="dropify" data-max-file-size="3mb">
+
+												<small></small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button id="btnTambah" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
+							<!-- <button id="btnUbah" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button> -->
+							<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+<!-- modal akhir  -->
 <!-- content-wrapper ends -->
 <script>
 	document.addEventListener("DOMContentLoaded", function(event) {
+		$("body").children().first().before($(".modal"));
 		var bu = '<?= $bu ?>';
 		$('#order-listing').DataTable();
+		var url_form_tambah = bu + 'admin/tambah_admin_proses';
 		var datatable = $('#order-listing').DataTable();
+		$('body').on('click', '.btn_tambah', function() {
+			url_form = url_form_tambah;
+			console.log(url_form);
+			$('#Edit').hide();
+			$('#btnUbah').hide();
+
+		});
+		$('#tambah_act').on('click', function() {
+			var nama = $('#nama').val();
+
+			if (
+				nama
+			) {
+				$("#form").submit();
+			}
+		});
+		$("#form").submit(function(e) {
+			console.log('form submitted');
+			// return false;
+
+			$.ajax({
+				url: url_form,
+				method: 'post',
+				dataType: 'json',
+				data: new FormData(this),
+				processData: false,
+				contentType: false,
+				cache: false,
+				async: false,
+			}).done(function(e) {
+				console.log(e.status);
+				// return false;
+				if (e.status) {
+					console.log(e);
+					// return false;
+
+					// notifikasi('#alertNotif', e.message, false);
+					Swal.fire(
+						':)',
+						e.message,
+						'success'
+					);
+					setTimeout(function() {
+						location.reload();
+					}, 2000);
+					$('#modalUser').modal('hide');
+					// $('.modal-backdrop').hide();
+					// datatable.ajax.reload();
+					// resetForm();
+
+				} else {
+
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: e.errorInputs,
+
+					});
+					setTimeout(function() {
+						location.reload();
+					}, 2500);
+				}
+			}).fail(function(e) {
+				console.log(e)
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: e.errorInputs,
+
+				})
+				// console.log("gagal");
+
+				// notifikasi('#alertNotif', e.message, false);
+			});
+			// console.log("gagal");
+
+			// notifikasi('#alertNotif', e.message, false);
+			return false;
+		});
 
 		$('.hapus').on("click", function(e) {
 			id = $(this).data('id');

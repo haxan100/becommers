@@ -105,7 +105,7 @@
 								<div class="form-group mt-5">
 									<button type="submit" class="btn btn-success mr-2">Perbarui</button>
 
-									<a class="col-auto btn btn-danger text-white" href="<?= base_url() ?>AdminMenu">
+									<a class="col-auto btn btn-danger text-white" href="<?= base_url() ?>Admin/Admin">
 										<i class="mdi mdi-keyboard-backspace text-white"></i>Batal</a>
 								</div>
 								<?= form_close(); ?>

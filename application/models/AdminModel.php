@@ -68,6 +68,11 @@ public function login(){
 		$this->db->where('id_admin', $id);
 		$this->db->delete('admin');
 	}
+	public function tambah($in, $table)
+	{
+
+		return $this->db->insert($table, $in);
+	}
 
                         
                             

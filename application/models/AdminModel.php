@@ -63,6 +63,11 @@ public function login(){
 		$this->db->where('id_admin', $data['id_admin']);
 		$this->db->update('admin', $data);
 	}
+	public function hapusAdminByID($id)
+	{
+		$this->db->where('id_admin', $id);
+		$this->db->delete('admin');
+	}
 
                         
                             

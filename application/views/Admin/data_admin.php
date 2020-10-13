@@ -4,6 +4,7 @@
 		max-width: 50px;
 	}
 </style>
+<?php $bu = base_url(); ?>
 <div class="content-wrapper">
 	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card mt-3">
@@ -116,9 +117,9 @@
 
 
 
-																	<a href="<?= base_url(); ?>AdminMenu/hapusAdmin/<?= $us['id_admin'] ?>">
-																		<button onclick="return confirm ('Are You Sure?')" class="btn btn-outline-danger text-red mr-2">Hapus</button>
-																	</a>
+																	<!-- <a href="<?= base_url(); ?>AdminMenu/hapusAdmin/<?= $us['id_admin'] ?>"> -->
+																	<button class="btn btn-outline-danger text-red mr-2 hapus" data-nama="<?= $us['nama_admin'] ?>" data-id="<?= $us['id_admin'] ?>">Hapus</button>
+																	<!-- </a> -->
 																</td>
 															<?php $i++;
 														} ?>
@@ -144,6 +145,62 @@
 <!-- content-wrapper ends -->
 <script>
 	document.addEventListener("DOMContentLoaded", function(event) {
+		var bu = '<?= $bu ?>';
 		$('#order-listing').DataTable();
+		var datatable = $('#order-listing').DataTable();
+
+		$('.hapus').on("click", function(e) {
+			id = $(this).data('id');
+			nama = $(this).data('nama');
+			// console.log(d);
+
+			Swal.fire({
+				title: 'Apakah Anda Yakin ?',
+				text: "Anda akan Menghapus Admin: " + nama,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+
+				if (result.value) {
+					$.ajax({
+						url: bu + 'Admin/hapusAdmin',
+						dataType: 'json',
+						method: 'POST',
+						data: {
+							id: id
+						}
+					}).done(function(e) {
+						// console.log(e);
+						Swal.fire(
+							'Deleted!',
+							e.message,
+							'success'
+						)
+						$('#modal-detail').modal('hide');
+						setTimeout(function() {
+							location.reload();
+						}, 2500);
+
+						// datatable.ajax.reload();
+						// resetForm();
+
+					}).fail(function(e) {
+						console.log('gagal');
+						console.log(e);
+						var message = 'Terjadi Kesalahan. #JSMP01';
+					});
+
+
+
+
+				}
+			})
+
+
+		});
+
 	});
 </script>

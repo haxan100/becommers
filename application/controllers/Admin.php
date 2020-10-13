@@ -1083,5 +1083,35 @@ class Admin extends CI_Controller {
 			redirect('Admin/detail/' . $id);
 		}
 	}
+	public function hapusAdmin()
+	{
+		$id = $this->input->post('id');
+		$status = false;
+		$message = "Admin Gagal Di Hapus!";
+		// var_dump($_POST);die;
+		// $this->CekSuper();
+
+			$data = $this->admin->getAdminByID($id);
+			// var_dump($data['image']);die;
+			$gambar = $data['image'];
+			unlink('upload/images/admin/' . $gambar);
+
+			if($this->admin->hapusAdminByID($id)){
+
+				$this->session->set_flashdata('hapus', 'Admin Has Been Deleted');
+				$status =true;
+				$message ="Admin Berhasil Di Hapus!";
+			}else{
+			$status = false;
+			$message = "Admin Gagal Di Hapus!";
+
+			}
+
+		// redirect('Admin/index');
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
+	}
 
 }

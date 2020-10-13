@@ -16,8 +16,29 @@ class Admin extends CI_Controller {
 		$this->load->helper('url');
 	}
 
+    public function isLoggedInAdmin()
+    {
+        // Cek apakah terdapat session "admin_session"
+
+        if ($this->session->userdata('admin_session'))
+            return true; // sudah login
+        else
+            return false; // belum login
+	}
+ 	function cekLogin()
+  {
+    if (!$this->isLoggedInAdmin()) {
+		echo '<script type="text/javascript">
+					alert("Harap Login Terlebih Dahulu");
+					 window.location.href="../Admin/login";
+				</script>';
+			}
+			// redirect('admin/login');
+  }
 	public function index()
 	{
+		$this->cekLogin();
+		// var_dump($_SESSION);die;
 		// $this->load->view('templates/index');
 
 		$data['listKategori'] = $this->ProdukModel->getAllKategori();
@@ -76,6 +97,8 @@ class Admin extends CI_Controller {
 	}
 	public function kategori()
 	{
+		$this->cekLogin();
+
 		
 		$data['content'] = 'produk/data_kategori';
 		$this->load->view('templates/index', $data);
@@ -451,6 +474,8 @@ class Admin extends CI_Controller {
 	}
 	public function Master_User()
 	{
+		$this->cekLogin();
+		
 		$data['content'] = 'Admin/data_user';
 		$this->load->view('templates/index', $data);
 	}
@@ -662,6 +687,8 @@ class Admin extends CI_Controller {
 	}
 	public function Transaksi()
 	{
+		$this->cekLogin();
+
 		$data['content'] = 'Admin/data_transaksi';
 		$this->load->view('templates/index', $data);
 	}
@@ -943,6 +970,8 @@ class Admin extends CI_Controller {
 	}
 	public function admin()
 	{
+		$this->cekLogin();
+
 		$data['admin'] = $this->admin->getAllAdmin();
 		$data['content'] = 'Admin/data_admin';
 		$this->load->view('templates/index', $data);
@@ -1195,7 +1224,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/login/login');	
 		
 	}
-		public function login_proses()
+	public function login_proses()
 
 	{
 		// var_dump($_POST);die;

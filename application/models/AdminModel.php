@@ -41,6 +41,14 @@ public function login(){
 		$this->db->where('id_admin', $data['id']);
 		$this->db->update('admin', $data);
 	}
+	public function ubahdatafoto($data)
+	{
+		// var_dump($data);die;
+		$this->db->set('image', $data['image']);
+
+		$this->db->where('id_admin', $data['id_admin']);
+		$this->db->update('admin', $data);
+	}
 
                         
                             

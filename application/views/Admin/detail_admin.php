@@ -108,7 +108,7 @@
 								<?= form_close(); ?>
 							</div>
 							<div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-								<?= form_open_multipart('AdminMenu/ubahfoto'); ?>
+								<?= form_open_multipart('Admin/ubahfoto'); ?>
 								<input type="hidden" name="id" value="<?= $admin['id_admin'] ?>">
 								<input type="file" name="image" class="dropify" data-max-file-size="1mb" data-default-file="<?= base_url('upload/images/admin/') . $admin['image'] ?>" />
 								<div class="form-group mt-5">

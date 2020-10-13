@@ -1010,6 +1010,46 @@ class Admin extends CI_Controller {
 			redirect('Admin/Admin');
 		}
 	}
+	public function ubahfoto()
+	{
+
+		$config['upload_path']     = './upload/images/admin/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['max_size']         = '100000';
+		$config['file_name']     = 'name';
+		$config['encrypt_name']     = true;
+		$this->load->library('upload', $config);
+		$id = $id = html_escape($this->input->post('id', TRUE));
+		$data = $this->admin->getAdminByID($id);
+
+		if ($this->upload->do_upload('image')) {
+			if ($data['image'] != 'noimage.jpg') {
+				$gambar = $data['image'];
+				unlink('upload/images/admin/' . $gambar);
+			}
+
+			$foto = html_escape($this->upload->data('file_name'));
+			// var_dump($foto);die;
+			$data = [
+				'image'       => $foto,
+				'id_admin'        => html_escape($this->input->post('id', TRUE))
+			];
+
+				$this->admin->ubahdatafoto($data);
+				$this->session->set_flashdata('ubah', 'Foto Berhasil Di Ubah');
+				redirect('Admin/detail/' . $id);
+			
+		} else {
+
+			$data = $this->user->getcurrency();
+			$data['user'] = $this->user->getusersbyid($id);
+			$data['countorder'] = $this->user->countorder($id);
+
+			$this->load->view('includes/header');
+			$this->load->view('users/detailusers', $data);
+			$this->load->view('includes/footer');
+		}
+	}   
 
 
 }

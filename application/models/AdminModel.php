@@ -49,6 +49,20 @@ public function login(){
 		$this->db->where('id_admin', $data['id_admin']);
 		$this->db->update('admin', $data);
 	}
+	public function ubahAdminByID($data)
+	{
+		// var_dump($data);die;
+		$this->db->set('nama_admin', $data['nama_admin']);
+		$this->db->set('username', $data['username']);
+		$this->db->set('id_role', $data['id_role']);
+		$this->db->set('email', $data['email']);
+		$this->db->set('no_telepon', $data['no_telepon']);
+		$this->db->set('status', $data['status']);
+
+
+		$this->db->where('id_admin', $data['id_admin']);
+		$this->db->update('admin', $data);
+	}
 
                         
                             

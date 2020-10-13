@@ -1049,7 +1049,39 @@ class Admin extends CI_Controller {
 			$this->load->view('users/detailusers', $data);
 			$this->load->view('includes/footer');
 		}
-	}   
+	}
+	public function ubahid()
+	{
+		// $this->CekSuper();
+		// var_dump($_POST);die;
 
+		$this->form_validation->set_rules('fullnama', 'fullnama', 'trim|prep_for_form');
+
+		$this->form_validation->set_rules('no_telepon', 'no_telepon', 'trim|prep_for_form');
+
+		$this->form_validation->set_rules('email', 'email', 'trim|prep_for_form');
+
+		$id = html_escape($this->input->post('id', TRUE));
+
+		if ($this->form_validation->run() == TRUE) {
+			$data             = [
+				'id_admin'                        => html_escape($this->input->post('id', TRUE)),
+				'nama_admin'                     => html_escape($this->input->post('nama', TRUE)),
+				'username'                     => html_escape($this->input->post('username', TRUE)),
+				'id_role'                    => html_escape($this->input->post('admin_role', TRUE)),
+				'status'                    => html_escape($this->input->post('status', TRUE)),
+				'email'                        => html_escape($this->input->post('email', TRUE)),
+				'no_telepon'                        => html_escape($this->input->post('no_telepon', TRUE))
+			];
+			
+				$this->admin->ubahAdminByID($data);
+				$this->session->set_flashdata('ubah', 'User Has Been Change');
+				redirect('Admin/detail/' . $id);
+			
+		} else {
+			$this->session->set_flashdata('ubah', 'Gagal Di Ubah!');
+			redirect('Admin/detail/' . $id);
+		}
+	}
 
 }

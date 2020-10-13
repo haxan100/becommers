@@ -65,7 +65,7 @@
 						<hr>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
-								<?= form_open_multipart('AdminMenu/ubahid'); ?>
+								<?= form_open_multipart('Admin/ubahid'); ?>
 								<input type="hidden" name="id" value="<?= $admin['id_admin'] ?>">
 								<div class="form-group">
 									<label for="name">Nama</label>
@@ -73,7 +73,7 @@
 								</div>
 								<div class="form-group">
 									<label for="name">Username</label>
-									<input type="text" class="form-control" id="name" name="nama_admin" value="<?= $admin['nama_admin'] ?>" required>
+									<input type="text" class="form-control" id="username" name="username" value="<?= $admin['username'] ?>" required>
 								</div>
 
 								<label class="text-small">Admin Role</label>
@@ -84,11 +84,14 @@
 										<option value="0" <?php if ($admin['id_role'] == 0) { ?> selected<?php } ?>>Admin</option>
 										<option value="1" <?php if ($admin['id_role'] == 1) { ?> selected<?php } ?>>Super Admin</option>
 									</select>
+								</div>
+								<label class="text-small">Status Admin</label>
 
-
-									<!-- <div class=" form-group col-10">
-                                        <input type="text" class="form-control" id="admin_role" name="admin_role" value="<?= $admin['id_role'] ?>" required>
-                                    </div> -->
+								<div class="row">
+									<select class="form-control" name="status" id="status">
+										<option value="0" <?php if ($admin['status'] == 0) { ?> selected<?php } ?>>Non Aktif</option>
+										<option value="1" <?php if ($admin['status'] == 1) { ?> selected<?php } ?>>Aktif</option>
+									</select>
 								</div>
 
 								<div class="form-group">
@@ -141,21 +144,8 @@
 </div>
 <!-- content-wrapper ends -->
 <script type="text/javascript">
-	$(function() {
-		// var code = "<?= $admin['countrycode'] ?>"; // Assigning value from model.
-		$('#txtPhone').val(code);
-		$('#txtPhone').intlTelInput({
-			autoHideDialCode: true,
-			autoPlaceholder: "ON",
-			dropdownContainer: document.body,
-			formatOnDisplay: true,
-			hiddenInput: "full_number",
-			initialCountry: "auto",
-			nationalMode: true,
-			placeholderNumberType: "MOBILE",
-			preferredCountries: ['US'],
-			separateDialCode: false
-		});
-		console.log(code)
+	$(document).ready(function() {
+
+		console.log('code');
 	});
 </script>

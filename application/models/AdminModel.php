@@ -73,6 +73,10 @@ public function login(){
 
 		return $this->db->insert($table, $in);
 	}
+		function cek_login($table, $where)
+	{
+		return $this->db->get_where($table, $where);
+	}
 
                         
                             

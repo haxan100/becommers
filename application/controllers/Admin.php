@@ -1187,6 +1187,62 @@ class Admin extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function login()
+	{
+		// $this->load->view('templates/header');
+		
+		// $this->load->view('templates/footer');
+		$this->load->view('admin/login/login');	
+		
+	}
+		public function login_proses()
+
+	{
+		// var_dump($_POST);die;
+		$this->load->library('form_validation');
+		$username = $this->input->post('username', true);
+		$password = md5($this->input->post('password', true));
+		$where = array(
+			'username' => $username,
+			'password' => $password
+		);
+		$cek = $this->admin->cek_login("admin", $where)->num_rows(); // cek admin
+		// var_dump($cek);die;
+		if($cek>0){
+			// echo "admin";/
+			$r = $this->admin->cek_login("admin", $where)->row();   
+			if($r->status == 0){
+			$status = false;
+			$message = 'Admin Belum Aktif!';
+			} else{			
+			// var_dump($r->status==0);die;
+			$data_session = array(
+				'nama' => $username,
+				'status' => "login",
+				'id_role' => $r->id_role,
+				'admin_session' => true, 
+				'email' =>  $r->email, 
+				'no_telepon' =>  $r->no_telepon, 
+				'id_admin' => $r->id_admin, 
+				'nama' => $r->nama_admin,
+
+			);
+			$this->session->set_userdata($data_session);
+			$status = true;
+			$message = 'Selamat datang <span class="font-weight-bold">' . $r->nama_admin . '</span>, sedang mengalihkan..';
+			}
+		}
+		 else {
+			$status = false;
+			$message = 'Username Dan Password  Salah!';
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+
+		));
+	}
 	
 
 }

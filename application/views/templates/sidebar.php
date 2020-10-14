@@ -166,7 +166,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<?= $ba; ?>Master_User">
+							<a href="<?= $ba; ?>Admin_Profile">
 								<i class="metismenu-icon">
 								</i>Profile
 							</a>

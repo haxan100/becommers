@@ -1280,6 +1280,14 @@ class Admin extends CI_Controller {
 		redirect('Admin/Login');
 		# code...
 	}
+	public function admin_profile()
+	{
+		// var_dump($_SESSION);die;
+		$id = $_SESSION['id_admin'];
+		$data['admin'] = $this->admin->getAdminByID($id);
+		$data['content'] = 'Admin/detail_admin';
+		$this->load->view('templates/index', $data);
+	}
 	
 
 }

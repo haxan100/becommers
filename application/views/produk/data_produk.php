@@ -116,7 +116,7 @@
 																<div class="col-sm-12">
 																	<select class="form-control select col-md-12 col-sm-12 " id="status" name="status">
 																		<option value=1>Aktiv</option>
-																		<option value=2>Draft</option>
+																		<option value=0>Draft</option>
 																	</select>
 																</div>
 															</div>

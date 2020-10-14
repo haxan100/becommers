@@ -211,7 +211,10 @@ class ProdukModel extends CI_Model
 	public function getAllProduk($cari="")
 	{
 		$this->db->select('*');
+		$this->db->where('status_produk', 1);
+		
 		$query = $this->db->get('produk');
+		// var_dump($this->db->last_query());die;
 		return $query->result();
 	}
 	public function getAllProdWSeacrh($cari="")
@@ -226,7 +229,8 @@ class ProdukModel extends CI_Model
 	}
 	public function getAllProdukPag($limit,$start, $sort = "")
 	{
-		$this->db->select('*');		
+		$this->db->select('*');
+		$this->db->where('status_produk', 1);		
 		$query = $this->db->get('produk',$limit,$start);
 		return 
 		$query->result();
@@ -238,7 +242,8 @@ class ProdukModel extends CI_Model
 	{
 		
 		$this->db->select('*');		
-		$this->db->like('nama_produk', $cari, $cari); 
+		$this->db->like('nama_produk', $cari, $cari);
+		$this->db->where('status_produk', 1);
 		$query = $this->db->get('produk',$limit,$start);
 		return 
 		$query->result();

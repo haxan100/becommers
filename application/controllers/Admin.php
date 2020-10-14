@@ -355,7 +355,7 @@ class Admin extends CI_Controller {
 		$kategori = $this->input->post('kategori', TRUE);
 		$harga = $this->input->post('harga', TRUE);
 		$qty = $this->input->post('qty', TRUE);
-		$status = $this->input->post('status', TRUE);
+		$stat = $this->input->post('status', TRUE);
 		$deskripsi = $this->input->post('deskripsi', TRUE);
 
 
@@ -369,7 +369,7 @@ class Admin extends CI_Controller {
 			'id_kategori' => $kategori,
 			'harga' => $harga,
 			'qty' => $qty,
-			'status_produk' => $status,
+			'status_produk' => $stat,
 			'deskripsi' => $deskripsi,
 		);
 

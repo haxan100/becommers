@@ -80,7 +80,7 @@
 						<li>
 							<a href="<?= $ba; ?>Transaksi">
 								<i class="metismenu-icon">
-								</i>Tabs
+								</i>Transaksi
 							</a>
 						</li>
 						<li>

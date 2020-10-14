@@ -572,6 +572,29 @@ public function transaksi()
 		// $this->load->view('User/Templates/IndexContent',$data);
 
 	}
+	public function detailproduk()
+	{
+		$uri = $this->uri->segment(3);
+		$produk['produk'] = $this->ProdukModel->getProdukByLink($uri)[0];
+		// var_dump($produk);
+		
+
+	 	if(empty($_SESSION['id_user'])){
+			$data['jml']=0;
+		}else{
+			$id_user = $_SESSION['id_user'];
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+			// var_dump($jml);
+			$data['jml']=$jml;
+		}
+
+		$this->load->view('User/Templates/Header');
+		 $this->load->view('User/Templates/Head');
+		 $this->load->view('User/Templates/HeaderNav',$data);
+		  $this->load->view('User/Templates/DetailProduk',$produk);
+		 //  $this->load->view('User/Templates/Kontent');
+		 $this->load->view('User/Templates/Footer');
+	}
 
 
 

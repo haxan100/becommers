@@ -57,7 +57,6 @@ class Admin extends CI_Controller {
 	}
 	public function index()
 	{
-		// $this->cekSuperAdmin();
 		$this->cekLogin();
 		// $this->load->view('templates/index');
 

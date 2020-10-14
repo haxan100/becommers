@@ -23,23 +23,23 @@
 						</div>
 						<div id="tes-carousel" class="carousel slide" data-ride="carousel">
 							<!-- indikator -->
-							<ol class="carousel-indicators">
+							<!-- <ol class="carousel-indicators">
 								<li data-target="#tes-carousel" data-slide-to="0" class="active"></li>
 								<li data-target="#tes-carousel" data-slide-to="1"></li>
 								<li data-target="#tes-carousel" data-slide-to="2"></li>
-							</ol>
+							</ol> -->
 
 							<div class="carousel-inner">
 								<div class="item active">
-									<img src="<?= base_url() ?>upload/images/banner/b1.jpg" alt="Demo 1">
+									<img class="imagescourse"  src="<?= base_url() ?>upload/images/banner/b1.jpg" alt="Demo 1">
 								</div>
 
 								<div class="item">
-									<img src="<?= base_url() ?>upload/images/banner/bg1.jpg" alt="Demo 2">
+									<img class="imagescourse" src="<?= base_url() ?>upload/images/banner/bg1.jpg" alt="Demo 2">
 								</div>
 
 								<div class="item">
-									<img src="<?= base_url() ?>upload/images/banner/bg2.jpg" alt="Demo 3">
+									<img class="imagescourse" src="<?= base_url() ?>upload/images/banner/bg2.jpg" alt="Demo 3">
 								</div>
 							</div>
 
@@ -93,7 +93,9 @@
 												</ul>
 											</div>
 										</div>
-										<h5><a href="single.html"> <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i></p>
+										<h5><a href="<?= base_url();?>user/detailproduk/<?php echo $k->link; ?>">
+										 <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i>
+										 </p>
 
 										<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>">
 											Tambah Ke Keranjang

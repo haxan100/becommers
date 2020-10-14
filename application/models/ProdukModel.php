@@ -226,10 +226,6 @@ class ProdukModel extends CI_Model
 	}
 	public function getAllProdukPag($limit,$start, $sort = "")
 	{
-		// var_dump($sort);
-
-
-
 		$this->db->select('*');		
 		$query = $this->db->get('produk',$limit,$start);
 		return 
@@ -240,7 +236,7 @@ class ProdukModel extends CI_Model
 	}
 		public function getAllProdukPagCari($limit,$start, $cari)
 	{
-		// var_dump($cari);
+		
 		$this->db->select('*');		
 		$this->db->like('nama_produk', $cari, $cari); 
 		$query = $this->db->get('produk',$limit,$start);
@@ -252,16 +248,7 @@ class ProdukModel extends CI_Model
 	}
 	public function getProdukByIdTipeProduk($sort = 'default')
 	{
-		// $perHal = 6;
-		// $start = ($page - 1) * $perHal;
-		// $length =  $start + $perHal;
-		// $total  = $this->getProdukByIdTipeProdukCount($id_tipe_produk, $id_tipe_bid, $search, $sort, $filter);
-		// // var_dump($total);die;
-		// // $jumlah = count($data1);
-		// $pages = ceil($total / $perHal);
-		// $table_spek = 'spek_handphone s';
-		// $col_search = 's.e';
-		// var_dump($id_tipe_produk==2);die;
+		
 
 		$this->db->select("*")
 
@@ -363,7 +350,14 @@ class ProdukModel extends CI_Model
 		return 
 		$query->result();
 	}
-
+	public function getProdukByLink($link)
+	{
+		$this->db->select('*');
+		$this->db->where('link', $link);
+		$query = $this->db->get('produk');
+		return $query->result();
+		# code...
+	}
 
 
 

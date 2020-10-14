@@ -35,11 +35,13 @@ public function login(){
 	}
 	public function ubahdatapassword($data)
 	{
-		// var_dump($data);
+		// var_dump($data);die;
 		$this->db->set('password', $data['password']);
 
-		$this->db->where('id_admin', $data['id']);
-		$this->db->update('admin', $data);
+		$this->db->where('id_admin', intval($data['id_admin']));
+		$query = $this->db->update('admin', $data);
+
+		return  $query;
 	}
 	public function ubahdatafoto($data)
 	{

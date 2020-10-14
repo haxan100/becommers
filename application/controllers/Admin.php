@@ -18,7 +18,9 @@ class Admin extends CI_Controller {
 
     public function isLoggedInAdmin()
     {
-        // Cek apakah terdapat session "admin_session"
+		// Cek apakah terdapat session "admin_session"
+		// var_dump($this->session->userdata('admin_session'));
+		// die;
 
         if ($this->session->userdata('admin_session'))
             return true; // sudah login
@@ -27,18 +29,18 @@ class Admin extends CI_Controller {
 	}
  	function cekLogin()
   {
+		// var_dump(!$this->isLoggedInAdmin());
+		// die;
     if (!$this->isLoggedInAdmin()) {
 		echo '<script type="text/javascript">
 					alert("Harap Login Terlebih Dahulu");
-					 window.location.href="../Admin/login";
 				</script>';
+				redirect('admin/login');
 			}
-			// redirect('admin/login');
   }
 	public function index()
 	{
 		$this->cekLogin();
-		// var_dump($_SESSION);die;
 		// $this->load->view('templates/index');
 
 		$data['listKategori'] = $this->ProdukModel->getAllKategori();
@@ -1271,6 +1273,12 @@ class Admin extends CI_Controller {
 			'message' => $message,
 
 		));
+	}
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('Admin/Login');
+		# code...
 	}
 	
 

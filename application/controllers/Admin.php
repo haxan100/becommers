@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 	public function __construct()
-
 	{
 		parent::__construct();
 		$this->load->model('ProdukModel');
@@ -27,19 +26,38 @@ class Admin extends CI_Controller {
         else
             return false; // belum login
 	}
+	public function isLoggedInSuperAdmin()
+	{
+		if ($this->session->userdata('id_role')==1)
+			return true; // sudah login
+		else
+			return false; // belum login
+	}
+
  	function cekLogin()
   {
 		// var_dump(!$this->isLoggedInAdmin());
 		// die;
-    if (!$this->isLoggedInAdmin()) {
+    	if (!$this->isLoggedInAdmin()) {
 		echo '<script type="text/javascript">
 					alert("Harap Login Terlebih Dahulu");
 				</script>';
 				redirect('admin/login');
 			}
   }
+	function cekSuperAdmin()
+	{
+		if (!$this->isLoggedInSuperAdmin()) {
+			echo '<script type="text/javascript">
+					alert("Menu Ini Untuk Super Admin");
+					window.location.href="../admin";
+				</script>';
+			// redirect('admin');
+		}
+	}
 	public function index()
 	{
+		// $this->cekSuperAdmin();
 		$this->cekLogin();
 		// $this->load->view('templates/index');
 
@@ -973,6 +991,8 @@ class Admin extends CI_Controller {
 	public function admin()
 	{
 		$this->cekLogin();
+		$this->cekSuperAdmin();
+
 
 		$data['admin'] = $this->admin->getAllAdmin();
 		$data['content'] = 'Admin/data_admin';

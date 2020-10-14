@@ -28,10 +28,10 @@
 						</li>
 					</ul>
 				</div>
-				<?php 
+				<?php
 				// var_dump($_SESSION);
 				$id_admin = $_SESSION['id_admin'];
-				$sql ="SELECT * FROM admin where id_admin = $id_admin";
+				$sql = "SELECT * FROM admin where id_admin = $id_admin";
 				$query = $this->db->query($sql);
 				$user = $query->result();
 				$user = $user[0];
@@ -48,11 +48,15 @@
 							<div class="widget-content-wrapper">
 								<div class="widget-content-left">
 									<div class="btn-group">
-										<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-											<img width="42" class="rounded-circle" data-toggle="modal" data-target="#exampleModal" src="<?php echo base_url() . "upload/images/admin/".$user->image; ?>" alt="">
-							
-											<i class="fa fa-angle-down ml-2 opacity-8"></i>
+
+										<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+											<?= $user->nama_admin ?>
+											<img width="42" class="rounded-circle" data-toggle="modal" data-target="#exampleModal" src="<?php echo base_url() . "upload/images/admin/" . $user->image; ?>" alt="">
+
 										</a>
+
+
+
 										<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
 											<button type="button" tabindex="0" class="dropdown-item">User Account</button>
 											<button type="button" tabindex="0" class="dropdown-item">Settings</button>
@@ -83,21 +87,22 @@
 			</div>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Log Out</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Apakah Anda Yakin Mau Keluar ?
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+							<a href="<?= base_url();?>/admin/logout" class="nav-link">Log Out </a>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-				</div>
-			</div>
 			</div>

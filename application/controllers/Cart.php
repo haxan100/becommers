@@ -23,6 +23,7 @@ public function index()
 }
 public function setBid()
 {
+	// var_dump($_POST);die;
 		$id_produk = $this->input->post('id_produk', TRUE);
 		$harga = $this->input->post('harga', TRUE);
 		$qty = $this->input->post('qty', TRUE);

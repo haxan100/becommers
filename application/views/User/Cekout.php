@@ -239,8 +239,6 @@
 				location.href = "<?= $bu; ?>User/pembayaran";
 
 			}
-
-			console.log(data)
 			Swal.fire(
 				'error',
 				data.msg,

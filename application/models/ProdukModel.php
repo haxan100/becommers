@@ -363,6 +363,21 @@ class ProdukModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+	public function getProdukByID($id)
+	{
+		$this->db->select('qty');
+		$this->db->from('produk');
+		$this->db->where('id_produk', $id);
+		return $this->db->get()->result();
+		
+		
+		
+	}
+	public function updateQTYbyID($in, $id)
+	{
+		$this->db->where('id_produk', $id);
+		return $this->db->update('produk', $in);
+	}
 
 
 

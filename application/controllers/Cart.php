@@ -235,10 +235,10 @@ public function hapusQtyCart()
 	public function setPayment()
 	{
 		$ongkir = $this->input->post('ongkir', true);
-
 		$ongkir = trim(explode('.', $ongkir)[1]);
 		// var_dump($_POST);die;
-	 	$now = date('Y-m-d H:i:s');
+		 $now = date('Y-m-d H:i:s');
+		//  var_dump($now);die;
 		$ran = $this->generateRandomString();
 		// var_dump($ran);die;
         $id_user = $this->input->post('id_user', true);
@@ -249,11 +249,7 @@ public function hapusQtyCart()
         $kode_pos = $this->input->post('kode_pos', true);
         $bank = $this->input->post('bank', true);
 		$total = $this->input->post('total', true);
-		
 		$tgl = $now;
-		// var_dump($kode_pos);die;
-		// var_dump(empty($alamat) or empty($provinsi) or empty($kota) or empty($kurir) or empty($kode_pos) or empty($bank));die;
-
 		$dataAlamat = array(
 			'alamat' => $alamat,
 			'provinsi' => $provinsi,
@@ -268,8 +264,7 @@ public function hapusQtyCart()
 				$status = false;
                $msg = "Harap Di Isi Semua";
 		}else{
-				$id_alamat = $this->CartModel->AddAlamat($dataAlamat);
-				
+				$id_alamat = $this->CartModel->AddAlamat($dataAlamat);				
 				$dataTransaksi = array(
 				'id_user' => $id_user,
 				'id_alamat' => $id_alamat,
@@ -277,13 +272,13 @@ public function hapusQtyCart()
 				'bayar' => $total,
 				'ongkir' => $ongkir,
 				'jumlah' => $ongkir + $total,	
-				'kode_transaksi' => $ran,	
-			);
-
-	
+				'kode_transaksi' => $ran,
+				'created_at' => $tgl,	
+			);	
 			$id_transaksi = $this->CartModel->AddTransaksi($dataTransaksi);
-		$cartUser=$this->CartModel->getCartByIdUser($id_user);
-			// var_dump($cartUser);
+			$cartUser=$this->CartModel->getCartByIdUser($id_user);
+			// var_dump($id_transaksi);die;
+
 			foreach ($cartUser as $key ) {
 		
 				$dataDetailTransaksi = array(
@@ -292,11 +287,22 @@ public function hapusQtyCart()
 					'id_produk' =>  $key->id_produk,
 					'qty' =>  $key->qty,
 				);
-			// echo $key->id_produk;
-			$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
+				$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
+				$qtyNow = $this->ProdukModel->getProdukByID($key->id_produk)[0]->qty;
+				$qtyNew = $qtyNow - $key->qty;
+
+				$upd  = array(
+					'qty' => $qtyNew,
+				);
+
+				$this->ProdukModel->updateQTYbyID($upd, $key->id_produk);
+				
+				// var_dump($qtyNow);die;
+
 
 			$this->CartModel->HapusCart($key->id_keranjang);
 			}
+
 			$status = true;
             $msg = "Harap tunggu, anda akan dialihkan ke halaman pembayaran";
 		}

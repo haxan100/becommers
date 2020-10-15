@@ -733,7 +733,7 @@ class Admin extends CI_Controller {
 				data-id_transaksi="' . $row->id_transaksi . '" 
 				data-kode_transaksi="' . $row->kode_transaksi . '"  
 				data-status="' . $row->status . '"	
-				></i> Ubah</button>
+				></i> Detail</button>
 				<br>
 
 				<button class="btn btn-round btn-warning btnInputResi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
@@ -751,7 +751,7 @@ class Admin extends CI_Controller {
 					data-id_transaksi="' . $row->id_transaksi . '" 
 					data-kode_transaksi="' . $row->kode_transaksi . '"  
 					data-status="' . $row->status . '"	
-					></i> Ubah</button>
+					></i> Detail</button>
 					<br>
 
 				<button class="btn btn-round btn-warning confirmBarang"  data-toggle="modal" data-target=".bs-example-modal-lg" 
@@ -770,7 +770,7 @@ class Admin extends CI_Controller {
 				data-id_transaksi="' . $row->id_transaksi . '" 
 				data-kode_transaksi="' . $row->kode_transaksi . '"  
 				data-status="' . $row->status . '"	
-				></i> Ubah</button>
+				></i> Detail</button>
 				<br>
 
 					<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
@@ -811,7 +811,7 @@ class Admin extends CI_Controller {
 			$fields[] = $row->nama_lengkap . '<br>';
 			$fields[] = $kodTrans. '<br>';
 			$fields[] = $row->no_phone . '<br>';
-			$fields[] = $row->qty . '<br>';
+			// $fields[] = $row->qty . '<br>';
 			$fields[] = $this->formatUang($row->bayar) . 				'<br>' . 										$this->formatUang($row->ongkir);
 			$fields[] = $this->formatUang($row->jumlah) . 				'<br>';
 			$fields[] = $status . '<br>';

@@ -33,7 +33,7 @@
 										<th>Nama User</th>
 										<th>Kode Transaksi</th>
 										<th>Kontak</th>
-										<th>QTY</th>
+										<!-- <th>QTY</th> -->
 										<th>Harga + Ongkir</th>
 										<th>Total</th>
 										<th>Status</th>
@@ -534,10 +534,7 @@
 						}, {
 							"targets": 8,
 							"className": "dt-head-center"
-						}, {
-							"targets": 9,
-							"className": "dt-head-center"
-						},
+						}, 
 					],
 					"order": [
 						[1, "desc"]

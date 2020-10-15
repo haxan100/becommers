@@ -556,15 +556,16 @@ public function transaksi()
 			$id_user = $_SESSION['id_user'];
 			// var_dump($id_user);
 			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			$data['user'] = $this->UserModel->getUserById($id_user)[0];
-			// var_dump($jml);
-
+			// $data['user'] = $this->UserModel->getUserById($id_user)[0];
+			$data['purchase'] = $this->CartModel->getAllTransaksi();
+			// var_dump($datap);die;
+			
 			$data['jml'] = $jml;
 		}
 		$this->load->view('User/Templates/Header');
 		$this->load->view('User/Templates/Head');
 		$this->load->view('User/Templates/HeaderNav', $data);
-		$this->load->view('User/Profile', $data);
+		$this->load->view('User/My_Purchase', $data);
 		//  $this->load->view('User/Templates/Kontent');
 		$this->load->view('User/Templates/Footer');
 

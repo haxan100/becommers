@@ -159,6 +159,14 @@ class CartModel extends CI_Model {
 		return	  $sql->get()->result();
 		// var_dump($this->db->last_query());
 	}
+	public function getAllTransaksi()
+	{
+		$this->db->select('*');
+		$sql =	$this->db->from('transaksi');
+		return  $sql->get()->result();	
+		
+		
+	}
 
 
 

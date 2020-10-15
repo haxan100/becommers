@@ -2,7 +2,7 @@
 
 	<div class="banner banner10">
 		<div class="container">
-			<h2>Tentang Kami</h2>
+			<h2>Keranjang Saya</h2>
 		</div>
 	</div>
 	<?php
@@ -70,7 +70,7 @@
 		<div class="container mb-7">
 			<ul>
 				<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
-				<li>Tentang Kami</li>
+				<li>Keranjang Saya</li>
 			</ul>
 		</div>
 	</div>

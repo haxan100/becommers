@@ -556,7 +556,7 @@ public function transaksi()
 			$id_user = $_SESSION['id_user'];
 			// var_dump($id_user);
 			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			// $data['user'] = $this->UserModel->getUserById($id_user)[0];
+			$data['user'] = $this->UserModel->getUserById($id_user)[0];
 			$data['purchase'] = $this->CartModel->getAllTransaksi();
 			// var_dump($datap);die;
 			

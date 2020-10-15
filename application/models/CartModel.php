@@ -43,6 +43,11 @@ class CartModel extends CI_Model {
 		public function data_AllCartByUser($post)
 
 	{
+		$id_user = 
+		$_SESSION['id_user'];
+		
+		// var_dump($id_user);die;
+		
 		$columns = array(
 			'nama_produk',
 		);
@@ -53,7 +58,7 @@ class CartModel extends CI_Model {
 		$from = 'keranjang k';
 		// custom SQL
 
-		$sql = "SELECT k.*,k.qty as qty,p.harga,p.foto,p.nama_produk FROM {$from}  join produk p on p.id_produk = k.id_produk
+		$sql = "SELECT k.*,k.qty as qty,p.harga,p.foto,p.nama_produk FROM {$from}  join produk p on p.id_produk = k.id_produk where k.id_user = '$id_user'
 		";
 		$where = "";
 		$whereTemp = "";

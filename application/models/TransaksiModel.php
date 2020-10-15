@@ -253,12 +253,30 @@ public function login(){
 
 		);
 	}
-
-
-
-                        
-                            
-                        
+		public function getIdProdukFromDetailTransaksiById($id_transaksi)
+	{
+		$this->db->select('*');
+		$this->db->where('id_transaksi', $id_transaksi);
+		$query = $this->db->get('detail_transaksi');
+		return $query->result();
+		# code...
+	}
+	public function HapusTransaksi($id_transaksi)
+	{
+		$this->db->where('id_transaksi', $id_transaksi);
+		$this->db->delete('transaksi');
+		$query = $this->db->get('transaksi s');
+		return $query->result();
+		# code...
+	}
+	public function HapusDetailTransaksi($id_transaksi)
+	{
+		$this->db->where('id_transaksi', $id_transaksi);
+		$this->db->delete('detail_transaksi');
+		$query = $this->db->get('detail_transaksi s');
+		return $query->result();
+		# code...
+	}
 }
                         
 /* End of file TransaksiModel.php */

@@ -296,10 +296,6 @@ public function hapusQtyCart()
 				);
 
 				$this->ProdukModel->updateQTYbyID($upd, $key->id_produk);
-				
-				// var_dump($qtyNow);die;
-
-
 			$this->CartModel->HapusCart($key->id_keranjang);
 			}
 

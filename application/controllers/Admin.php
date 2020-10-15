@@ -726,8 +726,6 @@ class Admin extends CI_Controller {
 		foreach ($dt['data']->result() as $row) {
 			if ($row->status == 1) {
 				$status = '<div class="badge badge-success">Sudah Bayar</div>';
-
-
 				$tombol ='
 				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 				data-id_transaksi="' . $row->id_transaksi . '" 
@@ -763,8 +761,7 @@ class Admin extends CI_Controller {
 				}
 
 			} else if($row->status == 0) {
-				$status = '<div class="badge badge-warning">Belum Bayar</div>';
-				
+				$status = '<div class="badge badge-warning">Belum Bayar</div>';				
 				$tombol ='
 				<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 				data-id_transaksi="' . $row->id_transaksi . '" 
@@ -773,13 +770,12 @@ class Admin extends CI_Controller {
 				></i> Detail</button>
 				<br>
 
-					<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
-					data-id_transaksi="' . $row->id_transaksi . '" 
-					data-kode_transaksi="' . $row->kode_transaksi . '"  
-					data-status="' . $row->status . '"	
-					></i> Konfirm Bayar</button>
-
-
+				<button class="btn btn-round btn-warning btn_Konfirmasi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+				data-id_transaksi="' . $row->id_transaksi . '" 
+				data-kode_transaksi="' . $row->kode_transaksi . '"  
+				data-status="' . $row->status . '"	
+				></i> Konfirm Bayar</button>
+				
 				<button class="btn btn-round btn-danger hapus" data-id_transaksi="' . $row->id_transaksi . '" data-kode_transaksi="' . $row->kode_transaksi . '"
 				>Hapus</button>       ';
 

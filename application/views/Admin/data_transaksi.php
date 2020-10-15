@@ -534,7 +534,7 @@
 						}, {
 							"targets": 8,
 							"className": "dt-head-center"
-						}, 
+						},
 					],
 					"order": [
 						[1, "desc"]
@@ -661,11 +661,11 @@
 
 				$('body').on('click', '.hapus', function() {
 
-					var id_user = $(this).data('id_user');
-					var nama = $(this).data('nama_lengkap');
+					var id_transaksi = $(this).data('id_transaksi');
+					var kode_transaksi = $(this).data('kode_transaksi');
 					Swal.fire({
 						title: 'Apakah Anda Yakin ?',
-						text: "Anda akan Menghapus Produk: " + nama,
+						text: "Anda akan Menghapus Transaksi: " + kode_transaksi,
 						icon: 'warning',
 						showCancelButton: true,
 						confirmButtonColor: '#3085d6',
@@ -675,11 +675,11 @@
 
 						if (result.value) {
 							$.ajax({
-								url: bu + 'Admin/hapusUser',
+								url: bu + 'Transaksi/hapusTransaksi',
 								dataType: 'json',
 								method: 'POST',
 								data: {
-									id_user: id_user
+									id_transaksi: id_transaksi
 								}
 							}).done(function(e) {
 								// console.log(e);
@@ -689,9 +689,9 @@
 									'success'
 								)
 								$('#modal-detail').modal('hide');
-								setTimeout(function() {
-									location.reload();
-								}, 4000);
+								// setTimeout(function() {
+								// 	location.reload();
+								// }, 4000);
 
 								datatable.ajax.reload();
 								resetForm();

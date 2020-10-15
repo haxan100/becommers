@@ -233,7 +233,11 @@ public function hapusQtyCart()
     return "TR_".$tgl.$randomString;
 }
 	public function setPayment()
-	{ 
+	{
+		$ongkir = $this->input->post('ongkir', true);
+
+		$ongkir = trim(explode('.', $ongkir)[1]);
+		// var_dump($_POST);die;
 	 	$now = date('Y-m-d H:i:s');
 		$ran = $this->generateRandomString();
 		// var_dump($ran);die;
@@ -244,7 +248,6 @@ public function hapusQtyCart()
         $kurir = $this->input->post('kurir', true);
         $kode_pos = $this->input->post('kode_pos', true);
         $bank = $this->input->post('bank', true);
-        $ongkir = $this->input->post('ongkir', true);
 		$total = $this->input->post('total', true);
 		
 		$tgl = $now;
@@ -293,18 +296,10 @@ public function hapusQtyCart()
 			$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
 
 			$this->CartModel->HapusCart($key->id_keranjang);
-
 			}
-
-
-
-
 			$status = true;
             $msg = "Harap tunggu, anda akan dialihkan ke halaman pembayaran";
-			
 		}
-
-
 		    $data = array(
                 'status' => $status,
                 'msg' => $msg,

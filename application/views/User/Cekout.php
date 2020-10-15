@@ -83,7 +83,7 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<strong>Subtotal</strong>
-								<div class="pull-right" id="subtotal" name="<?= $subtotal ?>" data-sub="<?= $subtotal ?>"><span>$</span><span><?= $subtotal ?></span></div>
+								<div class="pull-right" id="subtotal" name="<?= $subtotal ?>" data-sub="<?= $subtotal ?>"><span>Rp.</span><span><?= $subtotal ?></span></div>
 							</div>
 							<div class="col-xs-12">
 								<small>Shipping</small>
@@ -349,10 +349,11 @@
 			var tarif = data[0].costs[0].cost[0].value;
 			x += "<p class='mb-0'><b>(" + kurir + " )</b> : " + nama_kurir + "</p>";
 			x += tarif + "<br>";
-			$tarif.html(tarif);
+			$tarif.html("Rp." + tarif);
 			$kurir.html(nama_kurir);
-			OrderTotal.html(tarif + subtotal);
-			$("#rajaOngkir").val(tarif);
+			OrderTotal.html("Rp." + (tarif + subtotal));
+			$("#rajaOngkir").val("Rp." + tarif);
+			console.log(tarif, subtotal, tarif)
 
 		}).fail(function(data) {
 			// console.log(data);

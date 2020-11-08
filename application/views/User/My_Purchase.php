@@ -136,7 +136,7 @@
 				<div class="clearfix"> </div>
 				<?php
 				foreach ($purchase as $key) {
-					// var_dump($key->kode_transaksi);
+					// var_dump($key->kode_t/ransaksi);
 
 				?>
 					<div class="row px-3 py-2">
@@ -165,7 +165,14 @@
 							</span>
 						</div>
 					</div>
-				<?php } ?>
+				<?php } 	?>
+				<center>
+				
+				<?php 
+				echo $this->pagination->create_links();
+				?>
+				</center>
+
 
 			</div>
 

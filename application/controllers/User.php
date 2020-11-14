@@ -38,45 +38,40 @@ public function index()
 			$total = $this->ProdukModel->getAllProduk();
 			$ada=false;
 			}
-	
-		$config['base_url'] = base_url().'/User/index';
+
+		$config['base_url'] = base_url() . '/User/index';
 		$config['total_rows'] = count($total);
 		$config['per_page'] = 6;
-		$from = $this->uri->segment(3);
-		$config['display_pages'] = TRUE;
-		$config['use_page_numbers'] = TRUE;
-		//Encapsulate whole pagination 
-		$config['full_tag_open'] = '<ul class="pagination">';
-		$config['full_tag_close'] = '</ul>';
-		//First link of pagination
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<li>>';
-		$config['first_tag_close'] = '</li>';
-		//Customizing the “Digit” Link
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		//For PREVIOUS PAGE Setup
-		$config['prev_link'] = 'prev';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		//For NEXT PAGE Setup
-		$config['next_link'] = 'Next';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		//For LAST PAGE Setup
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
-		//For CURRENT page on which you are
-		$config['cur_tag_open'] = '<li class="active"><a href="#">';
-		$config['cur_tag_close'] = '</a></li>';
-		$this->pagination->initialize($config);
 
-		$data['page'] = $this->pagination->create_links();
+		$choice = $config["total_rows"] / $config["per_page"];
+		$config["num_links"] = floor($choice);
+		$config["uri_segment"] = 3;  // uri parameter
+		$choice = $config["total_rows"] / $config["per_page"];
+		$config["num_links"] = floor($choice);
+		$config['first_link']       = 'First';
+		$config['last_link']        = 'Last';
+		$config['next_link']        = 'Next';
+		$config['prev_link']        = 'Prev';
+		$config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+		$config['full_tag_close']   = '</ul></nav></div>';
+		$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+		$config['num_tag_close']    = '</span></li>';
+		$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+		$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+		$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+		$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['prev_tagl_close']  = '</span>Next</li>';
+		$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+		$config['first_tagl_close'] = '</span></li>';
+		$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['last_tagl_close']  = '</span></li>';
+		$this->pagination->initialize($config);
+		$data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		if($ada){
-			$data['produk'] = $this->ProdukModel->getAllProdukPagCari($config['per_page'],$from, $cari );
+			$data['produk'] = $this->ProdukModel->getAllProdukPagCari($config['per_page'],$data['page'], $cari );
 		}else{
-			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$from );
+			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$data['page'] );
 		}
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/Index',$data);
@@ -570,8 +565,6 @@ public function transaksi()
 			$config["uri_segment"] = 3;  // uri parameter
 			$choice = $config["total_rows"] / $config["per_page"];
 			$config["num_links"] = floor($choice);
-
-			// Membuat Style pagination untuk BootStrap v4
 			$config['first_link']       = 'First';
 			$config['last_link']        = 'Last';
 			$config['next_link']        = 'Next';

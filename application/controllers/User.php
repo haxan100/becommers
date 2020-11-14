@@ -2,7 +2,7 @@
         
 defined('BASEPATH') OR exit('No direct script access allowed');
         
-class User extends CI_Controller {
+class User extends MY_Controller {
 
 	public function __construct()
 
@@ -542,63 +542,19 @@ public function transaksi()
 		
 	
 	}
-	public function Pesanan()
+	public function pesanan($id_tipe_produk = 1)
 	{
 
-		if (empty($_SESSION['id_user'])) {
-			$data['jml'] = 0;
-		} else {
-			$id_user = $_SESSION['id_user'];
-			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			$data['user'] = $this->UserModel->getUserById($id_user)[0];	
-			$data['jml'] = $jml;
-
-
-			// pganitation
-			$total = $this->CartModel->getAllTransaksiByIdUser($id_user);
-			$config['base_url'] = base_url() . '/User/Pesanan';
-			$config['total_rows'] = count($total);
-			$config['per_page'] = 5;
-
-			$choice = $config["total_rows"] / $config["per_page"];
-			$config["num_links"] = floor($choice);
-			$config["uri_segment"] = 3;  // uri parameter
-			$choice = $config["total_rows"] / $config["per_page"];
-			$config["num_links"] = floor($choice);
-			$config['first_link']       = 'First';
-			$config['last_link']        = 'Last';
-			$config['next_link']        = 'Next';
-			$config['prev_link']        = 'Prev';
-			$config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
-			$config['full_tag_close']   = '</ul></nav></div>';
-			$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
-			$config['num_tag_close']    = '</span></li>';
-			$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
-			$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
-			$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
-			$config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
-			$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
-			$config['prev_tagl_close']  = '</span>Next</li>';
-			$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
-			$config['first_tagl_close'] = '</span></li>';
-			$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
-			$config['last_tagl_close']  = '</span></li>';
-			$this->pagination->initialize($config);
-
-			$data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-			$data['purchase'] = $this->CartModel->getAllTransaksiPag($config['per_page'],  $data['page'], $id_user);
-
-		
-			$this->load->view('User/Templates/Header');
-			$this->load->view('User/Templates/Head');
-			$this->load->view('User/Templates/HeaderNav', $data);
-			$this->load->view('User/My_Purchase', $data);
-			//  $this->load->view('User/Templates/Kontent');
-			$this->load->view('User/Templates/Footer');
-		}
-
-		// var_dump(count($data['produk']));die;
-		// $this->load->view('User/Templates/IndexContent',$data);
+		$id_user = $_SESSION['id_user'];
+		    // var_dump(json_encode($data_lelang));die();
+		$obj['ci'] = $this;
+		$obj['barang'] = $this->CartModel->getAllTransaksiByIdUser($id_user);
+		// var_dump($obj['filter']);die();
+		$obj['id_tipe_produk'] = $id_tipe_produk;
+		$mobile_mode = $this->isMobile();
+		$lokasi_view = $mobile_mode . 'user/pesanan';
+		$this->load->view($lokasi_view, $obj);
+		// $this->load->view('user/my_bid', $obj);
 
 	}
 	public function detailproduk()
@@ -623,6 +579,198 @@ public function transaksi()
 		  $this->load->view('User/Templates/DetailProduk',$produk);
 		 //  $this->load->view('User/Templates/Kontent');
 		 $this->load->view('User/Templates/Footer');
+	}
+	public function getMyBidBundlingListSukses()
+	{
+		$page = intval($this->input->post('page', true));
+		$status = $this->input->post('status', true);
+		$search = $this->input->post('search', true);
+		$id_user = $this->session->userdata('id_user');
+		$data = array();
+		$sort = $this->input->post('sort', true);
+		$sortForTerbayar = $this->input->post('sort', true);
+		$filter = $this->input->post('filter', true);
+		$id_user = $this->session->userdata('id_user');
+		switch ($sort) {
+			case 'h-1':
+				$sort = "p.harga_awal ASC";
+				$sortForTerbayar = "t.harga_total ASC";
+
+				break;
+			case 'h-0':
+				$sort = "p.harga_awal DESC";
+				$sortForTerbayar = "t.harga_total DESC";
+
+				break;
+			case 'p-1':
+				$sort = "p.judul DESC";
+				$sortForTerbayar = "t.kode_transaksi DESC";
+
+				break;
+			case 'p-0':
+				$sort = "p.judul ASC";
+				$sortForTerbayar = "t.kode_transaksi ASC";
+
+				break;
+			case 'w-1':
+				$sort = "p.created_at ASC";
+				$sortForTerbayar = "t.updated_at ASC";
+
+				break;
+			case 'w-0':
+				$sort = "p.created_at DESC";
+				$sortForTerbayar = "t.updated_at DESC";
+
+				break;
+			default:
+				break;
+		}
+		if ($status == 0) {
+			$data_lelang = $this->CartModel->getLelangBundlingTutupSukses($id_user, $status, $search, $sort, $filter);
+			if (count($data_lelang) > 0) {
+				$status = true;
+				$i = 1;
+				foreach ($data_lelang as $p) {
+					// var_dump($p);die;
+
+					$col = array();
+					$col['idproduk'] = $p->id_transaksi;
+					$col['id'] = $p->id_transaksi;
+					$col['judul'] = $p->kode_transaksi;
+					$col['resi'] = "zero";
+					$col['grade'] = "Bundling";
+					$col['bid'] = $p->jumlah;
+					$col['foto'] = "zero";
+					$col['qty'] = "zero";
+
+					$col['id_transaksi'] = $p->id_transaksi;
+					$col['kode_transaksi'] = $p->kode_transaksi;
+					$col['kode'] = $p->kode_transaksi;
+					// $col['kodtrans'] = $p->kodtrans;
+					$col['link'] = "link";
+		
+					$col['sort_detail'] = "Bundling";
+					// $col['sort_detail'] = $sort_detail;
+					$col['metode'] = $p->id_method;
+					$col['harga_total'] = $p->jumlah;
+					$data[] = $col;
+				}
+			} else {
+				$status = false;
+			}
+		}
+		// var_dump($data);
+		// die();
+		echo json_encode(array(
+			'status' => $status,
+			'data' => $data,
+		));
+	}
+	public function getMyBidBundlingList()
+	{
+		$page = intval($this->input->post('page', true));
+		$status = $this->input->post('status', true);
+		$search = $this->input->post('search', true);
+		$id_user = $this->session->userdata('id_user');
+		$data = array();
+		$sort = $this->input->post('sort', true);
+		$filter = $this->input->post('filter', true);
+		$id_user = $this->session->userdata('id_user');
+		switch ($sort) {
+			case 'h-1':
+				$sort = "b.harga_awal ASC";
+				break;
+			case 'h-0':
+				$sort = "b.harga_awal DESC";
+				break;
+			case 'p-1':
+				$sort = "b.judul DESC";
+				break;
+			case 'p-0':
+				$sort = "b.judul ASC";
+				break;
+			case 'w-1':
+
+				$sort = "b.created_at ASC";
+				break;
+
+			case 'w-0':
+
+				$sort = "b.created_at DESC";
+				break;
+			default:
+				break;
+		}
+		// var_dump($status);die;
+		if ($status == 4) {
+			$data_lelang = $this->CartModel->getBundlingGagal($id_user, $search, $sort, $filter, $page);
+			// var_dump($data_lelang);die;
+			if (count($data_lelang) > 0) {
+				$status = true;
+				$i = 1;
+				foreach ($data_lelang['data'] as $p) {
+					// var_dump($p);die;
+					$page = $data_lelang['page'];
+					$harga = "Zero";
+					$col = array();
+					$col['judul'] = $p->kode_transaksi;
+					$col['grade'] = "Bundling";
+					$col['harga_awal'] = $p->bayar; // harga awal produk
+					$col['harga_bid'] = $p->jumlah; // harga tertinggi bid produk dari user
+					$maaf = "maaf anda telah gagal";
+					if (!empty($p->jumlah)) {
+						$col['harga_terbaik'] = $p->jumlah;
+						$col['cek_cancle'] = 1;
+					} else {
+						$col['harga_terbaik'] = $p->jumlah;
+						$col['cek_cancle'] = 0;
+					}
+					$col['sort_detail'] = "";
+					$col['metode'] = $p->id_method;
+
+					$data[] = $col;
+				}
+			} else {
+				$status = false;
+			}
+		} else if ($status == 1) {
+			$data_lelang = $this->CartModel->getBundlingTutup($id_user, $status, $search, $sort, $filter, $page);
+			// var_dump($data_lelang);die;
+			if (count($data_lelang) > 0) {
+				$status = true;
+				$i = 1;
+				$page = $data_lelang['page'];
+				foreach ($data_lelang['data'] as $p) {
+					$col = array();
+					$col['id'] = $p->id_transaksi;
+					$col['judul'] = $p->kode_transaksi;
+					$col['id_transaksi_bundling'] = $p->id_transaksi;
+					$col['grade'] = "Bundling";
+					$col['bid'] = $p->bayar;
+					$col['kode_transaksi'] = $p->kode_transaksi;
+					$col['link'] = "link";
+					$col['updated_at'] = $p->updated_at;
+					$col['metode'] = $p->id_method;
+					$col['jumlah_produk'] = "zero";
+					$col['harga_total'] = $p->jumlah;
+					$data[] = $col;
+				}
+			} else {
+
+				$status = false;
+			}
+		}
+
+		// var_dump($data);die();
+
+		echo json_encode(array(
+
+			'status' => $status,
+
+			'data' => $data,
+			'page' => $page,
+
+		));
 	}
 
 

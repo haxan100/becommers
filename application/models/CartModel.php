@@ -187,7 +187,191 @@ class CartModel extends CI_Model {
 		var_dump($this->db->last_query());die;
 		# code...
 	}
+	public function getLelangBundlingTutupSukses($id_user, $status, $search = '', $sort = 'default', $filter = 'default')
+	{
+		$this->db->select('*')
+		->from('transaksi t')
+		->where('t.id_user', $id_user)
+		->where('t.status', 0);
+		$where = "(t.status=$status OR t.status=2)";
+		if ($status == 1)
+		$this->db->where($where);
+		else {
+			$this->db->where('t.status', $status);
+		}
+		if ($search != '') {
+			$array_search = array(
+				't.kode_transaksi' => $search,
+			);
+			$this->db->group_start()
+			->or_like($array_search)
+			->group_end();
+		}
+		if ($sort != 'default') {
+			$this->db->order_by($sort);
+		}
+		if ($filter != 'default') {
+			$this->db->where('l.id_tipe_produk', $filter);
+		}
+		$query = $this->db->get()->result();
+		// var_dump($this->db->last_query());
+		// die();
+		return $query;
+	}
+	public function getBundlingGagal($id_user, $search = '', $sort = 'default', $filter = 'default', $page = 1)
+	{
+		$perHal = 6;
+		$start = ($page - 1) * $perHal;
+		$length =  $start + $perHal;
+		$total  = $this->getBundlingGagalCount($id_user, $search, $sort, $filter);
+		$pages = ceil($total / $perHal);
+		// var_dump($this->db->last_query());die();
+		$this->db
+			->select('tb.*')
+			->from('transaksi tb')
+			->where('tb.id_user', $id_user);
+		if ($search != '') {
+			$array_search = array(
+				'tb.kode_transaksi' => $search,
+				// 'p.link' => $search, 
+			);
+			$this->db->group_start()
+				->or_like($array_search)
+				->group_end();
+		}
+		if ($sort != 'default') {
+			$this->db->order_by($sort);
+		}
+		if ($filter != 'default') {
+			// $this->db->where('tb.id_tipe_produk', $filter);
+		}
+		$where = "(tb.status='2')";
+		$query = $this->db->where($where)
+			// ->or_where('t.status', 4)
+			->group_by('tb.id_transaksi');
 
+		$this->db->limit($perHal, $start);
+		// var_dump($this->db->last_query());die;
+		$query = $this->db->get()->result();
+		$pagination = array(
+			'total_halaman' => $pages,
+			'halaman' => $page,
+			'total_data' => $total, // jumlah total
+			'jumlah' => count($query)
+		);
+		$output = array(
+			'data' => $query,
+			'page' => $pagination,
+		);
+		return $output;
+		// return $query;
+	}
+	public function getBundlingGagalCount($id_user, $search = '', $sort = 'default', $filter = 'default')
+	{
+		$this->db
+		->select('tb.*')
+		->from('transaksi tb')
+			->where('tb.id_user', $id_user);
+		if ($search != '') {
+			$array_search = array(
+				'tb.kode_transaksi' => $search,
+			);
+			$this->db->group_start()
+			->or_like($array_search)
+			->group_end();
+		}
+		if ($sort != 'default') {
+			$this->db->order_by($sort);
+		}
+		if ($filter != 'default') {
+			// $this->db->where('tb.ku', $filter);
+		}
+		$where =
+		"(tb.status='1')";
+		// $where = "(tb.status!='1' AND tb.pemenang='0'  OR `tb`.`status` = 4)";
+		$query = $this->db->where($where)			// ->or_where('t.status', 4)
+			->group_by('tb.id_transaksi');
+		$query = $this->db->get()->result();
+		return count($query);
+	}
+	public function getBundlingTutup($id_user, $status, $search = '', $sort = 'default', $filter = 'default', $page = 1)
+	{
+		// var_dump($status,$search);
+		$perHal = 6;
+		$start = ($page - 1) * $perHal;
+		$length =  $start + $perHal;
+		$total  = $this->getBundlingTutupCount($id_user, $status, $search = '', $sort = 'default', $filter = 'default');
+		// var_dump($total);die;
+		$pages = ceil($total / $perHal);
+		$this->db->select('tb.*')
+			->from('transaksi tb')
+			->where('id_user', $id_user)
+			->where('tb.status', 1);
+		$where = "(tb.status=$status OR tb.status=2)";
+		if ($status == 1)
+			$this->db->where($where);
+		else {
+			$this->db->where('tb.status', $status);
+		}
+		if ($search != '') {
+			$array_search = array(
+				'b.kode_transaksi' => $search,
+			);
+			$this->db->group_start()
+				->or_like($array_search)
+				->group_end();
+		}
+		if ($sort != 'default') {
+			$this->db->order_by($sort);
+		}
+		if ($filter != 'default') {
+			$this->db->where('b.id_tipe_produk', $filter);
+		}
+		$this->db->limit(
+			$perHal,
+			$start
+		);
+		$query = $this->db->get()->result();
+
+		$pagination = array(
+			'total_halaman' => $pages,
+			'halaman' => $page,
+			'total_data' => $total, // jumlah total
+			'jumlah' => count($query)
+
+		);
+		// var_dump($this->db->last_query());die();
+
+		$output = array(
+			'data' => $query,
+			'page' => $pagination,
+		);
+
+		return $output;
+	}
+	public function getBundlingTutupCount($id_user, $status, $search = '', $sort = 'default', $filter = 'default')
+	{
+		$this->db->select('tb.*')
+		->from('transaksi tb')
+		->where('id_user', $id_user)
+		->where('tb.status', 1);
+		if ($search != '') {
+			$array_search = array(
+				'b.kode_transaksi' => $search,
+			);
+			$this->db->group_start()
+			->or_like($array_search)
+			->group_end();
+		}
+		if ($sort != 'default') {
+			$this->db->order_by($sort);
+		}
+		if ($filter != 'default') {
+			// $this->db->where('b.id_tipe_produk', $filter);
+		}
+		$query = $this->db->get()->result();
+		return count($query);
+	}
 
 
 

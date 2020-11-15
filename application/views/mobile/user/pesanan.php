@@ -6,8 +6,8 @@ $bu = base_url();
 $bu_user = $bu . 'user/';
 $in = array(
 	'title' => 'Bundling di Tutup',
-	'loggedIn' => 1,
-	'backIcon' => 1,
+	'loggedIn' => 0,
+	'backIcon' => 0,
 	'backLink' => $bu_user . 'profile/' . $id_tipe_produk,
 	'includeJS' => array(
 		$bu . 'assets/js/user/_search_sort_filter.js',
@@ -38,34 +38,6 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 		height: 100%;
 	}
 
-	.nav-tabs .nav-link {
-		border: 0px !important;
-		border-bottom: transparent 3px solid !important;
-	}
-
-	.nav-tabs .nav-link.active {
-		color: var(--warna-1);
-		background: var(--warna-2);
-		border: 0px;
-		border-bottom: var(--warna-9) 3px solid !important;
-		font-weight: bold;
-
-	}
-
-	.nav-tabs .nav-link {
-		color: var(--warna-11);
-		background: var(--warna-2);
-		border: 0px;
-		padding-left: 0px !important;
-		padding-right: 0px !important;
-	}
-
-	.biz-float-right {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-	}
-
 	.container {
 		/* padding-top: 11px;
 		max-width: 80%;
@@ -92,7 +64,7 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 		<div class="col biz-bg-w-2 px-3 pt-3">
 			<div class="biz-text-17 biz-text-w-5 text-center font-weight-bold">
 				<span>
-					Bundling di Tutup
+					Pilih Status!
 				</span>
 			</div>
 			<div>
@@ -269,6 +241,15 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 <script>
 	$(document).ready(function() {
 
+
+		function tabcoba() {
+			// $('#hasil-penawaran-tab').click();
+			$('#hasil-penawaran-tab').addClass('active');
+			$('#hasil-penawaran-tab').attr("aria-selected") == "true";
+		}
+
+		tabcoba()
+
 		$('body').on('click', '.page-link', function() {
 			var hal = $(this).attr('data-page');
 			$('#_page').val(hal);
@@ -347,7 +328,7 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 				if (e.status) {
 					$.each(e.data, function(key, val) {
 
-						console.log(val)
+						// console.log(val)
 
 						if (status == 4) {
 							$(tipe_bid_selector).append(generateProdukGagal(val));
@@ -370,7 +351,7 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 					generateNoProduk(tipe_bid_selector);
 				}
 			}).fail(function(e) {
-				console.log(e);
+				// console.log(e);
 				// alert('Terjadi kendala. Silahkan reload halaman ini.');
 				generateNoProduk(tipe_bid_selector);
 			});

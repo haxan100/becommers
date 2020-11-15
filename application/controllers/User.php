@@ -544,7 +544,11 @@ public function transaksi()
 	}
 	public function pesanan($id_tipe_produk = 1)
 	{
-
+		$data['jml']=0;
+		$data['products'] = "";
+		$this->load->view('User/Templates/Header');
+		$this->load->view('User/Templates/Head');
+		$this->load->view('User/Templates/HeaderNav',$data);
 		$id_user = $_SESSION['id_user'];
 		    // var_dump(json_encode($data_lelang));die();
 		$obj['ci'] = $this;
@@ -554,6 +558,8 @@ public function transaksi()
 		$mobile_mode = $this->isMobile();
 		$lokasi_view = $mobile_mode . 'user/pesanan';
 		$this->load->view($lokasi_view, $obj);
+
+		// $this->load->view('User/Templates/Footer');
 		// $this->load->view('user/my_bid', $obj);
 
 	}

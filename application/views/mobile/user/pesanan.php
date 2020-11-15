@@ -149,7 +149,7 @@ $tomorrow = $now->modify('+1 day')->format('d/m/Y');
 	?>
 
 	<div class="tab-content my-3" id="myTabContent">
-		<div class="tab-pane fade show active" id="hasil-penawaran" role="tabpanel" aria-labelledby="home-tab">
+		<div class="tab-pane fade active in show" id="hasil-penawaran" role="tabpanel" aria-labelledby="home-tab">
 		</div>
 
 		<div class="tab-pane fade" id="hasil-sebelumnya" role="tabpanel" aria-labelledby="profile-tab">

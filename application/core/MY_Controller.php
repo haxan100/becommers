@@ -196,6 +196,139 @@ class MY_Controller extends CI_Controller
 		else
 			return "";
 	}
+	public function myHeader($in)
+	{
+		$bu = base_url();
+		$bu_user = $bu . 'user/';
+		$bodyColor = array_key_exists('bodyColor', $in) ? $in['bodyColor'] : 3;
+		$title = array_key_exists('title', $in) ? $in['title'] : 'Bidding System';
+		$isLoggedIn = array_key_exists('loggedIn', $in) ? $in['loggedIn'] : 0;
+		$logo = array_key_exists('logo', $in) ? $in['logo'] : 1;
+		$backIcon = array_key_exists('backIcon', $in) ? $in['backIcon'] : 0;
+		$backLink = array_key_exists('backLink', $in) ? $in['backLink'] : $bu_user . 'index';
+		$icons = array_key_exists('icons', $in) ? $in['icons'] : 0;
+		$notifications = array_key_exists('notifications', $in) ? $in['notifications'] : 0;
+		$id_tipe_produk = array_key_exists('id_tipe_produk', $in) ? $in['id_tipe_produk'] : 1; // default HP
+		$includeJS = array_key_exists('includeJS', $in) ? $in['includeJS'] : array();
+		$includeCSS = array_key_exists('includeCSS', $in) ? $in['includeCSS'] : array();
+		$hiddenInput = array_key_exists('hiddenInput', $in) ? $in['hiddenInput'] : array();
+		$out = '
+            <!DOCTYPE html>
+            <html lang="en">
+                    
+        ';
+		if (count($includeCSS) > 0) {
+			for ($i = 0; $i < count($includeCSS); $i++) {
+				$out .= '
+                    <link href="' . $includeCSS[$i] . '" rel="stylesheet">
+                ';
+			}
+		}
+		$out .= '
+            </head>
+            <body class="biz-bg-w-' . $bodyColor . '">
+                <!-- SCRIPTS -->
+                <!-- JQuery -->
+                <script src="' . $bu . 'assets/js/jquery.min.js" type="text/javascript"></script>
+                <script src="' . $bu . 'assets/js/jquery.ui.min.js" type="text/javascript"></script>
+                <!-- Bootstrap tooltips -->
+                <script src="' . $bu . 'assets/js/popper.min.js" type="text/javascript"></script>
+                <!-- Bootstrap core JavaScript -->
+                <script src="' . $bu . 'assets/js/bootstrap.min.js" type="text/javascript"></script>
+                <script src="' . $bu . 'assets/js/bootstrap-select.min.js" type="text/javascript"></script>
+                <!-- MDB core JavaScript -->
+                <script src="' . $bu . 'assets/js/mdb.min.js" type="text/javascript"></script>
+                <!-- FontAwesome JavaScript -->
+                <script src="' . $bu . 'assets/js/fontawesome.js" type="text/javascript"></script>
+                <script src="' . $bu . 'assets/js/fontawesome.solid.js" type="text/javascript"></script>
+                <script src="' . $bu . 'assets/js/custom.js" type="text/javascript"></script>
+        ';
+		if (count($includeJS) > 0) {
+			for ($i = 0; $i < count($includeJS); $i++) {
+				$out .= '
+                <script src="' . $includeJS[$i] . '" type="text/javascript"></script>
+            ';
+			}
+		}
+		$out .= '
+            <input type="hidden" value="' . $id_tipe_produk . '" id="id_tipe_produk" />
+        ';
+		if (count($hiddenInput) > 0) {
+			foreach ($hiddenInput as $key => $val) {
+				$out .= '
+                    <input type="hidden" value="' . $val . '" id="' . $key . '" />
+                ';
+			}
+		}
+
+		if ($isLoggedIn == 1) {
+			$out .= '
+                <!--Navbar -->
+            ';
+			if ($backIcon == 1) {
+				$ml_logo = '';
+				if ($icons == 1) $ml_logo = '';
+				$out .= '
+                    <nav class="navbar biz-bg-w-2 shadow-none mr-0" style="width: auto!important;">
+                        <a onClick="window.location.replace(this.href);" href="' . $backLink . '" class="biz-text-w-11 pl-2"><span class="fas fa-chevron-left fa-2x"></span></a>
+                        <a class="' . $ml_logo . ' text-center gambar-logo-grade" href="' . $bu_user . 'kategori/' . $id_tipe_produk . '">
+                            <img class="img-fluid" src="' . $bu . 'assets/images/Bidding - Hitam2.png" width="160">
+                        </a>
+                ';
+			} else {
+				if ($logo) {
+					$out .= '
+                        <nav class="navbar biz-bg-w-2 shadow-none d-block">
+                            <a class="navbar-brand mr-0" href="' . $bu_user . 'kategori/' . $id_tipe_produk . '">
+                                <img class="img-fluid" src="' . $bu . 'assets/images/Bidding - Hitam2.png" width="160">
+                            </a>
+                    ';
+				}
+			}
+			if ($icons == 1) {
+				$out .= '
+                    <div class="float-right mt-2">
+                        <a href="' . $bu_user . 'help/'  . '" class="biz-bg-w-11 rounded px-2 py-1 mr-2 text-white">
+                            <span class="fas fa-question" style="padding-left: 0.1rem!important;"></span>
+                        </a>
+                        <a href="' . $bu_user . 'profile/' . $id_tipe_produk . '" class="biz-bg-w-11 rounded px-2 py-1 mr-2 text-white">
+                    ';
+				$out .= $notifications > 0 ?
+					'<span class="badge badge-pill biz-bg-w-6 biz-text-w-2 biz-badge-notif">' . $notifications . '</span>'
+					: '';
+				$out .= '
+                                <span class="fas fa-user"></span>
+                            </a>
+                        </div>
+                    ';
+			} else {
+				$out .= '
+                    <div class="">
+                    </div>
+                ';
+			}
+			$out .= '
+                </nav>
+                <!--/.Navbar -->
+            ';
+		} else {
+			if ($logo) {
+				$out .= '
+                    <div class="biz-bg-w-2 p-3">
+                        <div class="">
+                            <a class="" href="' . $bu . 'home">
+                                <img class="img-fluid" src="' . $bu . 'assets/images/Bidding - Hitam2.png" width="160">
+                            </a>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 0px!important;">
+                    <br>
+                ';
+			}
+		}
+
+		return $out;
+	}
 
 
 }

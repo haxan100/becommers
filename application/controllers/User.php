@@ -559,7 +559,7 @@ public function transaksi()
 		$lokasi_view = $mobile_mode . 'user/pesanan';
 		$this->load->view($lokasi_view, $obj);
 
-		// $this->load->view('User/Templates/Footer');
+		$this->load->view('User/Templates/Footer');
 		// $this->load->view('user/my_bid', $obj);
 
 	}

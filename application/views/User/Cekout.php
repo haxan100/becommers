@@ -227,7 +227,12 @@
 					total: total,
 					ongkir: ongkir,
 					id_user: id_user,
+					subTot: subTot,
+					alamat: alamat,
+					provinsi: provinsi,
+					kota: kota,
 					kode_pos: kode_pos,
+					kurir: kurir,
 				},
 				cache: false,
 
@@ -268,11 +273,11 @@
 						}
 					});
 				},
-				 error: function(data) { 
-					 console.log(data)
+				error: function(data) {
+					console.log(data)
 					alert("Status: " + data);
-				} 
-				
+				}
+
 			});
 
 		});

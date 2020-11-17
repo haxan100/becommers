@@ -25,33 +25,115 @@ class Snap extends CI_Controller {
         $params = array('server_key' => 'SB-Mid-server-cq8tImkPW1RRBaxNbfAkfNXQ', 'production' => false);
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
-		$this->load->helper('url');	
+		$this->load->helper('url');
+		$this->load->model('ProdukModel');
+		$this->load->model('UserModel');
+		$this->load->model('CartModel');
+
+		$this->load->library('form_validation');
     }
 
     public function index()
     {
     	$this->load->view('checkout_snap');
-    }
+	}
+	function generateRandomString($length = 7)
+	{
+		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		$tgl = date('Y');
+
+		// var_dump($tgl);die;
+
+
+		return "TR_" . $tgl . $randomString;
+	}
 
     public function token()
     {
 		
-		
-		// var_dump($_POST);die;
 		$total = $_POST['total'];
+		$ongkir = $_POST['ongkir'];
+		$id_user = $_POST['id_user'];
+
+		$alamat = $_POST['alamat'];
+		$provinsi = $_POST['provinsi'];
+		$kota = $_POST['kota'];
+		$kode_pos = $_POST['kode_pos'];
+		$kurir = $_POST['kurir'];
+		$ongkir =
+		preg_replace('/.*?(\d+)(?:[.,](\d+))?.*/', '\1.\2', $ongkir);
+
+		$ran = $this->generateRandomString();
+
+		$bank = 1;
+		// var_dump($money);die;
 		// Required
+		$user = $this->UserModel->getUserById($id_user)[0];
 		$transaction_details = array(
 		  'order_id' => rand(),
-		  'gross_amount' => $total, // no decimal allowed for creditcard
+		  'gross_amount'
+			=> $total + $ongkir, // no decimal allowed for creditcard
 		);
 
-		// Optional
-		$item1_details = array(
-		  'id' => 'a1',
-		  'price' => $total,
-		  'quantity' => 1,
-		  'name' => "Apple"
+		$now = date('Y-m-d H:i:s');
+		$tgl = $now;
+		$dataAlamat = array(
+			'alamat' => $alamat,
+			'provinsi' => $provinsi,
+			'kota' => $kota,
+			'kode_pos' => $kode_pos,
+			'created_at' => $tgl,
 		);
+		$id_alamat = $this->CartModel->AddAlamat($dataAlamat);
+		$dataTransaksi = array(
+			'id_user' => $id_user,
+			'id_alamat' => $id_alamat,
+			'id_method' => $bank,
+			'bayar' => $total,
+			'ongkir' => $ongkir,
+			'jumlah' => $ongkir + $total,
+			'kode_transaksi' => $ran,
+			'created_at' => $tgl,
+		);
+		$id_transaksi = $this->CartModel->AddTransaksi($dataTransaksi);
+		$cartUser = $this->CartModel->getCartByIdUser($id_user);
+		// var_dump($id_transaksi);die;
+
+		foreach ($cartUser as $key) {
+
+			$dataDetailTransaksi = array(
+				'id_transaksi' => $id_transaksi,
+				'id_user' =>  $key->id_user,
+				'id_produk' =>  $key->id_produk,
+				'qty' =>  $key->qty,
+			);
+			$this->CartModel->AddDetailTransaksi($dataDetailTransaksi);
+			$produk = $this->ProdukModel->getProdukByID($key->id_produk)[0];
+			// var_dump($produk);die;
+			$qtyNew = $produk->qty - $key->qty;
+
+			$upd  = array(
+				'qty' => $qtyNew,
+			);
+
+			$item1_details = array(
+				'id' =>
+				$id_transaksi,
+				'price' => $total + $ongkir,
+				'quantity' => $key->qty,
+				'name' => $produk->nama_produk,
+			);
+
+			$this->ProdukModel->updateQTYbyID($upd, $key->id_produk);
+			$this->CartModel->HapusCart($key->id_keranjang);
+		// Optional
+
+
 
 		// Optional
 		// $item2_details = array(
@@ -66,32 +148,32 @@ class Snap extends CI_Controller {
 
 		// Optional
 		$billing_address = array(
-		  'first_name'    => "Andri",
-		  'last_name'     => "Litani",
-		  'address'       => "Mangga 20",
-		  'city'          => "Jakarta",
-		  'postal_code'   => "16602",
-		  'phone'         => "081122334455",
+		  'first_name'    =>
+			$user->nama_lengkap,
+		  'address'       => 	$alamat,
+		  'city'          => $kota,
+		  'postal_code'   => $kode_pos,
+		  'phone'         => $user->no_phone,
 		  'country_code'  => 'IDN'
 		);
 
 		// Optional
 		$shipping_address = array(
-		  'first_name'    => "Obet",
-		  'last_name'     => "Supriadi",
-		  'address'       => "Manggis 90",
-		  'city'          => "Jakarta",
-		  'postal_code'   => "16601",
-		  'phone'         => "08113366345",
-		  'country_code'  => 'IDN'
+			'first_name'    =>
+			$user->nama_lengkap,
+			'address'       => 	$alamat,
+			'city'          => $kota,
+			'postal_code'   => $kode_pos,
+			'phone'         => $user->no_phone,
+			'country_code'  => 'IDN'
 		);
 
 		// Optional
 		$customer_details = array(
-		  'first_name'    => "Andri",
-		  'last_name'     => "Litani",
-		  'email'         => "andri@litani.com",
-		  'phone'         => "081122334455",
+		  'first_name'    => $user->nama_lengkap,
+		  'email'         =>
+			$user->email,
+		  'phone'         => $user->no_phone,
 		  'billing_address'  => $billing_address,
 		  'shipping_address' => $shipping_address
 		);
@@ -120,7 +202,8 @@ class Snap extends CI_Controller {
 		$snapToken = $this->midtrans->getSnapToken($transaction_data);
 		error_log($snapToken);
 		echo $snapToken;
-    }
+	}
+}
 
     public function finish()
     {

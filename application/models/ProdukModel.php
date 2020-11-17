@@ -365,7 +365,7 @@ class ProdukModel extends CI_Model
 	}
 	public function getProdukByID($id)
 	{
-		$this->db->select('qty');
+		$this->db->select('*');
 		$this->db->from('produk');
 		$this->db->where('id_produk', $id);
 		return $this->db->get()->result();

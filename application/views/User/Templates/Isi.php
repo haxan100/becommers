@@ -74,17 +74,37 @@
 					<div id="prodak">
 						<?php
 						foreach ($produk as $k) {
+							// var_dump($k);
+							// die;
+
 						?>
 
 							<div class="w3ls_mobiles_grid_right_grid3">
 								<div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_mobiles">
 									<div class="agile_ecommerce_tab_left mobiles_grid">
 										<div class="hs-wrapper hs-wrapper2">
-											<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
-											<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
-											<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
-											<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
-											<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+											<?php
+											if ($k->link_foto != null) {
+												$makelink = true;
+											?>
+												<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" />
+											<?php } else {
+												$makelink = false;
+
+											?>
+												<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+												<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" />
+											<?php }
+
+											?>
+
+
 											<div class="w3_hs_bottom w3_hs_bottom_sub1">
 												<ul>
 													<li>
@@ -112,8 +132,18 @@
 												<section>
 													<div class="modal-body">
 														<div class="col-md-8 modal_body_left">
+															<?php
+															if ($makelink) {
+															
+															?>
+															<img src="<?php echo $k->link_foto; ?>" alt=" " class="img-responsive" style=" max-width: 200px;" />
+															<?php
+															}else{															
+															?>
 															<img src="<?php echo base_url() . "upload/images/produk/"; ?><?php echo $k->foto; ?>" alt=" " class="img-responsive" style="
 															max-width: 200px;" />
+															<?php } ?>
+
 														</div>
 														<div class="col-md-4 modal_body_right">
 															<h4><?php echo $k->nama_produk; ?></h4>

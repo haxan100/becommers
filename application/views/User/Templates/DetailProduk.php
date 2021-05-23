@@ -119,6 +119,7 @@
 					},
 				}).done(function(e) {
 					if (e.status) {
+						// console.log(e)
 						Swal.fire(
 							':)',
 							e.msg,

@@ -31,7 +31,7 @@
 
 							<div class="carousel-inner">
 								<div class="item active">
-									<img class="imagescourse"  src="<?= base_url() ?>upload/images/banner/b1.jpg" alt="Demo 1">
+									<img class="imagescourse" src="<?= base_url() ?>upload/images/banner/b1.jpg" alt="Demo 1">
 								</div>
 
 								<div class="item">
@@ -93,9 +93,9 @@
 												</ul>
 											</div>
 										</div>
-										<h5><a href="<?= base_url();?>user/detailproduk/<?php echo $k->link; ?>">
-										 <?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i>
-										 </p>
+										<h5><a href="<?= base_url(); ?>user/detailproduk/<?php echo $k->link; ?>">
+												<?php echo $k->nama_produk; ?> </a></h5> <i class="item_price">Rp.<?php echo formatUang($k->harga); ?></i>
+										</p>
 
 										<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="<?php echo $k->id_produk; ?>" data-produknama="<?php echo $k->nama_produk; ?>" data-produkharga="<?php echo $k->harga; ?>">
 											Tambah Ke Keranjang
@@ -202,8 +202,13 @@
 										qty: qty,
 									},
 								}).done(function(e) {
+									// console.log(e);
+									if (e.belumLogin) {
+										setTimeout(() => {
+											window.location = "<?= $bu; ?>loginUser";
+										}, 2000);
+									}
 									if (e.status) {
-										// console.log(e);
 										Swal.fire(
 											':)',
 											e.msg,
@@ -214,9 +219,6 @@
 										}, 2000);
 
 									} else {
-										// alert(e.msg);
-
-										// console.log("gagal");
 										Swal.fire(
 											'error',
 											e.msg,

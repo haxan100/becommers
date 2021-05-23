@@ -4,24 +4,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
 class User extends MY_Controller {
 
-	public function __construct()
-
-	{
+public function __construct()
+{
 	parent::__construct();
-	$this->load->model('ProdukModel');
+		$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
 		$this->load->model('CartModel');
 
 
 	$this->load->library('form_validation');
-
 	$this->load->helper('url');
 }
 
 public function index()
 {
 	
-			if(empty($_SESSION['id_user'])){
+		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{
 			$id_user = $_SESSION['id_user'];
@@ -273,7 +271,7 @@ public function transaksi()
 			# code...
 }
 
-	public function keranjang()
+public function keranjang()
 	{
 		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
@@ -302,7 +300,7 @@ public function transaksi()
 		}
 
 	}
-	public function cekout()
+public function cekout()
 	{
 		if (empty($_SESSION['id_user'])) {
 			$data['jml'] = 0;
@@ -327,7 +325,7 @@ public function transaksi()
 		}
 	}
 
-	function _api_ongkir_post($origin, $des, $qty, $cour)
+function _api_ongkir_post($origin, $des, $qty, $cour)
 	{
 		// var_dump($origin, $des, $qty, $cour);die;
 		$curl = curl_init();
@@ -358,7 +356,7 @@ public function transaksi()
 			return $response;
 		}
 	}
-	function _api_ongkir($data)
+function _api_ongkir($data)
 	{
 		$curl = curl_init();
 
@@ -389,14 +387,14 @@ public function transaksi()
 			return $response;
 		}
 	}
-	public function provinsi()
+public function provinsi()
 	{
 
 		$provinsi = $this->_api_ongkir('province');
 		$data = json_decode($provinsi, true);
 		echo json_encode($data['rajaongkir']['results']);
 	}
-	public function kota($provinsi = "")
+public function kota($provinsi = "")
 	{
 		if (!empty($provinsi)) {
 			if (is_numeric($provinsi)) {
@@ -411,7 +409,7 @@ public function transaksi()
 			show_404();
 		}
 	}
-	public function tarif()
+public function tarif()
 	{
 
 		$qty =10;
@@ -423,7 +421,7 @@ public function transaksi()
 		// var_dump($data);
 		echo json_encode($data['rajaongkir']['results']);
 	}
-		public function pembayaran()
+public function pembayaran()
 	{
 		if (empty($_SESSION['id_user'])) {
 		
@@ -449,13 +447,13 @@ public function transaksi()
 		}
 	}
 
-	public function formatUang($str, $withRp = 0)
+public function formatUang($str, $withRp = 0)
 	{
 		return $withRp == 1
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
 	}
-	public function profile()
+public function profile()
 	{
 
 		if (empty($_SESSION['id_user'])) {
@@ -481,7 +479,7 @@ public function transaksi()
 		// $this->load->view('User/Templates/IndexContent',$data);
 
 	}
-	public function editProfile()
+public function editProfile()
 	{
 		// var_dump($_POST);die;
 		$id_user = $this->input->post('id_user');
@@ -542,7 +540,7 @@ public function transaksi()
 		
 	
 	}
-	public function pesanan($id_tipe_produk = 1)
+public function pesanan($id_tipe_produk = 1)
 	{
 		$data['jml']=0;
 		$data['products'] = "";
@@ -563,7 +561,7 @@ public function transaksi()
 		// $this->load->view('user/my_bid', $obj);
 
 	}
-	public function detailproduk()
+public function detailproduk()
 	{
 		$uri = $this->uri->segment(3);
 		$produk['produk'] = $this->ProdukModel->getProdukByLink($uri)[0];
@@ -586,7 +584,7 @@ public function transaksi()
 		 //  $this->load->view('User/Templates/Kontent');
 		 $this->load->view('User/Templates/Footer');
 	}
-	public function getMyBidBundlingListSukses()
+public function getMyBidBundlingListSukses()
 	{
 		$page = intval($this->input->post('page', true));
 		$status = $this->input->post('status', true);
@@ -672,7 +670,7 @@ public function transaksi()
 			'data' => $data,
 		));
 	}
-	public function getMyBidBundlingList()
+public function getMyBidBundlingList()
 	{
 		$page = intval($this->input->post('page', true));
 		$status = $this->input->post('status', true);

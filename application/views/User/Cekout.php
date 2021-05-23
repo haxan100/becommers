@@ -219,9 +219,9 @@
 			$.ajax({
 				// url: '<?= site_url() ?>/snap/token',
 				type: 'POST',
-				// dataType: 'json',
-				// url: "<?= $bu; ?>Cart/setPayment",
-				url: '<?= site_url() ?>/snap/token',
+				dataType: 'json',
+				url: "<?= $bu; ?>Cart/setPayment",
+				// url: '<?= site_url() ?>/snap/token',
 
 				data: {
 					total: total,
@@ -236,43 +236,43 @@
 				},
 				cache: false,
 
-				success: function(data) {
-					//location = data;
-					console.log(data);
+				// success: function(data) {
+				// 	//location = data;
+				// 	console.log(data);
 
-					console.log('token = ' + data);
+				// 	console.log('token = ' + data);
 
-					var resultType = document.getElementById('result-type');
-					var resultData = document.getElementById('result-data');
+				// 	var resultType = document.getElementById('result-type');
+				// 	var resultData = document.getElementById('result-data');
 
-					function changeResult(type, data) {
-						$("#result-type").val(type);
-						$("#result-data").val(JSON.stringify(data));
-						//resultType.innerHTML = type;
-						//resultData.innerHTML = JSON.stringify(data);
-					}
+				// 	function changeResult(type, data) {
+				// 		$("#result-type").val(type);
+				// 		$("#result-data").val(JSON.stringify(data));
+				// 		//resultType.innerHTML = type;
+				// 		//resultData.innerHTML = JSON.stringify(data);
+				// 	}
 
-					snap.pay(data, {
+				// 	snap.pay(data, {
 
-						onSuccess: function(result) {
-							changeResult('success', result);
-							console.log(result.status_message);
-							console.log(result);
-							console.log("SUKSES");
-							$("#payment-form").submit();
-						},
-						onPending: function(result) {
-							changeResult('pending', result);
-							console.log(result.status_message);
-							$("#payment-form").submit();
-						},
-						onError: function(result) {
-							changeResult('error', result);
-							console.log(result.status_message);
-							$("#payment-form").submit();
-						}
-					});
-				},
+				// 		onSuccess: function(result) {
+				// 			changeResult('success', result);
+				// 			console.log(result.status_message);
+				// 			console.log(result);
+				// 			console.log("SUKSES");
+				// 			$("#payment-form").submit();
+				// 		},
+				// 		onPending: function(result) {
+				// 			changeResult('pending', result);
+				// 			console.log(result.status_message);
+				// 			$("#payment-form").submit();
+				// 		},
+				// 		onError: function(result) {
+				// 			changeResult('error', result);
+				// 			console.log(result.status_message);
+				// 			$("#payment-form").submit();
+				// 		}
+				// 	});
+				// },
 				error: function(data) {
 					console.log(data)
 					alert("Status: " + data);

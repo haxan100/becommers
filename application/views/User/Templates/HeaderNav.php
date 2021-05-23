@@ -156,9 +156,16 @@
 
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
 
-					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge"><?= $jml ?></span></i></a></li>
-					<?php
+					<?php 
+					// var_dump($jml);die;
+					if($jml>0){
+					?>
 
+					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge"><?= $jml ?></span></i></a></li>
+
+
+					<?php
+						}
 					if (!empty($_SESSION['login_user'])) {
 
 					?>

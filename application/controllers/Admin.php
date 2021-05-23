@@ -89,8 +89,11 @@ class Admin extends CI_Controller {
 			$fields[] = $row->qty . '<br>';
 			$fields[] = $status . '<br>';
 			$fields[] = $row->deskripsi . '<br>';
-			// $fields[] = '<img src="'.base_url().'/upload/images/produk/' . $row->foto . '" id="image" alt="image"><br>';
-			$fields[] = '<img src="'.$row->foto . '" id="image" alt="image"><br>';
+			if($row->link_foto==null){
+				$fields[] = '<img src="'.base_url().'/upload/images/produk/' . $row->foto . '" id="image" alt="image"><br>';
+			}else{
+				$fields[] = '<img src="'.$row->link_foto . '" id="image" alt="image"><br>';
+			}
 			$fields[] = '
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 			data-deskripsi="' . $row->deskripsi . '" 

@@ -5,6 +5,14 @@
 							max-height: 100px;
 						}
 					</style>
+					<?php $d = $this->session->userdata('flash_data');
+					 ?>
+					<?php if (isset($d)) : ?>
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<?php echo $d; ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+					<?php endif; ?>
 
 
 					<div class="row">
@@ -19,6 +27,7 @@
 									<div class="col sm-6 ml-3 pb-1 pt-1">
 										<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
 
+										<button type="button" class="btn btn-primary btn_import" data-toggle="modalImport" data-target=".bs-example-modal-lg">Import</button>
 									</div>
 
 								</div>
@@ -168,9 +177,35 @@
 				</div>
 				<!-- modal akhir  -->
 
+				<div class="modal" tabindex="-1" id="modalImport" role="dialog">
+					<form method="post" enctype="multipart/form-data" action="<?= base_url(); ?>Import/text">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">IMport</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<input class="form-control" type="file" name="fileURL">
+								</div>
+								<div class="modal-footer">
+
+									<button type="submit" name="upload" class="btn btn-success"> IMPORT </button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
 				<script type="text/javascript">
 					document.addEventListener("DOMContentLoaded", function(event) {
+						$('.btn_import').click(function(e) {
+							$('#modalImport').modal('show')
 
+						});
 
 
 
@@ -484,7 +519,7 @@
 
 										datatable.ajax.reload();
 										resetForm();
-										
+
 									}).fail(function(e) {
 										console.log('gagal');
 										console.log(e);

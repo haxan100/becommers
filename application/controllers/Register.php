@@ -27,6 +27,11 @@ public function registerUser()
 		? 1
 			: substr($this->UserModel->select_max()->result()[0]->id_user, 3, 9);
 		if (!$idUser) $idUser = 0;
+		$username = $this->input->post('Name');
+		$email = $this->input->post('Email');
+		$hp = $this->input->post('no_phone');
+
+
 
 		$idUser = intval(preg_replace('/\D/', '', $idUser) + 1);
 		$newIdUser = 'U' . date('y');
@@ -43,10 +48,10 @@ public function registerUser()
 
 		$data = array(
 			'id_user' => $newIdUser,
-			'nama_lengkap' => $this->input->post('Name'),
-			'email'       => $this->input->post('Email'),
-			'no_phone'       => $this->input->post('no_phone'),
-			'status'       =>0,
+			'nama_lengkap' => $username,
+			'email'       => $email,
+			'no_phone'       => $hp,
+			'status'       =>1,
 			'password'       => md5($this->input->post('password')),
 		);
 
@@ -54,10 +59,19 @@ public function registerUser()
 
 		//cek apakah data berhasil tersimpan
 		if ($register) {
-
 			// echo "success";
 			$msg = "success";
 			$error =  false;
+			$newdata = array(
+				'username'  => $username,
+				'email'     => $email,
+				'id_user'     => $newIdUser,
+				'no_phone'     => $hp,
+
+				'login_user' => TRUE
+			);
+			$this->session->set_userdata($newdata);
+
 		} else {
 			$msg = "Eror";
 

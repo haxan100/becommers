@@ -23,6 +23,18 @@
 		border: none;
 		font-family: "Montserrat", sans-serif;
 	}
+
+	#btnRegis {
+		font-size: 12px;
+		text-transform: uppercase;
+		padding: 5px 30px;
+		background: #f95959;
+		color: #fff;
+		border-radius: 30px;
+		margin-right: 20px;
+		border: none;
+		font-family: "Montserrat", sans-serif;
+	}
 </style>
 
 <div class="container">
@@ -31,8 +43,8 @@
 			<!-- Brand Box -->
 			<div class="col-sm-6 brand">
 				<a href="#" class="logo">VR <span>.</span></a>
-				<div class="heading">
-					<h2>Veronica <h3>cloth</h3>
+				<div class="heading Veronica">
+					<h2 class="Veronica">Veronica <h3>cloth</h3>
 					</h2>
 					<p>Your Right Choice</p>
 				</div>
@@ -99,8 +111,7 @@
 							<span class="error"></span>
 						</div>
 
-						<div class="CTA">
-							<input type="submit" value="Signup Now" id="submit">
+						<div class="CTA"> <button class="btn btn-primary" type="button" id="btnRegis">Register</button>
 							<a href="#" class="switch">I have an account</a>
 						</div>
 					</form>
@@ -142,41 +153,128 @@
 					position: 'top-end',
 
 				});
-			}
-			$.ajax({
-				type: "post",
-				url: "<?= base_url() ?>Register/loginUser",
-				data: {
-					'LEmail': username,
-					'LPassword': password,
-				},
-				dataType: "json",
-				success: function(e) {
-					if (e.error) {
-						Swal.fire({
-							type: 'warning',
-							title: 'Oops...',
-							text: e.message,
-							position: 'top-end',
-
-						});
-					} else {
-
-						Swal.fire({
-							type: 'success',
-							title: 'Hai...',
-							text: e.message,
-							position: 'top-end',
-
-						});
-						setTimeout(() => {
-							window.location = '<?=base_url() ?>user';
-						}, 2100);
+			}else{
+				$.ajax({
+					type: "post",
+					url: "<?= base_url() ?>Register/loginUser",
+					data: {
+						'LEmail': username,
+						'LPassword': password,
+					},
+					dataType: "json",
+					success: function(e) {
+						if (e.error) {
+							Swal.fire({
+								type: 'warning',
+								title: 'Oops...',
+								text: e.message,
+								position: 'top-end',
+	
+							});
+						} else {
+	
+							Swal.fire({
+								type: 'success',
+								title: 'Hai...',
+								text: e.message,
+								position: 'top-end',
+	
+							});
+							setTimeout(() => {
+								window.location = '<?= base_url() ?>user';
+							}, 2100);
+						}
+	
 					}
+				});
 
-				}
-			});
+			}
 			return false;
+
+		});
+		$('#btnRegis').click(function(e) {
+			var name = $('#name').val()
+			var email = $('#email').val()
+			var phone = $('#phone').val()
+			var password = $('#password').val()
+			if (email.length == "") {
+				Swal.fire({
+					type: 'warning',
+					title: 'Oops...',
+					text: 'Email Wajib Diisi !',
+					position: 'top-end',
+				});
+			} else if (password.length == "") {
+				Swal.fire({
+					type: 'warning',
+					title: 'Oops...',
+					text: 'Password Wajib Diisi !',
+					position: 'top-end',
+
+				});
+			} else if (name.length == "") {
+				Swal.fire({
+					type: 'warning',
+					title: 'Oops...',
+					text: 'Nama Wajib Diisi !',
+					position: 'top-end',
+
+				});
+			} else if (phone.length == "") {
+				Swal.fire({
+					type: 'warning',
+					title: 'Oops...',
+					text: 'HP Wajib Diisi !',
+					position: 'top-end',
+
+				});
+			}else{
+				$.ajax({
+					type: "post",
+					url: "<?= base_url() ?>Register/registerUser",
+					data: {
+						'Name': name,
+						'password': password,
+						'no_phone': phone,
+						'Email': email,
+					},
+					dataType: "json",
+					success: function(e) {
+	
+						console.log(e)
+						// return false
+						if (e.error) {
+							Swal.fire({
+								type: 'warning',
+								title: 'Oops...',
+								text: e.message,
+								position: 'top-end',
+	
+							});
+						} else {
+	
+							Swal.fire({
+								type: 'success',
+								title: 'Hai...',
+								text: e.message,
+								position: 'top-end',
+	
+							});
+							setTimeout(() => {
+								window.location = '<?= base_url() ?>user';
+							}, 2100);
+						}
+	
+					}
+				});
+
+			}
+			return false;
+
+		});
+
+		$('.Veronica').click(function(e) {
+			window.location = '<?= base_url() ?>user';
 
 		});
 

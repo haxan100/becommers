@@ -31,8 +31,20 @@ public function registerUser()
 		$email = $this->input->post('Email');
 		$hp = $this->input->post('no_phone');
 
+		$getemail = $this->UserModel->getUserByX("email",$email);
+		$getHP = $this->UserModel->getUserByX("no_phone", $hp);
 
+		$msg = "Gagal Mendaftar!";
+		$error =  false;
 
+		if($getemail>=1){
+			$msg = "Email Sudah Pernah Ada yang Memakai!";
+			$error =  true;
+		}
+		if ($getHP >= 1) {
+			$msg = "No Hp Sudah Pernah Ada yang Memakai!";
+			$error =  true;
+		}
 		$idUser = intval(preg_replace('/\D/', '', $idUser) + 1);
 		$newIdUser = 'U' . date('y');
 		if ($idUser < 100000000) $newIdUser .= '0';
@@ -51,15 +63,14 @@ public function registerUser()
 			'nama_lengkap' => $username,
 			'email'       => $email,
 			'no_phone'       => $hp,
-			'status'       =>1,
+			'status'       => 1,
 			'password'       => md5($this->input->post('password')),
 		);
 
-		$register = $this->UserModel->simpan_register($data);
 
-		//cek apakah data berhasil tersimpan
-		if ($register) {
-			// echo "success";
+		if(!$error){
+			$this->UserModel->simpan_register($data);
+
 			$msg = "success";
 			$error =  false;
 			$newdata = array(
@@ -67,24 +78,17 @@ public function registerUser()
 				'email'     => $email,
 				'id_user'     => $newIdUser,
 				'no_phone'     => $hp,
-
 				'login_user' => TRUE
 			);
 			$this->session->set_userdata($newdata);
-
-		} else {
-			$msg = "Eror";
-
-			$error =  true;
-		}
+		}	
 		$json = array(
 			'error' => $error,
 			'message' => $msg,
 		);
 
 		echo json_encode($json);
-		exit();
-		
+		exit();		
 
 
 	}

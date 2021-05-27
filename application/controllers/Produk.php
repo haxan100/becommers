@@ -20,12 +20,15 @@ public function index()
 }
 public function produk()
 {
-	$data = $this->ProdukModel->data_Allproduk(2);
-// var_dump($data['data']->result());die;
-$data = $data['data']->result();
+	
+	$page = intval($this->input->post('page', true));
+	$data = $this->ProdukModel->getProduk($page);
+	// var_dump($data);die;
+	// $data = $data['data'];
 		echo json_encode(array(
 			'status' => true,
-			'data' => $data
+			'data' => $data['data'],
+			'page' => $data['page']
 		));
 }
         

@@ -75,6 +75,14 @@
 
 					</div>
 
+					
+					<nav aria-label="Page navigation example" class="example">
+						<input type="hidden" id="_page" value=1></input>
+						<ul class="pagination" id="pagination-wrapper">
+
+						</ul>
+					</nav>
+
 					<div class="clearfix"> </div>
 					<div class="text-center">
 						<?php
@@ -243,6 +251,7 @@
 
 
 							function generateProduk(produk) {
+								// console.log(produk);
 								// console.log(bu+"upload/images/produk" + produk.foto);
 								if(produk.link_foto!=null){
 									var make_link= true;
@@ -307,16 +316,47 @@
 													'<div class="modal-header">'+
 														'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
 													'</div>'+
+													'<section>'+
+														'<div class="modal-body">'+
+															'<div class="col-md-8 modal_body_left">'+
+															`${ make_link
+																? 																	
+																'<img src="'+produk.link_foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
+																:  
+																'<img src="'+bu+'"upload/images/produk/"'+produk.foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
+															}` +
+
+															'</div>'+
+															'<div class="col-md-4 modal_body_right">'+
+																'<h4>'+produk.nama_produk+'</h4>'+
+																'<p>'+produk.deskripsi+'</p>'+
+																'<div class="rating">'+
+																	'<div class="rating-left">'+
+																	'</div>'+
+																	'<div class="clearfix"> </div>'+
+																'</div>'+
+																'<div class="modal_body_right_cart simpleCart_shelfItem">'+
+																	'<p><i class="item_price">Rp.'+produk.harga+'</i></p>'+
+																	'<form action="#" method="post">'+
+																		'<input type="hidden" name="cmd" value="_cart">'+
+																		'<input type="hidden" name="add" value="1">'+
+																		'<input type="hidden" name="w3ls_item" value="'+produk.nama_produk+'">'+
+																		'<input type="hidden" name="amount" value="'+produk.harga+'">'+
+
+																		'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="'+produk.id_produk+'" data-produknama="'+produk.nama_produk+'" data-produkharga="'+produk.harga+'">'+
+																			'Tambah Ke Keranjang'+
+																		'</button>'+
+																	'</form>'+
+																'</div>'+
+															'</div>'+
+															'<div class="clearfix"> </div>'+
+														'</div>'+
+													'</section>'+
 												'</div>'+
 											'</div>'+
 										'</div>'+
+
 										'<!-- akhir modal -->'+
-
-
-
-
-
-
 										'<div class="mobiles_grid_pos">'+
 											'<h6>New</h6>'+
 										'</div>'+
@@ -336,6 +376,7 @@
 									url: "<?= $bu; ?>produk/produk",
 									data: {
 
+										page: $('#_page').val(),
 										id_tipe_bid: '2',
 									},
 								}).done(function(e) {
@@ -346,8 +387,9 @@
 										var berapa = e.data.length;
 										$.each(e.data, function(key, val) {
 											$('#produk').append(generateProduk(val));
+											// console.log(e.data);
 											if (berapa >= 1) {
-												// generatePagination(e.data.page);
+												generatePagination(e.page);
 											} else {}
 
 										});
@@ -371,7 +413,68 @@
 							// $('body').on('click', '.btn-tawar', function() {
 							// 	console.log("hahahahahahah");
 							// });
+							
+							function generatePagination(e) {
+								// console.log(e);
+								// return(false);
 
+								var pag = '';
+								// var pag = '';
+								var max_page = 5;
+
+								if (e.halaman <= 1) {
+									pag += '<button disabled data-page="1" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-left"></i></button> ';
+								} else {
+									pag += '<button data-page="' + (e.halaman - 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-left"></i></button> ';
+								}
+								// console.log(p.total_halaman <= max_page);
+								if (e.total_halaman <= max_page) {
+									for (var i = 1; i <= e.total_halaman; i++) {
+										if (i == e.halaman) {
+											pag += '<button disabled data-page="' + i + '" class="page-link button btn-secondary px-2 rounded mr-2 text-center pg border-primary" disabled> ' + i + ' </button> ';
+										} else {
+											pag += '<button data-page="' + i + '" class="page-link button btn-primary px-2 rounded mr-2 text-center pg border-0"> ' + i + ' </button> ';
+										}
+									}
+								} else {
+									if (e.halaman - 2 > 1) {
+										pag += '.. ';
+									}
+									for (var i = e.halaman - 2; i <= e.halaman + 2; i++) {
+										// console.log(i);
+										if (i == e.halaman) {
+											pag += '<button disabled data-page="' + i + '" class="page-link button btn-secondary px-2 rounded mr-2 text-center pg border-primary" disabled> ' + i + ' </button> ';
+										} else if (i >= 1 && i <= e.total_halaman) {
+											pag += '<button data-page="' + i + '" class="page-link button btn-primary px-2 rounded mr-2 text-center pg border-0"> ' + i + ' </button> ';
+										}
+									}
+									if (e.halaman + 2 < e.total_halaman) {
+										pag += '.. ';
+									}
+								}
+
+								if (e.halaman >= e.total_halaman) {
+									pag += ' <button disabled data-page="' + e.total_halaman + '" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
+								} else {
+									pag += ' <button data-page="' + (e.halaman + 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
+								}
+
+
+								// for (let i = 1; i <= e.total_halaman ; i++) {
+
+								// html +='	<li class="page-item"><a class="page-link" data-page=" ' + i + ' " href="#">' + i + '</a></li> ';
+
+								// }
+
+								$('#pagination-wrapper').html(pag);
+							}
+
+							$('body').on('click', '.page-link', function() {
+								var hal = $(this).attr('data-page');
+								$('#_page').val(hal);
+								loadProduk();
+
+							});
 
 
 

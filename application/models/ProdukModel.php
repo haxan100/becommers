@@ -378,6 +378,72 @@ class ProdukModel extends CI_Model
 		$this->db->where('id_produk', $id);
 		return $this->db->update('produk', $in);
 	}
+	public function getProduk($page=1)
+    { 
+		// $page = intval($this->input->post('page', true));
+        $perHal = 5;
+        $start = ($page- 1) * $perHal;
+        $length =  $start + $perHal;
+
+        $total  = $this->getProdukCount();
+
+        $pages = ceil($total / $perHal);
+        $this->db->select("*")
+        ->from('produk p');
+        // if ($search != '') {
+        //     $array_search = array(
+        //         'p.judul' => $search,
+        //         'p.harga_awal' => $search,
+        //         // $col_search => $search,
+        //     );
+            // $this->db->group_start()
+            //     ->or_like($array_search)
+            //     ->group_end();
+        // }
+
+        $this->db->limit($perHal, $start);
+        $query = $this->db->get()->result();
+        // var_dump($this->db->last_query());die();
+        $pagination = array(
+            'total_halaman' => $pages,
+            'halaman' => $page,
+            'total_data' => $total, // jumlah total
+            'jumlah' => count($query)
+
+        );
+        $output = array(
+            'data' => $query,
+            'page' => $pagination,
+
+        );
+        return $output;
+    }
+	public function getProdukCount()
+    {
+        $table_spek = 'spek_handphone s';
+        $col_search = 's.e';
+
+        $this->db->select("*")
+        ->from('produk p')
+		;
+        // if ($filter != 'default') {
+        //     $this->db->where('g.id_grade', $filter);
+        //     // var_dump($filter);die();
+        // }
+        // if ($search != '') {
+        //     $array_search = array(
+        //         'p.judul' => $search,
+        //         'p.harga_awal' => $search,
+        //         // $col_search => $search,
+        //     );
+        //     $this->db->group_start()
+        //         ->or_like($array_search)
+        //         ->group_end();
+        // }
+        $query = $this->db->get()->result();
+        // var_dump($this->db->last_query());die();
+        return count($query);
+    }
 
 
 

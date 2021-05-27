@@ -75,7 +75,7 @@
 
 					</div>
 
-					
+
 					<nav aria-label="Page navigation example" class="example">
 						<input type="hidden" id="_page" value=1></input>
 						<ul class="pagination" id="pagination-wrapper">
@@ -226,7 +226,7 @@
 							// // var bu = '<?= base_url(); ?>';
 							// console.log(bu);
 							// loadProduk();
-							$('#cari').keyup(function (e) { 
+							$('#cari').keyup(function(e) {
 								var s = $('#cari').val();
 								// console.log(s);
 								loadProduk()
@@ -252,28 +252,35 @@
 							}
 							loadProduk()
 
+							function convertToRupiah(angka) {
+								var rupiah = '';
+								var angkarev = angka.toString().split('').reverse().join('');
+								for (var i = 0; i < angkarev.length; i++)
+									if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+								return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+							}
+
 
 							function generateProduk(produk) {
 								// console.log(produk);
 								// console.log(bu+"upload/images/produk" + produk.foto);
-								if(produk.link_foto!=null){
-									var make_link= true;
+								if (produk.link_foto != null) {
+									var make_link = true;
 									// var make_link= false;
-								}else{
-									var make_link= false;
+								} else {
+									var make_link = false;
 									// var make_link= true;
 								}
 								// var make_link = false;
 
-								return ''
-								+	
-								// console.log(make_link);
-								'<div class="w3ls_mobiles_grid_right_grid3">'+
-									'<div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_mobiles">'+
-										'<div class="agile_ecommerce_tab_left mobiles_grid">'+
-											'<div class="hs-wrapper hs-wrapper2">' +											
-												// make_link ? console.log('object') : console.log("dw");   
-												`${ make_link
+								return '' +
+									// console.log(make_link);
+									'<div class="w3ls_mobiles_grid_right_grid3">' +
+									'<div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_mobiles">' +
+									'<div class="agile_ecommerce_tab_left mobiles_grid">' +
+									'<div class="hs-wrapper hs-wrapper2">' +
+									// make_link ? console.log('object') : console.log("dw");   
+									`${ make_link
 													? 		
 													'<img src="'+produk.link_foto+'" alt=" " class="img-responsive" />'+
 													'<img src="'+produk.link_foto+'" alt=" " class="img-responsive" />'+
@@ -292,81 +299,81 @@
 													
 													}` +
 
-														
 
-												'<div class="w3_hs_bottom w3_hs_bottom_sub1">'+
-													'<ul>'+
-														'<li>'+
-															'<a href="#" data-toggle="modal" data-target="#myModal'+produk.id_produk+'"><span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>'+
-														'</li>'+
-													'</ul>'+
-												'</div>'+
-											'</div>'+
 
-											'<h5><a href="`+bu+"user/detailprodu" + produk.link+`">'+
-													''+produk.nama_produk+'</a></h5> <i class="item_price">Rp.'+produk.harga+'</i>'+
-											'</p>'+
+									'<div class="w3_hs_bottom w3_hs_bottom_sub1">' +
+									'<ul>' +
+									'<li>' +
+									'<a href="#" data-toggle="modal" data-target="#myModal' + produk.id_produk + '"><span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>' +
+									'</li>' +
+									'</ul>' +
+									'</div>' +
+									'</div>' +
 
-											'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="'+produk.id_produk+'" data-produknama="'+produk.nama_produk+'" data-produkharga="'+produk.harga+'">'+
-												'Tambah Ke Keranjang '+
-											'</button>'+
-										'</div>'+
+									'<h5><a href="`+bu+"user/detailprodu" + produk.link+`">' +
+									'' + produk.nama_produk + '</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
+									'</p>' +
 
-										'<!-- modal-video -->'+
-										'<div class="modal video-modal fade" id="myModal'+produk.id_produk+'" tabindex="-1" role="dialog" aria-labelledby="myModal'+produk.id_produk+'">'+
-											'<div class="modal-dialog" role="document">'+
-												'<div class="modal-content">'+
-													'<div class="modal-header">'+
-														'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-													'</div>'+
-													'<section>'+
-														'<div class="modal-body">'+
-															'<div class="col-md-8 modal_body_left">'+
-															`${ make_link
+									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
+									'Tambah Ke Keranjang ' +
+									'</button>' +
+									'</div>' +
+
+									'<!-- modal-video -->' +
+									'<div class="modal video-modal fade" id="myModal' + produk.id_produk + '" tabindex="-1" role="dialog" aria-labelledby="myModal' + produk.id_produk + '">' +
+									'<div class="modal-dialog" role="document">' +
+									'<div class="modal-content">' +
+									'<div class="modal-header">' +
+									'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+									'</div>' +
+									'<section>' +
+									'<div class="modal-body">' +
+									'<div class="col-md-8 modal_body_left">' +
+									`${ make_link
 																? 																	
 																'<img src="'+produk.link_foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
 																:  
 																'<img src="'+bu+'"upload/images/produk/"'+produk.foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
 															}` +
 
-															'</div>'+
-															'<div class="col-md-4 modal_body_right">'+
-																'<h4>'+produk.nama_produk+'</h4>'+
-																'<p>'+produk.deskripsi+'</p>'+
-																'<div class="rating">'+
-																	'<div class="rating-left">'+
-																	'</div>'+
-																	'<div class="clearfix"> </div>'+
-																'</div>'+
-																'<div class="modal_body_right_cart simpleCart_shelfItem">'+
-																	'<p><i class="item_price">Rp.'+produk.harga+'</i></p>'+
-																	'<form action="#" method="post">'+
-																		'<input type="hidden" name="cmd" value="_cart">'+
-																		'<input type="hidden" name="add" value="1">'+
-																		'<input type="hidden" name="w3ls_item" value="'+produk.nama_produk+'">'+
-																		'<input type="hidden" name="amount" value="'+produk.harga+'">'+
+									'</div>' +
+									'<div class="col-md-4 modal_body_right">' +
+									'<h4>' + produk.nama_produk + '</h4>' +
+									'<p>' + produk.deskripsi + '</p>' +
+									'<div class="rating">' +
+									'<div class="rating-left">' +
+									'</div>' +
+									'<div class="clearfix"> </div>' +
+									'</div>' +
+									'<div class="modal_body_right_cart simpleCart_shelfItem">' +
+									'<p><i class="item_price">'  + convertToRupiah(produk.harga) + '</i></p>' +
+									'<form action="#" method="post">' +
+									'<input type="hidden" name="cmd" value="_cart">' +
+									'<input type="hidden" name="add" value="1">' +
+									'<input type="hidden" name="w3ls_item" value="' + produk.nama_produk + '">' +
+									'<input type="hidden" name="amount" value="' + produk.harga + '">' +
 
-																		'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="'+produk.id_produk+'" data-produknama="'+produk.nama_produk+'" data-produkharga="'+produk.harga+'">'+
-																			'Tambah Ke Keranjang'+
-																		'</button>'+
-																	'</form>'+
-																'</div>'+
-															'</div>'+
-															'<div class="clearfix"> </div>'+
-														'</div>'+
-													'</section>'+
-												'</div>'+
-											'</div>'+
-										'</div>'+
+									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
+									'Tambah Ke Keranjang' +
+									'</button>' +
+									'</form>' +
+									'</div>' +
+									'</div>' +
+									'<div class="clearfix"> </div>' +
+									'</div>' +
+									'</section>' +
+									'</div>' +
+									'</div>' +
+									'</div>' +
 
-										'<!-- akhir modal -->'+
-										'<div class="mobiles_grid_pos">'+
-											'<h6>New</h6>'+
-										'</div>'+
-									'</div>'+
-								'</div>'
+									'<!-- akhir modal -->' +
+									'<div class="mobiles_grid_pos">' +
+									'<h6>New</h6>' +
+									'</div>' +
+									'</div>' +
+									'</div>'
 								'';
-							
+
 
 							}
 
@@ -378,7 +385,7 @@
 									dataType: 'json',
 									url: "<?= $bu; ?>produk/produk",
 									data: {
-										cari : $('#cari').val(),
+										cari: $('#cari').val(),
 										page: $('#_page').val(),
 										id_tipe_bid: '2',
 									},
@@ -416,7 +423,7 @@
 							// $('body').on('click', '.btn-tawar', function() {
 							// 	console.log("hahahahahahah");
 							// });
-							
+
 							function generatePagination(e) {
 								// console.log(e);
 								// return(false);

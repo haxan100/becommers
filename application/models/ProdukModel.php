@@ -384,7 +384,8 @@ class ProdukModel extends CI_Model
         $total  = $this->getProdukCount($cari);
         $pages = ceil($total / $perHal);
         $this->db->select("*")
-        ->from('produk p');
+        ->from('produk p')
+		->where('status_produk',1);
         if ($cari != '') {
             $array_search = array(
                 'p.nama_produk' => $cari,
@@ -418,6 +419,7 @@ class ProdukModel extends CI_Model
 
         $this->db->select("*")
         ->from('produk p')
+		->where('status_produk',1)
 		;
         if ($cari != '') {
             $array_search = array(

@@ -11,7 +11,10 @@
 
 <!-- //banner -->
 <!-- banner-bottom -->
-<?php $this->load->view('User/Templates/Isi') ?>
+<?php
+//  $this->load->view('User/Templates/Isi') 
+?>
+<?php $this->load->view('User/Templates/Isitest') ?>
 
 <!-- //banner-bottom -->
 <!-- banner-bottom1 -->

@@ -74,9 +74,6 @@
 					<div id="prodak">
 						<?php
 						foreach ($produk as $k) {
-							// var_dump($k);
-							// die;
-
 						?>
 
 							<div class="w3ls_mobiles_grid_right_grid3">

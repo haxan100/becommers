@@ -203,73 +203,73 @@ public function hubungi()
 
 public function getProduk()
 	{
-		// var_dump($_POST);die;
-		// $search = $this->input->post('search', true);
-		$sort = $this->input->post('sort', true);
-		// $filter = $this->input->post('filter', true);
-		// $page = intval($this->input->post('page', true));
-		// $page = 2;
-		// var_dump($page);die;
-		$hasil = "";
-		switch ($sort) {
-			case '0':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga_awal ASC");
-				break;
-			case '1':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.qty ASC");
-				break;
-			case '2':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.nama_produk ASC");
-				break;
-			case '3':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk( "p.nama_produk DESC");
-				break;
-			case '4':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga ASC");
-				break;
-			case '5':
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga DESC");
-				break;
-			default:
-				$hasil = $this->ProdukModel->getProdukByIdTipeProduk($sort);
-				break;
-		}
-		// var_dump($hasil); die();
-		$status = false;
-		if (count($hasil) > 0) {
-			$status = true;
-			$data = $hasil;
-			// var_dump($data);die;
-		}
-		echo json_encode(array(
-			'status' => $status,
-			'data' => $data
-		));
+			// var_dump($_POST);die;
+			// $search = $this->input->post('search', true);
+			$sort = $this->input->post('sort', true);
+			// $filter = $this->input->post('filter', true);
+			// $page = intval($this->input->post('page', true));
+			// $page = 2;
+			// var_dump($page);die;
+			$hasil = "";
+			switch ($sort) {
+				case '0':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga_awal ASC");
+					break;
+				case '1':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.qty ASC");
+					break;
+				case '2':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.nama_produk ASC");
+					break;
+				case '3':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk( "p.nama_produk DESC");
+					break;
+				case '4':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga ASC");
+					break;
+				case '5':
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk("p.harga DESC");
+					break;
+				default:
+					$hasil = $this->ProdukModel->getProdukByIdTipeProduk($sort);
+					break;
+			}
+			// var_dump($hasil); die();
+			$status = false;
+			if (count($hasil) > 0) {
+				$status = true;
+				$data = $hasil;
+				// var_dump($data);die;
+			}
+			echo json_encode(array(
+				'status' => $status,
+				'data' => $data
+			));
 	}
 public function transaksi()
-{
-		if(empty($_SESSION['id_user'])){
-			$data['jml']=0;
-		}else{
-			$id_user = $_SESSION['id_user'];
-		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			// var_dump($jml);
-			$data['jml']=$jml;
-		}
-			// var_dump($_POST);
-			
-			$this->load->view('User/Templates/Header');
-			$this->load->view('User/Templates/Head');
-			$this->load->view('User/Templates/HeaderNav',$data);
-				var_dump($_POST);
+	{
+			if(empty($_SESSION['id_user'])){
+				$data['jml']=0;
+			}else{
+				$id_user = $_SESSION['id_user'];
+			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+				// var_dump($jml);
+				$data['jml']=$jml;
+			}
+				// var_dump($_POST);
+				
+				$this->load->view('User/Templates/Header');
+				$this->load->view('User/Templates/Head');
+				$this->load->view('User/Templates/HeaderNav',$data);
+					var_dump($_POST);
 
-			//   $this->load->view('User/Templates/About');
-			//  $this->load->view('User/Templates/Kontent');
-			$this->load->view('User/Templates/Footer');
-			//  die;
-			// var_dump($cari);die;
-			# code...
-}
+				//   $this->load->view('User/Templates/About');
+				//  $this->load->view('User/Templates/Kontent');
+				$this->load->view('User/Templates/Footer');
+				//  die;
+				// var_dump($cari);die;
+				# code...
+	}
 
 public function keranjang()
 	{
@@ -775,6 +775,11 @@ public function getMyBidBundlingList()
 			'page' => $page,
 
 		));
+	}
+	public function test($id_kategori = "")
+	{
+		// var_dump(count($data['produk']));die;
+		$this->load->view('User/Templates/Index');
 	}
 
 

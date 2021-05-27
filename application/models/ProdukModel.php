@@ -368,38 +368,31 @@ class ProdukModel extends CI_Model
 		$this->db->select('*');
 		$this->db->from('produk');
 		$this->db->where('id_produk', $id);
-		return $this->db->get()->result();
-		
-		
-		
+		return $this->db->get()->result();		
 	}
 	public function updateQTYbyID($in, $id)
 	{
 		$this->db->where('id_produk', $id);
 		return $this->db->update('produk', $in);
 	}
-	public function getProduk($page=1)
+	public function getProduk($page=1,$cari)
     { 
 		// $page = intval($this->input->post('page', true));
         $perHal = 5;
         $start = ($page- 1) * $perHal;
         $length =  $start + $perHal;
-
-        $total  = $this->getProdukCount();
-
+        $total  = $this->getProdukCount($cari);
         $pages = ceil($total / $perHal);
         $this->db->select("*")
         ->from('produk p');
-        // if ($search != '') {
-        //     $array_search = array(
-        //         'p.judul' => $search,
-        //         'p.harga_awal' => $search,
-        //         // $col_search => $search,
-        //     );
-            // $this->db->group_start()
-            //     ->or_like($array_search)
-            //     ->group_end();
-        // }
+        if ($cari != '') {
+            $array_search = array(
+                'p.nama_produk' => $cari,
+            );
+            $this->db->group_start()
+                ->or_like($array_search)
+                ->group_end();
+        }
 
         $this->db->limit($perHal, $start);
         $query = $this->db->get()->result();
@@ -418,7 +411,7 @@ class ProdukModel extends CI_Model
         );
         return $output;
     }
-	public function getProdukCount()
+	public function getProdukCount($cari)
     {
         $table_spek = 'spek_handphone s';
         $col_search = 's.e';
@@ -426,20 +419,15 @@ class ProdukModel extends CI_Model
         $this->db->select("*")
         ->from('produk p')
 		;
-        // if ($filter != 'default') {
-        //     $this->db->where('g.id_grade', $filter);
-        //     // var_dump($filter);die();
-        // }
-        // if ($search != '') {
-        //     $array_search = array(
-        //         'p.judul' => $search,
-        //         'p.harga_awal' => $search,
-        //         // $col_search => $search,
-        //     );
-        //     $this->db->group_start()
-        //         ->or_like($array_search)
-        //         ->group_end();
-        // }
+        if ($cari != '') {
+            $array_search = array(
+                'p.nama_produk' => $cari,
+            );
+            $this->db->group_start()
+                ->or_like($array_search)
+                ->group_end();
+        }
+
         $query = $this->db->get()->result();
         // var_dump($this->db->last_query());die();
         return count($query);

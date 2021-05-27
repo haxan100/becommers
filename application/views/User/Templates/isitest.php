@@ -85,9 +85,6 @@
 
 					<div class="clearfix"> </div>
 					<div class="text-center">
-						<?php
-						echo $this->pagination->create_links();
-						?>
 					</div>
 					</div>
 					</div>
@@ -229,6 +226,12 @@
 							// // var bu = '<?= base_url(); ?>';
 							// console.log(bu);
 							// loadProduk();
+							$('#cari').keyup(function (e) { 
+								var s = $('#cari').val();
+								// console.log(s);
+								loadProduk()
+
+							});
 
 							$(".select_item").change(function() {
 								var s = $('.select_item').val();
@@ -375,7 +378,7 @@
 									dataType: 'json',
 									url: "<?= $bu; ?>produk/produk",
 									data: {
-
+										cari : $('#cari').val(),
 										page: $('#_page').val(),
 										id_tipe_bid: '2',
 									},

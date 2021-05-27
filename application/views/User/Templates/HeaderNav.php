@@ -70,7 +70,7 @@
 
 				<form action="<?php echo base_url() . "user/"; ?>" method="post">
 
-					<input type="text" name="Search" placeholder="Search...">
+					<input type="text" name="Search" id="cari" placeholder="Search...">
 
 					<input type="submit" value="Send">
 

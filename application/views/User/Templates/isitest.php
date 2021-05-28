@@ -76,16 +76,18 @@
 					</div>
 
 
-					<nav aria-label="Page navigation example" class="example">
-						<input type="hidden" id="_page" value=1></input>
-						<ul class="pagination" id="pagination-wrapper">
-
-						</ul>
-					</nav>
-
 					<div class="clearfix"> </div>
+
 					<div class="text-center">
 					</div>
+						<div class="text-center">
+							<nav aria-label="Page navigation example" class="example">
+								<input type="hidden" id="_page" value=1></input>
+								<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
+
+								</ul>
+							</nav>
+						</div>
 					</div>
 					</div>
 					</div>
@@ -433,9 +435,9 @@
 								var max_page = 5;
 
 								if (e.halaman <= 1) {
-									pag += '<button disabled data-page="1" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-left"></i></button> ';
+									pag += '<button disabled data-page="1" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-left"></i></button> ';
 								} else {
-									pag += '<button data-page="' + (e.halaman - 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-left"></i></button> ';
+									pag += '<button data-page="' + (e.halaman - 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-left"></i></button> ';
 								}
 								// console.log(p.total_halaman <= max_page);
 								if (e.total_halaman <= max_page) {
@@ -464,9 +466,9 @@
 								}
 
 								if (e.halaman >= e.total_halaman) {
-									pag += ' <button disabled data-page="' + e.total_halaman + '" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
+									pag += ' <button disabled data-page="' + e.total_halaman + '" class="page-link button btn-outline-secondary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-right"></i></button>';
 								} else {
-									pag += ' <button data-page="' + (e.halaman + 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fas fa-arrow-right"></i></button>';
+									pag += ' <button data-page="' + (e.halaman + 1) + '" class="page-link button btn-primary px-2 rounded mr-2 pg border-0"><i class="fa fa-arrow-right"></i></button>';
 								}
 
 

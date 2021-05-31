@@ -15,6 +15,11 @@
 							background-color: #edeef1;
 							margin-bottom: 15px;
 						}
+
+						.hs-wrapper2 {
+							width: 145px !important;
+							height: 160px !important;
+						}
 					</style>
 
 					<div class="w3ls_mobiles_grid_right_grid2">
@@ -80,14 +85,14 @@
 
 					<div class="text-center">
 					</div>
-						<div class="text-center">
-							<nav aria-label="Page navigation example" class="example">
-								<input type="hidden" id="_page" value=1></input>
-								<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
+					<div class="text-center">
+						<nav aria-label="Page navigation example" class="example">
+							<input type="hidden" id="_page" value=1></input>
+							<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
 
-								</ul>
-							</nav>
-						</div>
+							</ul>
+						</nav>
+					</div>
 					</div>
 					</div>
 					</div>
@@ -312,8 +317,8 @@
 									'</div>' +
 									'</div>' +
 
-									'<h5><a href="`+bu+"user/detailprodu" + produk.link+`">' +
-									'' + produk.nama_produk + '</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
+									'<h5><a href="`+bu+"user/detailproduk" + produk.link+`">' +
+									'' + produk.nama_produk.substring(0, 30)+ '....</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
 									'</p>' +
 
 									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
@@ -348,7 +353,7 @@
 									'<div class="clearfix"> </div>' +
 									'</div>' +
 									'<div class="modal_body_right_cart simpleCart_shelfItem">' +
-									'<p><i class="item_price">'  + convertToRupiah(produk.harga) + '</i></p>' +
+									'<p><i class="item_price">' + convertToRupiah(produk.harga) + '</i></p>' +
 									'<form action="#" method="post">' +
 									'<input type="hidden" name="cmd" value="_cart">' +
 									'<input type="hidden" name="add" value="1">' +

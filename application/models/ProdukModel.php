@@ -378,7 +378,7 @@ class ProdukModel extends CI_Model
 	public function getProduk($page=1,$cari)
     { 
 		// $page = intval($this->input->post('page', true));
-        $perHal = 5;
+        $perHal = 9;
         $start = ($page- 1) * $perHal;
         $length =  $start + $perHal;
         $total  = $this->getProdukCount($cari);

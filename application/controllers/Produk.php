@@ -24,8 +24,6 @@ public function produk()
 	$page = intval($this->input->post('page', true));
 	$cari = $this->input->post('cari', true);
 	$data = $this->ProdukModel->getProduk($page,$cari);
-	// var_dump($data);die;
-	// $data = $data['data'];
 		echo json_encode(array(
 			'status' => true,
 			'data' => $data['data'],

@@ -2,7 +2,11 @@
 
 					$bu = base_url();
 					$bu_user = $bu . 'user/';
-
+					$id_user = "null";
+					if (isset($_SESSION['id_user'])) {
+						$id_user = $_SESSION['id_user'];
+					}
+					// var_dump($_SESSION);
 
 					?>
 
@@ -135,9 +139,11 @@
 											e.msg,
 											'success'
 										);
-										setTimeout(function() {
-											location.reload();
-										}, 2000);
+										loadCart()
+										// setTimeout(function() {
+										// 	location.reload();
+										// }, 2000);
+										loadProduk()
 
 									} else {
 										Swal.fire(
@@ -224,15 +230,6 @@
 
 							});
 
-
-							// var html = $(htmlString);
-							// var body =  $('#prodak').html("ssss");
-							// console.log(body)
-
-
-							// // var bu = '<?= base_url(); ?>';
-							// console.log(bu);
-							// loadProduk();
 							$('#cari').keyup(function(e) {
 								var s = $('#cari').val();
 								// console.log(s);
@@ -318,7 +315,7 @@
 									'</div>' +
 
 									'<h5><a href="`+bu+"user/detailproduk" + produk.link+`">' +
-									'' + produk.nama_produk.substring(0, 30)+ '....</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
+									'' + produk.nama_produk.substring(0, 30) + '....</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
 									'</p>' +
 
 									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
@@ -424,6 +421,29 @@
 								}).fail(function(e) {
 									console.log(e);
 									alert('Terjadi kendala. Silahkan muat ulang halaman ini.');
+								});
+							}
+							loadCart()
+
+							function loadCart() {
+								var id_user = '<?= $id_user ?>'
+								$.ajax({
+									type: "POST",
+									dataType: 'json',
+									url: "<?= $bu; ?>User/getCartById",
+									data: {
+										id_user: id_user
+									},
+								}).done(function(e) {
+									console.log(e);
+									if (e.status) {
+										$('.keranjing').html(e.data);
+									} else {
+										$('.keranjing').html(0);
+
+									}
+								}).fail(function(e) {
+									console.log(e);
 								});
 							}
 

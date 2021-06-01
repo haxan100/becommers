@@ -58,7 +58,7 @@ class CartModel extends CI_Model {
 		$from = 'keranjang k';
 		// custom SQL
 
-		$sql = "SELECT k.*,k.qty as qty,p.harga,p.foto,p.nama_produk FROM {$from}  join produk p on p.id_produk = k.id_produk where k.id_user = '$id_user'
+		$sql = "SELECT k.*,k.qty as qty,p.harga,p.foto,p.link_foto,p.nama_produk FROM {$from}  join produk p on p.id_produk = k.id_produk where k.id_user = '$id_user'
 		";
 		$where = "";
 		$whereTemp = "";

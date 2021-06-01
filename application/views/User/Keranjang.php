@@ -113,7 +113,22 @@
 								?>
 
 									<tr>
-										<td><img class="tbFoto" src="<?= base_url() ?>upload/images/produk/<?= $k->foto ?>" /> </td>
+
+
+										<?php
+										if ($k->foto == null) {
+											// die("s");
+										?>
+											<td><img class="tbFoto" src="<?= $k->link_foto ?>" /> </td>
+										<?php } else {
+											// die("s");
+											
+										?>
+											<td><img class="tbFoto" src="<?= base_url() ?>upload/images/produk/<?= $k->foto ?>" /> </td>
+										<?php }
+										?>
+
+
 										<td> <?= $k->nama_produk ?></td>
 
 										<td><button class="btn btn-primary" type="button">-</button>

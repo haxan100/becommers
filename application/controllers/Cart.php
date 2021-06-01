@@ -100,7 +100,16 @@ public function getAllCartByUser()
 			$subtotal += intVal($total);					
 
 			$fields = array($no++);
-			$fields[] = '<img src="' . base_url() . 'upload/images/produk/' . $row->foto . '"/>';
+
+			if($row->foto==null){
+				$fields[] = '<img src="'.$row->link_foto . '"/>';
+			}else{
+				$fields[] = '<img src="' . base_url() . 'upload/images/produk/' . $row->foto . '"/>';
+			}
+	
+
+
+
 			$fields[] = $row->nama_produk . '<br>';
 			$fields[] = '<td><button class="btn btn-primary btnMinus" data-id_keranjang="' . $row->id_keranjang . '"					type="button">-</button>
 

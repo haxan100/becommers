@@ -1,30 +1,39 @@
 <div class="footer">
 
-<script src="<?php echo base_url() . "templates/user/"; ?>js/minicart.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js
+	<script src="<?php echo base_url() . "templates/user/"; ?>js/minicart.js"></script>
+	<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js
 "></script>
-<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
-<!-- <script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-buttons/js/dataTables.buttons.min.js"></script> -->
+	<!-- <script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-buttons/js/dataTables.buttons.min.js"></script> -->
 
-<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 
-<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script src="<?php echo base_url() . "templates/vendors/"; ?>datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+		<?php
 
+						$bu = base_url();
+						$bu_user = $bu . 'user/';
+								$id_user = "null";
+								if (isset($_SESSION['id_user'])) {
+									$id_user = $_SESSION['id_user'];
+								}
 
-<script>
-	w3ls.render();
+		?>
 
-	w3ls.cart.on('w3sb_checkout', function(evt) {
-		var items, len, i;
+	<script>
+		w3ls.render();
 
-		if (this.subtotal() > 0) {
-			items = this.items();
+		w3ls.cart.on('w3sb_checkout', function(evt) {
+			var items, len, i;
 
-			for (i = 0, len = items.length; i < len; i++) {}
-		}
-	});
-</script>
+			if (this.subtotal() > 0) {
+				items = this.items();
+
+				for (i = 0, len = items.length; i < len; i++) {}
+			}
+		});
+	</script>
 
 	<div class="container">
 		<div class="w3_footer_grids">
@@ -40,13 +49,13 @@
 			<div class="col-md-6 w3_footer_grid">
 				<h3>Information</h3>
 				<ul class="info">
-					<li><a href="<?php echo base_url().  "user/about"; ?>">Tentang Kami</a></li>
+					<li><a href="<?php echo base_url() .  "user/about"; ?>">Tentang Kami</a></li>
 
 
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
 
 					<!-- <li><a href="<?php echo base_url() . "templates/user/"; ?>faq.html">FAQ's</a></li> -->
-					
+
 				</ul>
 			</div>
 

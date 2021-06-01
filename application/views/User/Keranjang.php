@@ -9,6 +9,11 @@
 	$ongkir = 15000;
 	$bu = base_url();
 	$bu_user = $bu . 'user/';
+	$id_user = "null";
+	if (isset($_SESSION['id_user'])) {
+		$id_user = $_SESSION['id_user'];
+	}
+
 	?>
 	<style>
 		img {
@@ -115,7 +120,8 @@
 
 											<input class="formInput" type="text" value="<?= $k->qty ?>" />
 
-											<button class="btn btn-primary" type="button">+</button></td>
+											<button class="btn btn-primary" type="button">+</button>
+										</td>
 
 
 										<td class="text-right">
@@ -284,6 +290,9 @@
 					}).done(function(e) {
 						if (e.status) {
 							datatable.ajax.reload();
+							loadCart()
+							console.log("s")
+
 						} else {
 
 							Swal.fire(
@@ -315,6 +324,7 @@
 					}).done(function(e) {
 						if (e.status) {
 							datatable.ajax.reload();
+							loadCart()
 						} else {
 
 							Swal.fire(
@@ -344,6 +354,8 @@
 					}).done(function(e) {
 						if (e.status) {
 							datatable.ajax.reload();
+
+							loadCart()
 						} else {
 
 							Swal.fire(
@@ -382,6 +394,7 @@
 									'success'
 								)
 								datatable.ajax.reload();
+								loadCart()
 
 							}).fail(function(e) {
 								console.log('gagal');
@@ -399,6 +412,30 @@
 
 
 				});
+				loadCart()
+
+				function loadCart() {
+					var id_user = '<?= $id_user ?>'
+					$.ajax({
+						type: "POST",
+						dataType: 'json',
+						url: "<?= $bu; ?>User/getCartById",
+						data: {
+							id_user: id_user
+						},
+					}).done(function(e) {
+						console.log(e);
+						if (e.status) {
+							$('.keranjing').html(e.data);
+						} else {
+							$('.keranjing').html(0);
+
+						}
+					}).fail(function(e) {
+						console.log(e);
+					});
+				}
+
 
 
 				function formatUang(str) {

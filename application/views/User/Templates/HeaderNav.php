@@ -162,7 +162,6 @@
 					?>
 
 					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge keranjing"><?= $jml ?></span></i></a></li>
-					<div class="keranjsing" id='lah'>09</div>
 
 
 					<?php

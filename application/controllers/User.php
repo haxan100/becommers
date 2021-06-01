@@ -273,31 +273,31 @@ public function transaksi()
 
 public function keranjang()
 	{
-		if(empty($_SESSION['id_user'])){
-			$data['jml']=0;
+			if(empty($_SESSION['id_user'])){
+				$data['jml']=0;
 
-			$data['products'] = "";
-			$this->load->view('User/Templates/Header');
-			$this->load->view('User/Templates/Head');
-			$this->load->view('User/Templates/HeaderNav',$data);
-		
-			$this->load->view('User/Keranjang',$data);
-			$this->load->view('User/Templates/Footer');
-
-		}else{ // jika user  login
-			$id_user = $_SESSION['id_user'];
-			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
-			$data['jml']=$jml;
-			// $data['products'] = $this->CartModel->getAllCartByUser($id_user);
-			$data['products'] = $this->CartModel->getAllCartByUser($id_user);
-			$this->load->view('User/Templates/Header');
-			$this->load->view('User/Templates/Head');
-			$this->load->view('User/Templates/HeaderNav',$data);
-		
-			$this->load->view('User/Keranjang',$data);
-			$this->load->view('User/Templates/Footer');
+				$data['products'] = "";
+				$this->load->view('User/Templates/Header');
+				$this->load->view('User/Templates/Head');
+				$this->load->view('User/Templates/HeaderNav',$data);
 			
-		}
+				$this->load->view('User/Keranjang',$data);
+				$this->load->view('User/Templates/Footer');
+
+			}else{ // jika user  login
+				$id_user = $_SESSION['id_user'];
+				$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+				$data['jml']=$jml;
+				// $data['products'] = $this->CartModel->getAllCartByUser($id_user);
+				$data['products'] = $this->CartModel->getAllCartByUser($id_user);
+				$this->load->view('User/Templates/Header');
+				$this->load->view('User/Templates/Head');
+				$this->load->view('User/Templates/HeaderNav',$data);
+			
+				$this->load->view('User/Keranjang',$data);
+				$this->load->view('User/Templates/Footer');
+				
+			}
 
 	}
 public function cekout()
@@ -780,6 +780,21 @@ public function getMyBidBundlingList()
 	{
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/Index');
+	}
+	public function getCartById()
+	{
+		$id_user = $this->input->post('id_user');		
+		$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
+		// var_dump($jml);die;
+		$data['jml'] = $jml;
+
+
+		echo json_encode(array(
+			'status' => 1,
+			'data' => $jml
+		));
+
+		# code...
 	}
 
 

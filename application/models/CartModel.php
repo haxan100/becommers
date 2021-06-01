@@ -150,15 +150,33 @@ class CartModel extends CI_Model {
 		 $this->db->insert('detail_transaksi', $data);
 		 return $this->db->insert_id();
 	}
-	public function getTransaksidUser($id_user)
+	public function getTransaksidUser($id_transaksi)
 	{
 		$this->db->select('*');
 		$this->db->from('transaksi');
-		$sql =	$this->db->where('id_user', $id_user);
+		$sql =	$this->db->where('id_transaksi', $id_transaksi);
 		$sql =	$this->db->where('status', 0);
 		return	  $sql->get()->result();
 		// var_dump($this->db->last_query());
 	}
+	public function getTransaksiByIdTrans($id_transaksi)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$sql =	$this->db->where('id_transaksi', $id_transaksi);
+		return	  $sql->get()->row();
+		// var_dump($this->db->last_query());
+	}
+	public function getDetTransaksiByIdTrans($id_transaksi)
+	{
+		$this->db->select('dt.*,p.nama_produk,p.foto,p.link_foto,p.deskripsi,p.harga');
+		$this->db->from('detail_transaksi dt');
+		$this->db->join('produk p', 'p.id_produk = dt.id_produk');	
+		$sql =	$this->db->where('id_transaksi', $id_transaksi);
+		return	  $sql->get()->result();
+		// var_dump($this->db->last_query());
+	}
+
 	public function getAllTransaksi()
 	{
 		$this->db->select('*');

@@ -10,6 +10,8 @@ public function __construct()
 		$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
 		$this->load->model('CartModel');
+		$this->load->model('SemuaModel');
+		
 
 
 	$this->load->library('form_validation');
@@ -37,40 +39,7 @@ public function index()
 			$ada=false;
 			}
 
-		$config['base_url'] = base_url() . '/User/index';
-		$config['total_rows'] = count($total);
-		$config['per_page'] = 6;
-
-		$choice = $config["total_rows"] / $config["per_page"];
-		$config["num_links"] = floor($choice);
-		$config["uri_segment"] = 3;  // uri parameter
-		$choice = $config["total_rows"] / $config["per_page"];
-		$config["num_links"] = floor($choice);
-		$config['first_link']       = 'First';
-		$config['last_link']        = 'Last';
-		$config['next_link']        = 'Next';
-		$config['prev_link']        = 'Prev';
-		$config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
-		$config['full_tag_close']   = '</ul></nav></div>';
-		$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
-		$config['num_tag_close']    = '</span></li>';
-		$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
-		$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
-		$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
-		$config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
-		$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
-		$config['prev_tagl_close']  = '</span>Next</li>';
-		$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
-		$config['first_tagl_close'] = '</span></li>';
-		$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
-		$config['last_tagl_close']  = '</span></li>';
-		$this->pagination->initialize($config);
-		$data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		if($ada){
-			$data['produk'] = $this->ProdukModel->getAllProdukPagCari($config['per_page'],$data['page'], $cari );
-		}else{
-			$data['produk'] = $this->ProdukModel->getAllProdukPag($config['per_page'],$data['page'] );
-		}
+	
 		// var_dump(count($data['produk']));die;
 		$this->load->view('User/Templates/Index',$data);
                 
@@ -421,27 +390,31 @@ public function tarif()
 		// var_dump($data);
 		echo json_encode($data['rajaongkir']['results']);
 	}
-public function pembayaran()
+public function pembayaran($id=null)
 	{
-		if (empty($_SESSION['id_user'])) {
-		
-		redirect('user','refresh');
-		
+		// var_dump($id);die;
+		if($id=="null") {		
+			redirect('user','refresh');	
+		} else if (empty($_SESSION['id_user'])) {		
+			redirect('user','refresh');		
 		} else { // jika user  login
 			$id_user = $_SESSION['id_user'];
-			$jml = $this->CartModel->getCartIdUser($id_user)[0]->total;
 			$transaksi =
-			$this->CartModel->getTransaksidUser($id_user)[0];
-			// var_dump($transaksi);
-
-			$data['jml'] = $jml;
-			$data['uang'] = $this->formatUang($transaksi->jumlah);
+			$this->CartModel->getTransaksiByIdTrans($id);
+			if($id_user!= $transaksi->id_user){
+				redirect('user', 'refresh');	
+			}
 			
+			$data['detailProduk'] = $this->CartModel->getDetTransaksiByIdTrans($id);
+			// echo $myJSON;
+			// die;
+			// $data['jml'] = $jml;
+			$data['jml'] = 10;
+			$data['uang'] = $this->formatUang($transaksi->jumlah);			
 			$data['transaksi'] =  $transaksi;
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
 			$this->load->view('User/Templates/HeaderNav', $data);
-
 			$this->load->view('User/Pembayaran', $data);
 			$this->load->view('User/Templates/Footer');
 		}
@@ -796,9 +769,61 @@ public function getMyBidBundlingList()
 
 		# code...
 	}
+	public function uploadBukti()
+	{
+		// var_dump($_POST,$_FILES);die;
+		$cekFoto = empty($_FILES['file']['name'][0]) || $_FILES['file']['name'][0] == '';	
+		$id_transaksi = $this->input->post('id_transaksi');
+		if (!$cekFoto) {
+			$_FILES['f']['name']     = $_FILES['file']['name'];
+			$_FILES['f']['type']     = $_FILES['file']['type'];
+			$_FILES['f']['tmp_name'] = $_FILES['file']['tmp_name'];
+			$_FILES['f']['error']     = $_FILES['file']['error'];
+			$_FILES['f']['size']     = $_FILES['file']['size'];
+
+			$config['upload_path']          = './upload/images/bukti_transfer';
+			$config['allowed_types']        = 'jpg|jpeg|png|gif';
+			$config['max_size']             = 3 * 1024; // kByte
+			$config['max_width']            = 10 * 1024;
+			$config['max_height']           = 10 * 1024;
+			$config['file_name'] = $id_transaksi . "-" . date("Y-m-d-H-i-s") . ".jpg";
+			$this->load->library('image_lib');
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			$this->image_lib->resize();
+			if (!$this->upload->do_upload('f')) {
+				$errorUpload = $this->upload->display_errors() . '<br>';
+			} else {
+				// Uploaded file data
+				$fileName = $this->upload->data()["file_name"];
+				$foto = array(
+					'foto' => $fileName,
+					'bayar_at' => date("Y-m-d-H-i-s") ,
+				);
+				if($this->SemuaModel->ubah('transaksi','id_transaksi',$id_transaksi,$foto)){
+					$message = "Berhasil Mengupload Bukti Transaksi , Mohon Lihat Detail Transaksi Anda ";
+					$status = true;
+				}else{
+					$message = "Gagal Mengupload Bukti Transaksi ,  ";
+					$status = false;
+
+				}
+			}
+		} else {
+			$message = "Gagal Mengupload Bukti Transaksisss";
+			$status = false;
+
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'suc'=>1
+		));
 
 
 
+		
+	}
         
 }
         

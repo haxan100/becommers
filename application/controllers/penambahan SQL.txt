@@ -1,0 +1,1 @@
+ALTER TABLE `transaksi` ADD `foto` VARCHAR(255) NOT NULL AFTER `kurir`, ADD `bayar_at` DATETIME NULL AFTER `foto`;

@@ -64,7 +64,19 @@
 								<div class="form-group">
 									<div class="col-sm-3 col-xs-3">
 										<!-- <input type="text" class="id_produk" name="idProduk" value="<?= $key->id_produk ?>"> -->
-										<img src="<?= base_url() ?>upload/images/produk/<?= $key->foto ?>" />
+										<?php
+										if ($key->foto == null) {
+											// die("s");
+										?>
+											<td><img class="tbFoto" src="<?= $key->link_foto ?>" /> </td>
+										<?php } else {
+											// die("s");
+
+										?>
+											<td><img class="tbFoto" src="<?= base_url() ?>upload/images/produk/<?= $key->foto ?>" /> </td>
+										<?php }
+										?>
+
 									</div>
 									<div class="col-sm-6 col-xs-6">
 										<div name="<?= $key->nama_produk ?> " class="col-xs-12"><?= $key->nama_produk ?></div>
@@ -233,8 +245,26 @@
 					kota: kota,
 					kode_pos: kode_pos,
 					kurir: kurir,
+					bank: bank,
 				},
 				cache: false,
+				success: function(d) {
+					if (d.status) {
+						Swal.fire(
+							'Good job!',
+							d.msg,
+							'success'
+						)
+
+					} else {
+						Swal.fire(
+							'Maaf...!',
+							d.msg,
+							'error'
+						)
+					}
+
+				},
 
 				// success: function(data) {
 				// 	//location = data;

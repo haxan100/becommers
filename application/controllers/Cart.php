@@ -279,6 +279,7 @@ public function hapusQtyCart()
 			'kode_pos' => $kode_pos,
 			'created_at' => $tgl,	
 		);
+		// var_dump($alamat,$provinsi,$kota,$kurir,$kode_pos,$bank);die;
 
 
 

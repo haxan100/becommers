@@ -220,6 +220,9 @@ if (isset($_SESSION['id_user'])) {
 				},
 			}).done(function(e) {
 				if (e.status) {
+					if (e.data.data.length < 1) {
+						generateNoProduk(tipe_select);
+					}
 					$.each(e.data.data, function(key, val) {
 						$(tipe_select).append(generateTransaksi(val, status, val.id_transaksi_bundling));
 					});
@@ -262,89 +265,41 @@ if (isset($_SESSION['id_user'])) {
 				'			<div>' +
 				'Harga : Rp.' +
 				formatUang(produk.jumlah) +
-				'			</div>'
-			'				</span><hr>/' +
+				'			</div>' +
+				'				<span>' +
+				'					Metode Transfer - Ambil Barang' +
+				'				</span>';
+			'				</span>' +
 			'			</div>' +
-			'			<div>' +
-			'			</div>' +
-			'				<span>' +
-			'					Metode Transfer- Kirim Barang' +
-			'				</span>';
-			if (produk.metode == 1) {
+			'			<div><br>' +
+			'			</div><br>'
+			if (produk.status == 0) {
 				output +=
 					'				<span>' +
-					'					Metode Transfer- Kirim Barang' +
+					'					<button type="button" class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Bayar Sekarang</button>' +
+					'				</span> <br>' +
+
+					'				<span>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
 					'				</span>';
-			} else if (produk.metode == 2) {
+			} else if (produk.status == 1) {
+				output +=
+
+					'				<span>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
+					'				</span><br>'+
+				'				<span>' +
+				'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Lacak </button>' +
+				'				</span>';
+			} else if (produk.status == 2) {
 				// console.log(produk.metode);
 				output +=
 
 					'				<span>' +
-					'					Metode Cash & Carry' +
-					'				</span>';
-			} else if (produk.metode == 3) {
-				// console.log(produk.metode);
-				output +=
-
-					'				<span>' +
-					'					Metode Transfer - Ambil Barang' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
 					'				</span>';
 			}
 			'				</button>';
-			if (status == 1 || status == 2) {
-				var metode = "";
-				if (produk.metode == 1) {
-					var resi = produk.resi;
-					var metode = "Transfer";
-				} else if (produk.metode == 2) {
-					var metode = "Cash And Carry";
-					resi = "-";
-
-				} else {
-					var metode = "Transfer And Carry";
-					resi = "-";
-
-
-				}
-				// console.log(produk);
-				// output +=
-
-
-				// 	'				</span> <br>' +
-				// 	'					Metode Pembayaran : ' +
-				// 	metode +
-				'				</span><br>' +
-				'					Resi : ' +
-				resi +
-					'				</span><br>';
-
-				output +=
-					'			<div class="mt-5">' +
-					'				<button class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail "  ' +
-
-					'data-target = "#exampleModal" ' +
-					'data-toggle = "modal" ' +
-					'data-id =' + id + ' " ';
-
-				if (produk.metode == 1) {
-					output +=
-						info2 +
-						'">' +
-						'Lihat Transaksi';
-				} else if (produk.metode == 2) {
-					output +=
-						info2 +
-						'">' +
-						'Lihat Detail';
-				} else if (produk.metode == 3) {
-					output +=
-						info2 +
-						'">' +
-						'Lihat Transaksi';
-				}
-				output +=
-					'				</button>';
-			}
 			output +=
 				'			</div>' +
 				'		</div>' +

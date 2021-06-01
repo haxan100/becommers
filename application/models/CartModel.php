@@ -390,6 +390,14 @@ class CartModel extends CI_Model {
 		$query = $this->db->get()->result();
 		return count($query);
 	}
+	public function getTransaksiByIdUserAndStatus($id_user,$status)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$sql =	$this->db->where('id_user', $id_user);
+		$sql =	$this->db->where('status', $status);
+		return	  $sql->get()->result();
+	}
 
 
 

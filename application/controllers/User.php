@@ -515,23 +515,25 @@ public function editProfile()
 	}
 public function pesanan($id_tipe_produk = 1)
 	{
-		$data['jml']=0;
-		$data['products'] = "";
-		$this->load->view('User/Templates/Header');
-		$this->load->view('User/Templates/Head');
-		$this->load->view('User/Templates/HeaderNav',$data);
-		$id_user = $_SESSION['id_user'];
-		    // var_dump(json_encode($data_lelang));die();
-		$obj['ci'] = $this;
-		$obj['barang'] = $this->CartModel->getAllTransaksiByIdUser($id_user);
-		// var_dump($obj['filter']);die();
-		$obj['id_tipe_produk'] = $id_tipe_produk;
-		$mobile_mode = $this->isMobile();
-		$lokasi_view = $mobile_mode . 'user/pesanan';
-		$this->load->view($lokasi_view, $obj);
+			$data['jml']=0;
+			$data['products'] = "";
+			$this->load->view('User/Templates/Header');
+			$this->load->view('User/Templates/Head');
+			$this->load->view('User/Templates/HeaderNav',$data);
+			$id_user = $_SESSION['id_user'];
+				// var_dump(json_encode($data_lelang));die();
+			$obj['ci'] = $this;
+			$obj['barang'] = $this->CartModel->getAllTransaksiByIdUser($id_user);
+			// var_dump($obj['filter']);die();
+			$obj['id_tipe_produk'] = $id_tipe_produk;
+			$mobile_mode = $this->isMobile();
+			// $lokasi_view = $mobile_mode . 'user/pesanan';
+		$lokasi_view =  'user/pesananNanti';
 
-		$this->load->view('User/Templates/Footer');
-		// $this->load->view('user/my_bid', $obj);
+			$this->load->view($lokasi_view, $obj);
+
+			$this->load->view('User/Templates/Footer');
+			// $this->load->view('user/my_bid', $obj);
 
 	}
 public function detailproduk()
@@ -822,6 +824,23 @@ public function getMyBidBundlingList()
 
 
 
+		
+	}
+
+	public function getAllTransaksiByIdUser()
+	{
+		$id_user = $this->input->post('id_user');
+		$status = $this->input->post('status');
+		$data = $this->CartModel->getTransaksiByIdUserAndStatus($id_user,$status);
+		// var_dump($data);die;
+		$data['data'] = $data;
+
+
+		echo json_encode(array(
+			'status' => 1,
+			'data' => $data
+		));
+		
 		
 	}
         

@@ -301,8 +301,6 @@
 				type: 'POST',
 				dataType: 'json',
 				url: "<?= $bu; ?>Cart/setPayment",
-				// url: '<?= site_url() ?>/snap/token',
-
 				data: {
 					total: total,
 					ongkir: ongkir,

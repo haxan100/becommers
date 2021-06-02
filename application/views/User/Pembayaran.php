@@ -371,7 +371,11 @@
 									title: "Foto Bukti Sudah Di Upload, Muhon Tunggu Sesaat...",
 									showConfirmButton: false,
 									timer: 1500
-								});
+								});									
+							setTimeout(() => {
+								window.location.href = "<?= $bu ?>user/Pesanan/";							
+							}, 2000);
+
 							}).fail(function(e) {
 								console.log(e);
 							});

@@ -5,3 +5,6 @@ CREATE TABLE `becommers`.`vocher` ( `id_vocher` INT(15) NOT NULL AUTO_INCREMENT 
 
 ALTER TABLE `vocher` ADD `status` INT(1) NOT NULL DEFAULT '0' AFTER `expired_at`;
 
+ALTER TABLE `transaksi` ADD `potongan` INT NOT NULL AFTER `ongkir`;
+
+

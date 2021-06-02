@@ -107,6 +107,10 @@
 									<small>Kurir</small>
 									<div class="pull-right Logistik"><span></span></div>
 								</div>
+								<div class="col-xs-12">
+									<small>Potongan Harga</small>
+									<div class="pull-right potongan"><span></span></div>
+								</div>
 							</div>
 							<div class="form-group">
 								<hr />
@@ -115,7 +119,7 @@
 								<div class="col-xs-12">
 									<strong>Order Total</strong>
 									<div class="pull-right OrderTotal" name="<?= $subtotal ?>">
-										<span><?= $subtotal ?></span>
+										<span>RP. <?= $subtotal ?></span>
 									</div>
 								</div>
 							</div>
@@ -181,34 +185,37 @@
 						</li>
 					</ul>
 					<input type="hidden" id="rajaOngkir" value="">
+					<input type="hidden" id="Potongan" value="">
+					<input type="hidden" id="totalSementara" value="">
 					<br />
+
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">Kode Voucher</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="col-md-12">
+										<h4>Masukan Kode Voucher</h4>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<input type="text" name="kode_voucher" class="form-control" value="" id="kode_voucher" />
+									</div>
+								</div>
+						<button href="" id="btnKodeVocher" type="button" class="btn btn-success btn-lg btn-block" role="button">Cek</button>
+							</div>
+						</div>
+					</div>
+						<br />
+
+
 					<button href="" id="btnSubmit" type="button" class="btn btn-success btn-lg btn-block" role="button">Pay</button>
 					<!--SHIPPING METHOD END-->
 
 				</div>
 
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
-					<!--SHIPPING METHOD-->
-					<div class="panel panel-info">
-						<div class="panel-heading">Kode Voucher </div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="col-md-12">
-									<h4>Masukan Kode Voucher</h4>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<input type="text" name="kode_voucher" class="form-control" value="" id="kode_voucher" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
-					<button href="" id="btnKodeVocher" type="button" class="btn btn-success btn-lg btn-block" role="button">cEK</button>
-					<!--SHIPPING METHOD END-->
-
-				</div>
+			
 
 			</form>
 		</div>
@@ -223,12 +230,11 @@
 	$('#btnKodeVocher').click(function (e) { 
 		
 		var kode_voucher = $('#kode_voucher').val();
-		console.log(kode_voucher);
 		$.ajax({
 			type: "POST",
 			url: "<?= base_url()?>/User/kode_voucher",
 			data: {
-			kode_voucher	
+				kode_voucher	
 			},
 			dataType: "json",
 			success: function (e) {
@@ -238,8 +244,13 @@
 						e.pesan,
 						'success'
 					)
+					var p = e.data.harga; 	
 					$("#kode_voucher").attr("disabled", true);					
-					$("#btnKodeVocher").hide();					
+					$("#btnKodeVocher").hide();	
+					// $('.potongan').val(e.data.harga)
+					$('.potongan').html("Rp."+ e.data.harga)
+					var totalSe = $('#totalSementara').val()
+					OrderTotal.html("Rp." + (totalSe - p));				
 				}else{
 					Swal.fire(
 						'Maaf...!',
@@ -265,10 +276,9 @@
 			var bank = $('#bank').val();
 			var total = subTot;
 			var ongkir = $('#rajaOngkir').val();
-			var id_user = $('#id_user').val();
-
-			// console.log(subTot)
-			// return false;
+			var id_user = $('#id_user').val();			
+			var kode_voucher = $('#kode_voucher').val();
+			var potongan = $('#Potongan').val();
 			if (kurir == "") {
 				// alert("Kurir harus di Pilih!")
 				Swal.fire(
@@ -286,7 +296,6 @@
 				);
 				return false;
 			}
-
 			$.ajax({
 				// url: '<?= site_url() ?>/snap/token',
 				type: 'POST',
@@ -305,6 +314,8 @@
 					kode_pos: kode_pos,
 					kurir: kurir,
 					bank: bank,
+					kode_v: kode_v,
+					potongan: potongan,
 				},
 				cache: false,
 				success: function(d) {
@@ -324,44 +335,6 @@
 					}
 
 				},
-
-				// success: function(data) {
-				// 	//location = data;
-				// 	console.log(data);
-
-				// 	console.log('token = ' + data);
-
-				// 	var resultType = document.getElementById('result-type');
-				// 	var resultData = document.getElementById('result-data');
-
-				// 	function changeResult(type, data) {
-				// 		$("#result-type").val(type);
-				// 		$("#result-data").val(JSON.stringify(data));
-				// 		//resultType.innerHTML = type;
-				// 		//resultData.innerHTML = JSON.stringify(data);
-				// 	}
-
-				// 	snap.pay(data, {
-
-				// 		onSuccess: function(result) {
-				// 			changeResult('success', result);
-				// 			console.log(result.status_message);
-				// 			console.log(result);
-				// 			console.log("SUKSES");
-				// 			$("#payment-form").submit();
-				// 		},
-				// 		onPending: function(result) {
-				// 			changeResult('pending', result);
-				// 			console.log(result.status_message);
-				// 			$("#payment-form").submit();
-				// 		},
-				// 		onError: function(result) {
-				// 			changeResult('error', result);
-				// 			console.log(result.status_message);
-				// 			$("#payment-form").submit();
-				// 		}
-				// 	});
-				// },
 				error: function(data) {
 					console.log(data)
 					alert("Status: " + data);
@@ -450,7 +423,7 @@
 		function getOrigin(origin, des, qty, cour) {
 			var $tarif = $(".ongkosKirim");
 			var $kurir = $(".Logistik");
-			// console.log(origin, des, qty, OrderTotal);
+			var $potongan = $(".potongan");
 			var i, j, x = "";
 			$.ajax({
 				url: bu + 'User/tarif/',
@@ -465,16 +438,19 @@
 				var kurir = data[0].code;
 				var nama_kurir = data[0].name;
 				var tarif = data[0].costs[0].cost[0].value;
+				var potongan = $("#Potongan").val()
 				x += "<p class='mb-0'><b>(" + kurir + " )</b> : " + nama_kurir + "</p>";
 				x += tarif + "<br>";
 				$tarif.html("Rp." + tarif);
+				$potongan.html("Rp." + potongan);
 				$kurir.html(nama_kurir);
 				OrderTotal.html("Rp." + (tarif + subtotal));
 				$("#rajaOngkir").val("Rp." + tarif);
 				console.log(tarif, subtotal, tarif)
+				$('#totalSementara').val(subtotal+tarif)
 
 			}).fail(function(data) {
-				// console.log(data);
+				console.log(data);
 			});
 		}
 

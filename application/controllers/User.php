@@ -866,13 +866,13 @@ public function getMyBidBundlingList()
 				$pesan = "Kode Voucher Tidak Aktiv!";
 			}else{				
 				$status = true ;
-				$data = $data;
+				$data = $data[0];
 				$pesan = "Kode Voucher Aktiv!";
 			}
 		}
 		echo json_encode(array(
 			'status' => $status,
-			'data' => $data[0],
+			'data' => $data,
 			'pesan' => $pesan
 		));
 

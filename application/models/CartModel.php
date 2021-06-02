@@ -402,6 +402,7 @@ class CartModel extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('transaksi');
+		$this->db->order_by('created_at desc');
 		$sql =	$this->db->where('id_user', $id_user);
 		$sql =	$this->db->where('status', $status);
 		return	  $sql->get()->result();

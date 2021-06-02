@@ -214,6 +214,7 @@
 					</div>
 					<div class="modal-footer d-flex justify-content-center">
 						<button type="button" class="btn btn-indigo btnSave">Edit <i class="glyphicon glyphicon-edit ml-1"></i></button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>

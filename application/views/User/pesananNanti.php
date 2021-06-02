@@ -242,9 +242,8 @@ if (isset($_SESSION['id_user'])) {
 				return rp;
 		}
 
-
 		function generateTransaksi(produk, status, id) {
-			// return false;
+			var id_trans = produk.id_transaksi
 			var url = '<?= $bu_user; ?>metode_pembayaran/';
 			var info2 = '<?= $bu_user; ?>transaksi2/' + id;
 			var carry = '<?= $bu_user; ?>transfer_carry/';
@@ -274,7 +273,7 @@ if (isset($_SESSION['id_user'])) {
 			if (produk.status == 0) {
 				output +=
 					'				<span>' +
-					'					<button type="button" class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Bayar Sekarang</button>' +
+					'					<button type="button" class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1  BayarSekarang" data-id="'+id_trans+'">Bayar Sekarang</button>' +
 					'				</span> <br>' +
 
 					'				<span>' +
@@ -304,7 +303,6 @@ if (isset($_SESSION['id_user'])) {
 				'	</div>';
 			return output;
 		}
-
 		function generateNoProduk(tipe_bid_selector) {
 			var html = '<!-- no produk -->' +
 				'	<div class="row px-3 py-2">' +
@@ -316,6 +314,14 @@ if (isset($_SESSION['id_user'])) {
 				'	</div>';
 			$(tipe_bid_selector).html(html);
 		}
+		// $('.detail').on('click', function() {	
+		$('body').on('click', '.BayarSekarang', function() {	
+			var o = $(this).data('id')			
+            window.location = '<?= base_url(); ?>user/pembayaran/'+o;			
+		});
+
+
+
 
 
 	})

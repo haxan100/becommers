@@ -451,7 +451,8 @@ class ProdukModel extends CI_Model
 	public function getAllProdukBeliByIdTransaksi($id_user,$id_transaksi)
 	{
 		$cari = $_POST['search']['value'];
-
+		$this->db->select('dt.*,p.nama_produk,p.harga');
+		
 		$this->db->where('id_transaksi', $id_transaksi);
 		$this->db->from('detail_transaksi dt');
 		$this->db->join('produk p', 'p.id_produk = dt.id_produk');	

@@ -194,19 +194,17 @@ if (isset($_SESSION['id_user'])) {
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+				<h5 class="modal-title">Detail Produk</h5>
+
 			</div>
 			<div class="modal-body">
 				<table id="tableProduk" class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th style="width: 260px;">Nama Produk </th>
+							<th>Nama Produk </th>
 							<th>QTY</th>
-							<th style="width: 60px;">Harga</th>
+							<th>Harga</th>
 						</tr>
 					</thead>
 				</table>
@@ -308,9 +306,16 @@ if (isset($_SESSION['id_user'])) {
 				'Harga : Rp.' +
 				formatUang(produk.jumlah) +
 				'			</div>' +
-				'				<span>' +
-				'					Metode Transfer - Ambil Barang' +
-				'				</span>';
+				'				<span>'
+			if (produk.foto!="") {
+				output +=
+					'	Status Pembayaran : <b> Sedang Di Verifikasi</b>';
+			} else {
+				output +=
+					'	Status Pembayaran : <b> Belum Mengirim</b>';
+
+			}
+			'				</span>';
 			'				</span>' +
 			'			</div>' +
 			'			<div><br>' +
@@ -360,7 +365,7 @@ if (isset($_SESSION['id_user'])) {
 				'	</div>';
 			$(tipe_bid_selector).html(html);
 		}
-		var bu = '<?=base_url() ?>'
+		var bu = '<?= base_url() ?>'
 		$('body').on('click', '.BayarSekarang', function() {
 			var o = $(this).data('id')
 			window.location = '<?= base_url(); ?>user/pembayaran/' + o;
@@ -399,11 +404,14 @@ if (isset($_SESSION['id_user'])) {
 					type: 'POST',
 					"data": function(d) {
 						d.id_transaksi = o;
-						d.id_user = '<?= $id_user?>';
+						d.id_user = '<?= $id_user ?>';
 						return d;
 					}
 				},
 			});
+
+			datatable.destroy();
+
 
 		});
 

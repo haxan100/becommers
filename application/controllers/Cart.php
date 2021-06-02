@@ -234,7 +234,7 @@ public function hapusQtyCart()
 			? 'Rp. ' . number_format($str, 0, '.', ',')
 			: number_format($str, 0, '.', ',');
 	}
-	function generateRandomString($length = 10) {
+	function generateRandomString($length = 7) {
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';

@@ -406,12 +406,14 @@ public function pembayaran($id=null)
 			}
 			
 			$data['detailProduk'] = $this->CartModel->getDetTransaksiByIdTrans($id);
+
 			// echo $myJSON;
 			// die;
 			// $data['jml'] = $jml;
 			$data['jml'] = 10;
 			$data['uang'] = $this->formatUang($transaksi->jumlah);			
 			$data['transaksi'] =  $transaksi;
+				// echo json_encode($data['transaksi']);die;
 			$this->load->view('User/Templates/Header');
 			$this->load->view('User/Templates/Head');
 			$this->load->view('User/Templates/HeaderNav', $data);

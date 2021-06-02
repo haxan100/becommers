@@ -25,7 +25,7 @@
 		}
 
 		.preview img {
-			display: none;
+			/* display: none; */
 		}
 
 		/* Button */
@@ -287,7 +287,7 @@
 
 															<form method="post" action="uploasssd.php" enctype="multipart/form-data" id="myform">
 																<div class='preview'>
-																	<img src="" id="img" width="100" height="100">
+																	<img src="<?= base_url() ?>upload/images/bukti_transfer/<?=$transaksi->foto ?>" id="img" width="100" height="100">
 																</div>
 																<div>
 																	<input class="form-control" type="hidden" name="id_transaksi" id="id_transaksi" value="<?= $transaksi->id_transaksi ?>">

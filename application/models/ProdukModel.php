@@ -448,6 +448,25 @@ class ProdukModel extends CI_Model
 		$query = $this->db->get()->row();
         return $query;
 	}
+	public function getAllProdukBeliByIdTransaksi($id_user,$id_transaksi)
+	{
+		$cari = $_POST['search']['value'];
+
+		$this->db->where('id_transaksi', $id_transaksi);
+		$this->db->from('detail_transaksi dt');
+		$this->db->join('produk p', 'p.id_produk = dt.id_produk');	
+		if(!empty($cari)){
+			$this->db->like('p.nama_produk', $cari);
+			
+		}	
+		$query = $this->db->get()->result();
+		// echo $this->db->last_query();	
+		return array(
+			'totalData' => count($query),
+			'data' => $query,
+		);	
+		return $query;
+	}
 
 
 

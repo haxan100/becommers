@@ -880,6 +880,34 @@ public function getMyBidBundlingList()
 		
 	
 	}
+	public function getAllProdukBeli()
+	{
+		$id_user = $this->input->post('id_user');
+		$id_transaksi = $this->input->post('id_transaksi');
+		$dt = $this->ProdukModel->getAllProdukBeliByIdTransaksi($id_user,$id_transaksi);
+
+		$datatable['draw']            = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		$no = $start + 1;
+		foreach ($dt['data'] as $r ) {
+			$fields = array($no++);
+			$fields[] = $r->nama_produk . '<br>';
+			$fields[] = $r->qty . '<br>';
+			$fields[] = $r->harga . '<br>';
+			
+			$datatable['data'][] = $fields;
+		}
+
+		echo json_encode($datatable);
+		exit();
+		
+		
+		# code...
+	}
         
 }
         

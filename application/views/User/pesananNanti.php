@@ -11,6 +11,19 @@ if (isset($_SESSION['id_user'])) {
 
 
 <style>
+	.fade-scale {
+		transform: scale(0);
+		opacity: 0;
+		-webkit-transition: all .25s linear;
+		-o-transition: all .25s linear;
+		transition: all .25s linear;
+	}
+
+	.fade-scale.in {
+		opacity: 1;
+		transform: scale(1);
+	}
+
 	.kotak {
 		margin-top: 1rem;
 		margin-bottom: 1rem;
@@ -176,6 +189,38 @@ if (isset($_SESSION['id_user'])) {
 </div>
 
 
+<!-- modal detail -->
+<div class="modal" id="detailModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table id="tableProduk" class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th style="width: 260px;">Nama Produk </th>
+							<th>QTY</th>
+							<th style="width: 60px;">Harga</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal detail -->
+
+
+
 <script>
 	$(document).ready(function() {
 
@@ -273,21 +318,21 @@ if (isset($_SESSION['id_user'])) {
 			if (produk.status == 0) {
 				output +=
 					'				<span>' +
-					'					<button type="button" class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1  BayarSekarang" data-id="'+id_trans+'">Bayar Sekarang</button>' +
+					'					<button type="button" class="btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1  BayarSekarang" data-id="' + id_trans + '">Bayar Sekarang</button>' +
 					'				</span> <br>' +
 
 					'				<span>' +
-					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail" data-id="' + id_trans + '">Detail </button>' +
 					'				</span>';
 			} else if (produk.status == 1) {
 				output +=
 
 					'				<span>' +
 					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
-					'				</span><br>'+
-				'				<span>' +
-				'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Lacak </button>' +
-				'				</span>';
+					'				</span><br>' +
+					'				<span>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Lacak </button>' +
+					'				</span>';
 			} else if (produk.status == 2) {
 				// console.log(produk.metode);
 				output +=
@@ -303,6 +348,7 @@ if (isset($_SESSION['id_user'])) {
 				'	</div>';
 			return output;
 		}
+
 		function generateNoProduk(tipe_bid_selector) {
 			var html = '<!-- no produk -->' +
 				'	<div class="row px-3 py-2">' +
@@ -314,10 +360,51 @@ if (isset($_SESSION['id_user'])) {
 				'	</div>';
 			$(tipe_bid_selector).html(html);
 		}
-		// $('.detail').on('click', function() {	
-		$('body').on('click', '.BayarSekarang', function() {	
-			var o = $(this).data('id')			
-            window.location = '<?= base_url(); ?>user/pembayaran/'+o;			
+		var bu = '<?=base_url() ?>'
+		$('body').on('click', '.BayarSekarang', function() {
+			var o = $(this).data('id')
+			window.location = '<?= base_url(); ?>user/pembayaran/' + o;
+		});
+		$('body').on('click', '.detail', function() {
+
+			var o = $(this).data('id')
+			$('#detailModal').modal('show')
+			var datatable = $('#tableProduk').DataTable({
+				'lengthMenu': [
+					[5, 10, 25, 50, -1],
+					[5, 10, 25, 50, 'All']
+				],
+				'pageLength': 10,
+				"processing": true,
+				"language": {
+					processing: '....loading<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>loading....<span class="sr-only">Loading...</span> '
+				},
+				"serverSide": true,
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'user/getAllProdukBeli',
+					type: 'POST',
+					"data": function(d) {
+						d.id_transaksi = o;
+						d.id_user = '<?= $id_user?>';
+						return d;
+					}
+				},
+			});
+
 		});
 
 

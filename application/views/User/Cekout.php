@@ -187,6 +187,29 @@
 
 				</div>
 
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+					<!--SHIPPING METHOD-->
+					<div class="panel panel-info">
+						<div class="panel-heading">Kode Voucher </div>
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="col-md-12">
+									<h4>Masukan Kode Voucher</h4>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<input type="text" name="kode_voucher" class="form-control" value="" id="kode_voucher" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<button href="" id="btnKodeVocher" type="button" class="btn btn-success btn-lg btn-block" role="button">cEK</button>
+					<!--SHIPPING METHOD END-->
+
+				</div>
+
 			</form>
 		</div>
 		<div id="hasil"></div>
@@ -196,6 +219,42 @@
 	</div>
 	<hr>
 	<script type="text/javascript">
+
+	$('#btnKodeVocher').click(function (e) { 
+		
+		var kode_voucher = $('#kode_voucher').val();
+		console.log(kode_voucher);
+		$.ajax({
+			type: "POST",
+			url: "<?= base_url()?>/User/kode_voucher",
+			data: {
+			kode_voucher	
+			},
+			dataType: "json",
+			success: function (e) {
+				if(e.status){
+					Swal.fire(
+						'Kode Voucher Terpasang',
+						e.pesan,
+						'success'
+					)
+					$("#kode_voucher").attr("disabled", true);					
+					$("#btnKodeVocher").hide();					
+				}else{
+					Swal.fire(
+						'Maaf...!',
+						e.pesan,
+						'error'
+					)
+				}
+
+				
+			}
+		});
+
+		
+
+	});
 		$('#btnSubmit').on('click', function() {
 			var subTot = $('#subtotal').data('sub');
 			var alamat = $('#alamat').val();

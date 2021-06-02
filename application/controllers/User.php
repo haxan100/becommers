@@ -843,6 +843,43 @@ public function getMyBidBundlingList()
 		
 		
 	}
+	public function kode_voucher()
+	{
+		$kode_v = $this->input->post('kode_voucher');		
+		$data = $this->ProdukModel->getKodeVocher($kode_v);
+		$total = count($data);
+
+		if($kode_v==""){
+			$status = false ;
+			$data = "";
+			$pesan = "Kode Voucher Harap Dimasukan";
+		}if($total<1){			
+			$status = false ;
+			$data = "";
+			$pesan = "Kode Voucher Tidak Ada";
+		}else{
+			$getStatus = $data[0]->status;
+			if($getStatus==0){
+				
+				$status = false ;
+				$data = "";
+				$pesan = "Kode Voucher Tidak Aktiv!";
+			}else{				
+				$status = true ;
+				$data = $data;
+				$pesan = "Kode Voucher Aktiv!";
+			}
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'data' => $data[0],
+			'pesan' => $pesan
+		));
+
+		// var_dump($data);die;
+		
+	
+	}
         
 }
         

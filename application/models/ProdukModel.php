@@ -434,6 +434,13 @@ class ProdukModel extends CI_Model
         // var_dump($this->db->last_query());die();
         return count($query);
     }
+	public function getKodeVocher($kode)
+	{
+		$this->db->where('kode_vocher', $kode);
+		$this->db->from('vocher');
+		$query = $this->db->get()->result();
+        return $query;
+	}
 
 
 

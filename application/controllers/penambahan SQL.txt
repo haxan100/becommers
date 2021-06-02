@@ -1,1 +1,7 @@
 ALTER TABLE `transaksi` ADD `foto` VARCHAR(255) NOT NULL AFTER `kurir`, ADD `bayar_at` DATETIME NULL AFTER `foto`;
+
+
+CREATE TABLE `becommers`.`vocher` ( `id_vocher` INT(15) NOT NULL AUTO_INCREMENT , `kode_vocher` VARCHAR(255) NOT NULL , `harga` INT(155) NOT NULL , `qty` INT(9) NOT NULL , `created_at` DATETIME NULL , `expired_at` DATETIME NULL , PRIMARY KEY (`id_vocher`)) ENGINE = InnoDB;
+
+ALTER TABLE `vocher` ADD `status` INT(1) NOT NULL DEFAULT '0' AFTER `expired_at`;
+

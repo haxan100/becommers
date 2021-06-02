@@ -314,18 +314,21 @@
 					kode_pos: kode_pos,
 					kurir: kurir,
 					bank: bank,
-
 					kode_v: kode_v,
 					potongan: potongan,
 				},
 				cache: false,
 				success: function(d) {
 					if (d.status) {
+						var id = d.id_transaksi;
 						Swal.fire(
 							'Good job!',
 							d.msg,
 							'success'
 						)
+						setTimeout(() => {
+							window.location.href = "<?= $bu ?>user/pembayaran/"+id;							
+						}, 2000);
 
 					} else {
 						Swal.fire(

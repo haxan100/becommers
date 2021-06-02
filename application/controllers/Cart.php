@@ -252,11 +252,8 @@ public function hapusQtyCart()
 	{
 		$ongkir = $this->input->post('ongkir', true);
 		$ongkir = trim(explode('.', $ongkir)[1]);
-		// var_dump($_POST);die;
-		 $now = date('Y-m-d H:i:s');
-		//  var_dump($now);die;
+		$now = date('Y-m-d H:i:s');
 		$ran = $this->generateRandomString();
-		// var_dump($ran);die;
         $id_user = $this->input->post('id_user', true);
         $alamat = $this->input->post('alamat', true);
         $provinsi = $this->input->post('provinsi', true);
@@ -267,7 +264,6 @@ public function hapusQtyCart()
 		$total = $this->input->post('total', true);
 		$kode_v = $this->input->post('kode_v', true);
 		$potongan = $this->input->post('potongan', true);
-
 		$getPotongan =$this->ProdukModel->getKodeVocherRow($kode_v);
 		$tgl = $now;
 		$dataAlamat = array(
@@ -282,13 +278,14 @@ public function hapusQtyCart()
 			$potongan = 0;
 			$status = false;
 			$msg = "Kode Voucher Tidak Ada!";
-
+			$id_transaksi = "";
 		}else{
 			$potongan = $getPotongan->harga;
 		}		
 		if(empty($alamat) or empty($provinsi) or empty($kota) or empty($kurir) or empty($kode_pos) or empty($bank) ){
 				$status = false;
                $msg = "Harap Di Isi Semua";
+			   $id_transaksi = "";
 		}
 		else{
 				$id_alamat = $this->CartModel->AddAlamat($dataAlamat);				
@@ -324,7 +321,7 @@ public function hapusQtyCart()
 				);
 
 				$this->ProdukModel->updateQTYbyID($upd, $key->id_produk);
-			$this->CartModel->HapusCart($key->id_keranjang);
+				$this->CartModel->HapusCart($key->id_keranjang);
 			}
 
 			$status = true;
@@ -333,6 +330,7 @@ public function hapusQtyCart()
 		    $data = array(
                 'status' => $status,
                 'msg' => $msg,
+                'id_transaksi' => $id_transaksi,
 			);
 			
             echo json_encode($data);

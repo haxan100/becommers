@@ -7,4 +7,6 @@ ALTER TABLE `vocher` ADD `status` INT(1) NOT NULL DEFAULT '0' AFTER `expired_at`
 
 ALTER TABLE `transaksi` ADD `potongan` INT NOT NULL AFTER `ongkir`;
 
+ALTER TABLE `transaksi` CHANGE `kurir` `kurir` VARCHAR(255) NOT NULL DEFAULT '0';
+
 

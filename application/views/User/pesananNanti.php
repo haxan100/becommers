@@ -217,6 +217,32 @@ if (isset($_SESSION['id_user'])) {
 </div>
 <!-- modal detail -->
 
+<!-- modal Kurir -->
+<div class="modal" id="kurirModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Detail Kurir</h5>
+
+			</div>
+			<div class="modal-body">
+				<table id="tableKurir" class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Nama Kurir </th>
+							<th>Nomor Resi</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal Kurir -->
+
 
 
 <script>
@@ -307,7 +333,7 @@ if (isset($_SESSION['id_user'])) {
 				formatUang(produk.jumlah) +
 				'			</div>' +
 				'				<span>'
-			if (produk.foto!="") {
+			if (produk.foto != "") {
 				output +=
 					'	Status Pembayaran : <b> Sedang Di Verifikasi</b>';
 			} else {
@@ -333,17 +359,18 @@ if (isset($_SESSION['id_user'])) {
 				output +=
 
 					'				<span>' +
-					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail" data-id="' + id_trans + '" >Detail </button>' +
 					'				</span><br>' +
 					'				<span>' +
-					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Lacak </button>' +
+					// '					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail" data-id="' + id_trans + '" >Lacak </button>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 CekKurir" data-id="' + id_trans + '" >Cek Kurir </button>' +
 					'				</span>';
 			} else if (produk.status == 2) {
 				// console.log(produk.metode);
 				output +=
 
 					'				<span>' +
-					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail">Detail </button>' +
+					'					<button type="button" class="btn btn-primary btn-border btn btn-block biz-bg-w-1 text-uppercase biz-text-w-2 biz-text-17 py-1 detail" data-id="' + id_trans + '">Detail </button>' +
 					'				</span>';
 			}
 			'				</button>';
@@ -371,7 +398,6 @@ if (isset($_SESSION['id_user'])) {
 			window.location = '<?= base_url(); ?>user/pembayaran/' + o;
 		});
 		$('body').on('click', '.detail', function() {
-
 			var o = $(this).data('id')
 			$('#detailModal').modal('show')
 			var datatable = $('#tableProduk').DataTable({
@@ -409,11 +435,51 @@ if (isset($_SESSION['id_user'])) {
 					}
 				},
 			});
-
 			datatable.destroy();
-
-
 		});
+		$('body').on('click', '.CekKurir', function() {
+			var o = $(this).data('id')
+			$('#kurirModal').modal('show')
+			var datatableKurir = $('#tableKurir').DataTable({
+				'lengthMenu': [
+					[5, 10, 25, 50, -1],
+					[5, 10, 25, 50, 'All']
+				],
+				'pageLength': 10,
+				"processing": true,
+				"language": {
+					processing: '....loading<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>loading....<span class="sr-only">Loading...</span> '
+				},
+				"serverSide": true,
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'user/getAllTransaksiSpefKurir',
+					type: 'POST',
+					"data": function(d) {
+						d.id_transaksi = o;
+						d.id_user = '<?= $id_user ?>';
+						return d;
+					}
+				},
+			});
+			datatableKurir.destroy();
+		});
+
+
+
 
 
 

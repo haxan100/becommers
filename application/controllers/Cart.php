@@ -265,6 +265,7 @@ public function hapusQtyCart()
 		$kode_v = $this->input->post('kode_v', true);
 		$potongan = $this->input->post('potongan', true);
 		$getPotongan =$this->ProdukModel->getKodeVocherRow($kode_v);
+		// var_dump($getPotongan);die;
 		$tgl = $now;
 		$dataAlamat = array(
 			'alamat' => $alamat,
@@ -274,7 +275,6 @@ public function hapusQtyCart()
 			'created_at' => $tgl,	
 		);
 		 if($getPotongan==NULL){
-			//  die("d");
 			$potongan = 0;
 			$status = false;
 			$msg = "Kode Voucher Tidak Ada!";
@@ -295,6 +295,7 @@ public function hapusQtyCart()
 				'id_method' => $bank,
 				'bayar' => $total,
 				'ongkir' => $ongkir,
+				'kurir' => $kurir,
 				'jumlah' => ($ongkir + $total)-$potongan,	
 				'kode_transaksi' => $ran,
 				'created_at' => $tgl,	

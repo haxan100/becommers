@@ -68,10 +68,10 @@
 			<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
 			<div class="search_form">
 
-				<form action="<?php echo base_url() . "user/"; ?>" method="post">
+				<!-- <form action="<?php echo base_url() . "user/"; ?>" method="post"> -->
 					<input type="text" name="Search" id="cari" placeholder="Search...">
 					<input type="submit" value="Send">
-				</form>
+				<!-- </form> -->
 
 
 			</div>

@@ -59,6 +59,11 @@
 							margin: 0 8px 0 0;
 							font-size: 14px;
 						}
+
+						.img-responsive {
+							width: 100%!important;
+
+						}
 					</style>
 
 					<div class="w3ls_mobiles_grid_right_grid2">
@@ -452,7 +457,7 @@
 									'<div class="col-md-8 modal_body_left">' +
 									`${ make_link
 																? 																	
-																'<img src="'+produk.link_foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
+																'<img src="'+produk.link_foto+'" alt=" " class="img-responsive"  />'
 																:  
 																'<img src="'+bu+'"upload/images/produk/"'+produk.foto+'" alt=" " class="img-responsive" style=" max-width: 200px;" />'
 															}` +
@@ -640,8 +645,8 @@
 									data: {
 										cari: $('#cari').val(),
 										page: $('#_page').val(),
-										min : min,
-										max : max,
+										min: min,
+										max: max,
 									},
 								}).done(function(e) {
 									// console.log(e);

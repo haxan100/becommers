@@ -4,20 +4,20 @@
 			<h2>Tentang Kami</h2>
 		</div>
 	</div>
-	<!-- //banner -->   
+	<!-- //banner -->
 	<!-- breadcrumbs -->
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="<?php echo base_url() . "templates/user/"; ?>index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="<?= base_url() ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Tentang Kami</li>
 			</ul>
 		</div>
 	</div>
-	<!-- //breadcrumbs --> 
+	<!-- //breadcrumbs -->
 	<!-- about -->
 	<div class="about">
-		<div class="container">	
+		<div class="container">
 			<div class="w3ls_about_grids">
 				<div class="col-md-6 w3ls_about_grid_left">
 					<p>BEECOMERS adalah Web online yang merupakan distributor spesialis penjualan barang barang elektronik rumah tangga yang telah melayani toko-toko Grosir, Semi Grosir dan Retail di seluruh Jabotabek sejak tahun 1999, Kami Dapat melayani penjualan Retail, Grosir dan Corporate secara online di seluruh Indonesia.</p>
@@ -43,9 +43,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- //about --> 
+	<!-- //about -->
 	<!-- team -->
-	
+
 	<div class="team">
 		<div class="container">
 			<h3>Meet Our Team</h3>

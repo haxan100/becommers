@@ -375,17 +375,26 @@ class ProdukModel extends CI_Model
 		$this->db->where('id_produk', $id);
 		return $this->db->update('produk', $in);
 	}
-	public function getProduk($page=1,$cari)
+	public function getProduk($page=1,$cari,$min,$max)
     { 
+		// var_dump($min != null or $min == "");die;
+		
 		// $page = intval($this->input->post('page', true));
         $perHal = 9;
         $start = ($page- 1) * $perHal;
         $length =  $start + $perHal;
-        $total  = $this->getProdukCount($cari);
+        $total  = $this->getProdukCount($cari,$min,$max);
         $pages = ceil($total / $perHal);
         $this->db->select("*")
         ->from('produk p')
 		->where('status_produk',1);
+		if($min!=null){
+			$this->db->where('p.harga>=', $min);			
+		}
+		if ($max != null) {
+			$this->db->where('p.harga<=', $max);
+		}
+
         if ($cari != '') {
             $array_search = array(
                 'p.nama_produk' => $cari,
@@ -412,7 +421,7 @@ class ProdukModel extends CI_Model
         );
         return $output;
     }
-	public function getProdukCount($cari)
+	public function getProdukCount($cari,$min,$max)
     {
         $table_spek = 'spek_handphone s';
         $col_search = 's.e';
@@ -421,6 +430,12 @@ class ProdukModel extends CI_Model
         ->from('produk p')
 		->where('status_produk',1)
 		;
+		if ($min != null) {
+			$this->db->where('p.harga>=', $min);
+		}
+		if ($max != null) {
+			$this->db->where('p.harga<=', $max);
+		}
         if ($cari != '') {
             $array_search = array(
                 'p.nama_produk' => $cari,

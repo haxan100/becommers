@@ -23,7 +23,10 @@ public function produk()
 	
 	$page = intval($this->input->post('page', true));
 	$cari = $this->input->post('cari', true);
-	$data = $this->ProdukModel->getProduk($page,$cari);
+	$min = $this->input->post('min');
+	$max = $this->input->post('max');
+	
+	$data = $this->ProdukModel->getProduk($page,$cari,$min,$max);
 		echo json_encode(array(
 			'status' => true,
 			'data' => $data['data'],

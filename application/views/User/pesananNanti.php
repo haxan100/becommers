@@ -126,6 +126,11 @@ if (isset($_SESSION['id_user'])) {
 	}
 
 	@media only screen and (max-width: 479px) {
+		.modal-content {
+			height: 540% !important;
+			width: 120%;
+		}
+
 		.tab .nav-tabs {
 			padding: 0;
 			border-radius: 20px;

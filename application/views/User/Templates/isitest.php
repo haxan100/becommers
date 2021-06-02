@@ -24,6 +24,41 @@
 							width: 145px !important;
 							height: 160px !important;
 						}
+
+						._3icuH {
+							border-top: 1px solid rgba(0, 47, 52, .2);
+							padding: 16px;
+						}
+
+						._3icuH .ij2tb {
+							display: flex;
+							align-items: center;
+							cursor: pointer;
+							text-transform: uppercase;
+							justify-content: space-between;
+						}
+
+						._3icuH ._3bdzO {
+							display: block;
+							padding: 16px 0 0;
+						}
+
+						.g8MbZ {
+							display: flex;
+						}
+
+						#demo input {
+							background: #ebeeef;
+							outline: none;
+							height: 40px;
+							width: 112px;
+							border: none;
+							border-bottom: 1px solid rgba(0, 47, 52, .64);
+							box-sizing: border-box;
+							padding: 0 16px;
+							margin: 0 8px 0 0;
+							font-size: 14px;
+						}
 					</style>
 
 					<div class="w3ls_mobiles_grid_right_grid2">
@@ -62,6 +97,29 @@
 								<span class="sr-only">Next</span>
 							</a>
 						</div>
+
+						<div data-aut-id="collapsible_price" class="_3icuH">
+							<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#demo" class="ij2tb">
+								<span class="_2CdLo">Harga</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+									<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
+								</svg>
+							</div>
+							<div class="_3bdzO">
+								<div id="demo" class="collapse">
+									<input name="price|min" id="min" type="number" data-aut-id="filterTextbox" placeholder="Min" min="0" max="9223372036854776000" class="range-input-min" value="">
+
+									<input name="price|max" type="number" data-aut-id="filterTextbox" id="max" placeholder="Max" min="0" max="9223372036854776000" class="range-input-max" value="">
+
+
+									<a class="VZrYe" rel="" data-aut-id="range" id="go">
+										<svg width="16px" height="16px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+											<path class="rui-vUQO_" d="M277.333 85.333v60.331l366.336 366.336-366.336 366.336v60.331h60.331l409.003-408.981v-35.307l-409.003-409.045z"></path>
+										</svg></a>
+								</div>
+							</div>
+						</div>
+
+
 						<!-- <div class="banner">
 							<div class="container">
 								<h3>Electronic Store, <span>Special Offers</span></h3>
@@ -143,6 +201,65 @@
 										// setTimeout(function() {
 										// 	location.reload();
 										// }, 2000);
+										loadProduk()
+
+									} else {
+										Swal.fire(
+											'error',
+											e.msg,
+											'error'
+										);
+									}
+								}).fail(function(e) {
+									Swal.fire(
+										'error',
+										e.msg,
+										'error'
+									);
+
+								}).always(function(e) {
+									setTimeout(() => {
+										$('.btn-tawar').html('Tambah Ke Keranjang');
+										$('.btn-tawar').prop('disabled', false);
+									}, 100);
+								});
+							})
+
+
+							$('body').on('click', '.btn-tawarM', function() {
+								console.log("tawar");
+								var id_produk = $(this).data('produkid');
+								var harga = $(this).data('produkharga');
+								var qty = 1;
+								// console.log(harga)
+								$('.btn-tawar').html('<i class="fas fa-spinner fa-spin"></i>');
+								$('.btn-tawar').prop('disabled', true);
+								$.ajax({
+									type: "POST",
+									dataType: 'json',
+									url: "<?= $bu; ?>Cart/setBid",
+									data: {
+										id_produk: id_produk,
+										harga: harga,
+										qty: qty,
+									},
+								}).done(function(e) {
+									// console.log(e);
+									if (e.belumLogin) {
+										setTimeout(() => {
+											window.location = "<?= $bu; ?>login";
+										}, 2000);
+									}
+									if (e.status) {
+										Swal.fire(
+											':)',
+											e.msg,
+											'success'
+										);
+										loadCart()
+										setTimeout(function() {
+											location.reload();
+										}, 2900);
 										loadProduk()
 
 									} else {
@@ -357,8 +474,8 @@
 									'<input type="hidden" name="w3ls_item" value="' + produk.nama_produk + '">' +
 									'<input type="hidden" name="amount" value="' + produk.harga + '">' +
 
-									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
-									'Tambah Ke Keranjang' +
+									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawarM" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +
+									'Tambah Ke Keranjang m' +
 									'</button>' +
 									'</form>' +
 									'</div>' +
@@ -510,6 +627,53 @@
 								var hal = $(this).attr('data-page');
 								$('#_page').val(hal);
 								loadProduk();
+
+							});
+							$('#go').click(function(e) {
+								var min = $('#min').val()
+								var max = $('#max').val()
+								console.log(max, min)
+								$.ajax({
+									type: "POST",
+									dataType: 'json',
+									url: "<?= $bu; ?>produk/produk",
+									data: {
+										cari: $('#cari').val(),
+										page: $('#_page').val(),
+										min : min,
+										max : max,
+									},
+								}).done(function(e) {
+									// console.log(e);
+									$('#produk').html('');
+									if (e.status) {
+										// console.log(e.data)
+										var berapa = e.data.length;
+										$.each(e.data, function(key, val) {
+											$('#produk').append(generateProduk(val));
+											// console.log(e.data);
+											if (berapa >= 1) {
+												generatePagination(e.page);
+											} else {}
+
+										});
+									} else {
+										var html = '<!-- no produk -->' +
+											'	<div class="box-kosong px-3 py-2">' +
+											'		<div class="col biz-bg-w-2 biz-rad-10 p-3 mb-4">' +
+											'			<div class="text-center">' +
+											'				<span class="biz-text-17 biz-text-w-5 font-weight-bold">Belum Ada Produk Lelang Tersedia</span>' +
+											'			</div>' +
+											'		</div>' +
+											'	</div>';
+										$('#produk').html(html);
+									}
+								}).fail(function(e) {
+									console.log(e);
+									alert('Terjadi kendala. Silahkan muat ulang halaman ini.');
+								});
+
+
 
 							});
 

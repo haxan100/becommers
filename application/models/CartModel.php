@@ -29,7 +29,15 @@ class CartModel extends CI_Model {
     	public function updateCart($in, $id)
 	{
 		$this->db->where('id_keranjang', $id);
-		return $this->db->update('keranjang', $in);
+		$this->db->update('keranjang', $in);
+		// echo $this->db->last_query();
+	}
+	public function updateCartByIDProdukAndIdUser($in, $id,$id_user)
+	{
+		$this->db->where('id_produk', $id);
+		$this->db->where('id_user', $id_user);
+		$this->db->update('keranjang', $in);
+		// echo $this->db->last_query();
 	}
 		public function getAllCartByUser($id_user)
 	{

@@ -22,65 +22,59 @@ public function index()
                 
 }
 public function setBid()
-{
-	$logindata = $this->session->userdata('login_user');
-	if($logindata==null){
-
-			$msg = "Anda Wajib Login Dahulu ";
-			$status = false;
-			
-			$data = array(
-				'status' => $status,
-				'msg' => $msg,
-				'belumLogin' => true,
-			);
-			echo json_encode($data);
-			die;
-	}
-		$id_produk = $this->input->post('id_produk', TRUE);
-		$harga = $this->input->post('harga', TRUE);
-		$qty = $this->input->post('qty', TRUE);
-		 $now = date('Y-m-d H:i:s');		 
-        $id_user = $this->session->userdata('id_user');
-		$tgl = $now;
-		$keranjangOld= $this->CartModel->getCartByIdUserAndProduk($id_user,$id_produk);
-		// var_dump(count($keranjangOld)>=1);die;	
-
-
-		if(count($keranjangOld)>=1){  // jika di keranjang ada produk , maka di updte qty nya
-			$qtyOld = $keranjangOld[0]->qty;
-			$qtyNew = $qtyOld +$qty;
-				$upd  = array(
-					'qty' =>$qtyNew ,		
+	{
+		$logindata = $this->session->userdata('login_user');
+		if($logindata==null){
+				$msg = "Anda Wajib Login Dahulu ";
+				$status = false;			
+				$data = array(
+					'status' => $status,
+					'msg' => $msg,
+					'belumLogin' => true,
 				);
-				$this->CartModel->updateCart($upd,$id_produk);
-
-				$msg ="Item Berhasil di Tambah Ke Keranjang";
-				$status = true;
-
-		}else{
-			$data2 = array(
-				'id_produk' => $id_produk,
-				'id_user' => $id_user,
-				// 'harga' => $harga,
-				'qty' => $qty,
-				'created_at' => $tgl,
-			);
-			if($tambahKeranjang = $this->CartModel->AddCart($data2)){
-				$msg ="Item Berhasil di Tambah Ke Keranjang";
-				$status = true;
-			}else{
-				$msg ="Item Gagal di Tambah Ke Keranjang";
-				$status = false;
-			}
+				echo json_encode($data);
+				die;
 		}
-		    $data = array(
-                'status' => $status,
-                'msg' => $msg,
-				'belumLogin' => false,
-            );
-            echo json_encode($data);
-}
+			$id_produk = $this->input->post('id_produk', TRUE);
+			$harga = $this->input->post('harga', TRUE);
+			$qty = $this->input->post('qty', TRUE);
+			$now = date('Y-m-d H:i:s');		 
+			$id_user = $this->session->userdata('id_user');
+			$tgl = $now;
+			$keranjangOld= $this->CartModel->getCartByIdUserAndProduk($id_user,$id_produk);
+			// var_dump(count($keranjangOld)>=1);die;
+			if(count($keranjangOld)>=1){  // jika di keranjang ada produk , maka di updte qty nya
+				$qtyOld = $keranjangOld[0]->qty;
+				$qtyNew = $qtyOld +$qty;
+				// var_dump($qtyNew,$qtyOld);die;
+					$upd  = array(
+						'qty' =>$qtyNew ,		
+					);
+					$this->CartModel->updateCartByIDProdukAndIdUser($upd,$id_produk,$id_user);
+					$msg ="Item Berhasil di Tambah Ke Keranjang";
+					$status = true;
+			}else{
+				$data2 = array(
+					'id_produk' => $id_produk,
+					'id_user' => $id_user,
+					'qty' => $qty,
+					'created_at' => $tgl,
+				);
+				if($tambahKeranjang = $this->CartModel->AddCart($data2)){
+					$msg ="Item Berhasil di Tambah Ke Keranjang";
+					$status = true;
+				}else{
+					$msg ="Item Gagal di Tambah Ke Keranjang";
+					$status = false;
+				}
+			}
+				$data = array(
+					'status' => $status,
+					'msg' => $msg,
+					'belumLogin' => false,
+				);
+				echo json_encode($data);
+	}
 public function getAllCartByUser()
 	{
 		$dt = $this->CartModel->data_AllCartByUser($_POST);

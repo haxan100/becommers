@@ -277,7 +277,7 @@
 			var total = subTot;
 			var ongkir = $('#rajaOngkir').val();
 			var id_user = $('#id_user').val();			
-			var kode_voucher = $('#kode_voucher').val();
+			var kode_v = $('#kode_voucher').val();
 			var potongan = $('#Potongan').val();
 			if (kurir == "") {
 				// alert("Kurir harus di Pilih!")
@@ -314,6 +314,7 @@
 					kode_pos: kode_pos,
 					kurir: kurir,
 					bank: bank,
+
 					kode_v: kode_v,
 					potongan: potongan,
 				},

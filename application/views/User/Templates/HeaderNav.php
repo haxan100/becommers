@@ -61,7 +61,7 @@
 
 		</div>
 		<div class="w3l_logo">
-			<h1><a href="<?php echo base_url() . "templates/user/"; ?>index.html">Electronic Store<span>Your stores. Your place.</span></a></h1>
+			<h1><a href="<?php echo base_url() . "user/"; ?>">Veronica Cloth<span>Your Cloth. Your place.</span></a></h1>
 		</div>
 		<div class="search">
 			<input class="search_box" type="checkbox" id="search_box">
@@ -69,11 +69,8 @@
 			<div class="search_form">
 
 				<form action="<?php echo base_url() . "user/"; ?>" method="post">
-
 					<input type="text" name="Search" id="cari" placeholder="Search...">
-
 					<input type="submit" value="Send">
-
 				</form>
 
 
@@ -108,7 +105,7 @@
 					<li><a href="<?php echo base_url() .  "user/"; ?>" class="act">Home</a></li>
 					<!-- Mega Menu -->
 					<li class="dropdown">
-						<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+						<a href="<?php echo base_url() . "user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
 						<ul class="dropdown-menu multi-column columns-3">
 							<div class="row">
 								<div class="col-sm-6">
@@ -121,7 +118,6 @@
 										foreach ($res->result() as $k) {
 										?>
 											<li><a href="<?php echo base_url() . "user/produk/" . $k->id_kategori; ?>"> <?= $k->nama_kategori ?> </a></li>
-
 										<?php } ?>
 
 
@@ -147,20 +143,12 @@
 						</ul>
 					</li>
 					<li><a href="<?php echo base_url() .  "user/about"; ?>">Tentang Kami</a></li>
-
 					<?php
-					// var_dump($jml);
-
-
 					?>
-
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
-
 					<?php 
-					// var_dump($jml);die;
 					if($jml>0){
 					?>
-
 					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge keranjing"><?= $jml ?></span></i></a></li>
 
 
@@ -171,7 +159,7 @@
 					?>
 						<li>
 						<li class="dropdown">
-							<a href="<?php echo base_url() . "templates/user/"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
+							<a href="<?php echo base_url() . "user/profile"; ?>#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
 							<ul class="dropdown-menu multi-column columns-3s">
 								<div class="row">
 									<ul class="multi-column-dropdown">
@@ -196,10 +184,7 @@
 								</div>
 							</ul>
 						</li>
-
 						</li>
-
-
 						<!-- <li><a href="<?php echo base_url() . "Register/"; ?>logout">Logout</a></li> -->
 					<?php }
 					?>

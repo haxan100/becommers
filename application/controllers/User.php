@@ -543,9 +543,8 @@ public function detailproduk()
 		$uri = $this->uri->segment(3);
 		
 		if($this->ProdukModel->getProdukByLink($uri)==null){
-			
 			redirect('user','refresh');
-			
+		
 		}
 		$produk['produk'] = $this->ProdukModel->getProdukByLink($uri)[0];
 		

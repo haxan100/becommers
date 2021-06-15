@@ -506,6 +506,9 @@
 
 
 							function loadProduk() {
+								
+								var min = $('#min').val()
+								var max = $('#max').val()
 								$.ajax({
 									type: "POST",
 									dataType: 'json',
@@ -514,6 +517,9 @@
 										cari: $('#cari').val(),
 										page: $('#_page').val(),
 										id_tipe_bid: '2',
+										
+										min: min,
+										max: max,
 									},
 								}).done(function(e) {
 									// console.log(e);
@@ -637,7 +643,6 @@
 							$('#go').click(function(e) {
 								var min = $('#min').val()
 								var max = $('#max').val()
-								console.log(max, min)
 								$.ajax({
 									type: "POST",
 									dataType: 'json',

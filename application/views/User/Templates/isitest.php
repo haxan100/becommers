@@ -123,6 +123,27 @@
 								</div>
 							</div>
 						</div>
+						
+						<div data-aut-id="collapsible_price" class="_3icuH">
+							<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#perhal" class="ij2tb">
+								<span class="_2CdLo">Urutkan Berdasarkan</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+									<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
+								</svg>
+							</div>
+
+							<div class="_3bdzO">
+								<div id="perhal" class="collapse">
+									<select class="form-select" id="sortir" aria-label="Default select example">
+										<option value="0">Pilih </option>
+										<option value="1">Harga Terndah</option>
+										<option value="2">Harga Teratas</option>
+										<option value="3">Tanggal Terbaru</option>
+										<option value="4">Tanggal Terlama</option>
+									</select>
+								</div>
+							</div>
+							
+						</div>
 
 
 						<!-- <div class="banner">
@@ -503,6 +524,9 @@
 
 
 							}
+							$('#sortir').change(function (e) { 
+								loadProduk()
+							});
 
 
 
@@ -510,6 +534,7 @@
 								
 								var min = $('#min').val()
 								var max = $('#max').val()
+								var sortir = $('#sortir').val()
 								$.ajax({
 									type: "POST",
 									dataType: 'json',
@@ -521,6 +546,7 @@
 										
 										min: min,
 										max: max,
+										sortir: sortir,
 									},
 								}).done(function(e) {
 									// console.log(e);
@@ -644,6 +670,8 @@
 							$('#go').click(function(e) {
 								var min = $('#min').val()
 								var max = $('#max').val()
+								
+								var sortir = $('#sortir').val()
 								$.ajax({
 									type: "POST",
 									dataType: 'json',
@@ -653,6 +681,8 @@
 										page: $('#_page').val(),
 										min: min,
 										max: max,
+										sortir: sortir,
+										
 									},
 								}).done(function(e) {
 									// console.log(e);

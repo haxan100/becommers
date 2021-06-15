@@ -206,11 +206,7 @@
 							$('#modalImport').modal('show')
 
 						});
-
-
-
 						$("body").children().first().before($(".modal"));
-
 						var bu = '<?= base_url(); ?>';
 						var url_form_tambah = bu + 'admin/tambah_produk_proses';
 						var url_form_ubah = bu + 'admin/ubah_produk_proses';

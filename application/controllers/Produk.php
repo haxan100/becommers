@@ -25,8 +25,9 @@ public function produk()
 	$cari = $this->input->post('cari', true);
 	$min = $this->input->post('min');
 	$max = $this->input->post('max');
+	$sortir = $this->input->post('sortir');
 	
-	$data = $this->ProdukModel->getProduk($page,$cari,$min,$max);
+	$data = $this->ProdukModel->getProduk($page,$cari,$min,$max,$sortir);
 		echo json_encode(array(
 			'status' => true,
 			'data' => $data['data'],

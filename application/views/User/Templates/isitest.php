@@ -436,8 +436,9 @@
 									'</div>' +
 									'</div>' +
 
-									'<h5><a href="`+bu+"user/detailproduk" + produk.link+`">' +
-									'' + produk.nama_produk.substring(0, 30) + '....</a></h5> <i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
+									'<h5><a href="user/detailproduk/' + produk.link + '" > '+
+									'' + produk.nama_produk.substring(0, 30) + '....</a></h5> '+
+									'<i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
 									'</p>' +
 
 									'<button class="btn btn-primary biz-bg-w-1 text-white biz-rad-10 px-2 biz-text-15 py-2 btn-tawar" data-produkid="' + produk.id_produk + '" data-produknama="' + produk.nama_produk + '" data-produkharga="' + produk.harga + '">' +

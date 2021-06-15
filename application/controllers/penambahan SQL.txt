@@ -9,4 +9,7 @@ ALTER TABLE `transaksi` ADD `potongan` INT NOT NULL AFTER `ongkir`;
 
 ALTER TABLE `transaksi` CHANGE `kurir` `kurir` VARCHAR(255) NOT NULL DEFAULT '0';
 
+ALTER TABLE `produk` ADD `created_at` DATETIME NULL AFTER `link_foto`;
+
+
 

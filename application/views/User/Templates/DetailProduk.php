@@ -8,6 +8,10 @@
 			: number_format($str, 0, '.', ',');
 	}
 
+	$foto = base_url() . "upload/images/produk/" . $produk->foto;
+	if ($produk->link_foto != null) {
+		$foto = $produk->link_foto;
+		}
 	?>
 	<div class="breadcrumb_dress">
 		<div class="container">
@@ -23,8 +27,14 @@
 			<div class="col-md-4 single-left">
 				<div class="flexslider">
 					<ul class="slides">
-						<li data-thumb="<?= base_url() . "upload/images/produk/" . $produk->foto  ?>">
-							<div class="thumb-image"> <img src="<?= base_url() . "upload/images/produk/" . $produk->foto  ?>" data-imagezoom="true" class="img-responsive" alt=""> </div>
+
+
+						<li data-thumb="<?= $foto  ?>">
+
+							<div class="thumb-image"> <img src="<?= $foto  ?>" data-imagezoom="true" class="img-responsive" alt=""> </div>
+
+
+
 						</li>
 					</ul>
 				</div>

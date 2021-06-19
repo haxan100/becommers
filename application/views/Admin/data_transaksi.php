@@ -1,6 +1,11 @@
 		<?php
 		$ba = base_url() . "admin/";
 		// var_dump($ba);
+
+		$awal = date('Y-m') . '-01';
+		$now = date('Y-m-d');
+
+		$_dynamycInputName = "_x" . date("YmdHis");
 		?>
 		<div class="app-main__inner">
 			<style>
@@ -21,6 +26,14 @@
 
 						<div class="row">
 							<div class="col sm-6 ml-3 pb-1 pt-1">
+								<input value="<?= $awal ?> / <?= $now ?>" type="text" name="datepicker<?= $_dynamycInputName ?>" id="datepicker" placeholder="Rentang Tanggal" class="datepicker form-control col-lg-3 col-md-3 col-sm-6 col-xs-6 mr-2 my-1">
+
+								<select id="dt_filter_status" name="dt_filter_status" class="btn btn-primary m-t-18 btn-info waves-effect waves-light ">
+									<option selected value="default">Pilih Status</option>
+									<option value="0">Belum Bayar</option>
+									<option value="1">Sudah Bayar</option>
+									<option value="2">Transaksi Selesai</option>
+								</select>
 
 							</div>
 
@@ -155,8 +168,38 @@
 		</div>
 		<!-- modal akhir  -->
 
+
+
+
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function(event) {
+
+
+				$('#datepicker').datepicker({
+					numberOfMonths: 1,
+					maxDate: '+0D',
+					dateFormat: 'yy-mm-dd',
+					onSelect: function(selectedDate) {
+						if (!$(this).data().datepicker.first) {
+							$(this).data().datepicker.inline = true
+							$(this).data().datepicker.first = selectedDate;
+						} else {
+							if (selectedDate > $(this).data().datepicker.first) {
+								$(this).val($(this).data().datepicker.first + ' / ' + selectedDate);
+							} else {
+								$(this).val(selectedDate + ' / ' + $(this).data().datepicker.first);
+							}
+							$(this).data().datepicker.inline = false;
+						}
+						// alert($(this).val());
+						datatable.ajax.reload();
+
+					},
+					onClose: function() {
+						delete $(this).data().datepicker.first;
+						$(this).data().datepicker.inline = false;
+					}
+				});
 
 
 				$('body').on('click', '.btn_Konfirmasi', function() {
@@ -544,6 +587,8 @@
 						type: 'POST',
 						"data": function(d) {
 							// d.id_kelas = id_kelas;
+							d.date = $('#datepicker').val();
+							d.status = $('#dt_filter_status').val()
 
 							return d;
 						}
@@ -810,6 +855,10 @@
 						return true;
 					}
 				}
+				$('#dt_filter_status').change(function() {
+					var status = $('#dt_filter_status').val();
+					datatable.ajax.reload();
+				});
 
 
 

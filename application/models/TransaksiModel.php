@@ -29,6 +29,22 @@ public function login(){
 		$where = "";
 		$whereTemp = "";
 
+
+		if (isset($post['status']) && $post['status'] != 'default') {
+			if ($where != "") $where .= "AND";
+			$where .= " (t.status='" . $post['status'] . "')";
+		}
+		if (isset($post['date']) && $post['date'] != '') {
+			$date = explode(' / ', $post['date']);
+			if (count($date) == 1) {
+				$whereTemp .= "(t.created_at LIKE '%" . $post['date'] . "%')";
+			} else {
+				// $whereTemp .= "(created_at BETWEEN '".$date[0]."' AND '".$date[1]."')";
+				$whereTemp .= "(date_format(t.created_at, \"%Y-%m-%d\") >='$date[0]' AND date_format(t.created_at, \"%Y-%m-%d\") <= '$date[1]')";
+			}
+		}
+
+
 		if ($whereTemp != '' && $where != ''
 		) $where .= " AND (" . $whereTemp . ")";
 

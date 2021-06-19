@@ -90,4 +90,14 @@
 				<script src="<?php echo base_url() . "templates/"; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
 				<script src="<?php echo base_url() . "templates/"; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
 
+				<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" integrity="sha512-63+XcK3ZAZFBhAVZ4irKWe9eorFG0qYsy2CaM5Z+F3kUn76ukznN0cp4SArgItSbDFD1RrrWgVMBY9C/2ZoURA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+				<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
 				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

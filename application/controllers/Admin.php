@@ -64,7 +64,7 @@ class Admin extends CI_Controller {
 		$data['content'] = 'produk/data_produk';
 		$this->load->view('templates/index', $data);
 	}
-		public function getAllProduk()
+	public function getAllProduk()
 	{
 		$dt = $this->ProdukModel->data_AllProduk($_POST);
 		$bu = base_url();
@@ -957,7 +957,6 @@ class Admin extends CI_Controller {
 		exit();
 	}
 	public function getDetailPertrans()
-
 	{
 		// var_dump($_POST);die;
 		$id_transaksi = $this->input->post('id_transaksi', TRUE);
@@ -1011,7 +1010,6 @@ class Admin extends CI_Controller {
 		$this->admin->ubahAdminAktiv($id,0);
 		redirect('Admin/Admin');
 	}
-
 	public function ubahSuperAdmin($id)
 	{
 			$this->session->set_flashdata('ubah', 'Versi Admin Berhasil di ubah');
@@ -1246,7 +1244,6 @@ class Admin extends CI_Controller {
 		
 	}
 	public function login_proses()
-
 	{
 		// var_dump($_POST);die;
 		$this->load->library('form_validation');

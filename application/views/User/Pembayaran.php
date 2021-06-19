@@ -63,6 +63,17 @@
 		</div>
 	</div>
 	<div class="row ">
+		<?php
+		// var_dump($detailProduk);die;
+		$foto = base_url() . "upload/images/produk/" . $detailProduk[0]->foto;
+		if ($detailProduk[0]->link_foto != null) {
+			$foto = $detailProduk[0]->link_foto;
+		}
+		$id_user = "null";
+		if (isset($_SESSION['id_user'])) {
+			$id_user = $_SESSION['id_user'];
+		}
+		?>
 
 		<div class="">
 			<input type="hidden" name="id_user" id="id_user" value="<?= $_SESSION['id_user'] ?>">
@@ -72,8 +83,6 @@
 				<div class="panel-heading text-center">
 					Pembayaran
 				</div>
-				<!------ Include the above in your HEAD tag ---------->
-
 				<div class='container'>
 					<div class='row' style='padding-top:25px; padding-bottom:25px;'>
 						<div class='col-md-12'>
@@ -104,7 +113,7 @@
 
 																	<div class="row justify-content-between">
 																		<div class="col-auto col-md-7">
-																			<div class="media flex-column flex-sm-row"> <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
+																			<div class="media flex-column flex-sm-row"> <img class=" img-fluid" src="<?= $foto ?>" width="62" height="62">
 
 																				<div class="media-body my-auto">
 																					<div class="row ">
@@ -287,12 +296,12 @@
 
 															<form method="post" action="uploasssd.php" enctype="multipart/form-data" id="myform">
 																<div class='preview'>
-																	<img src="<?= base_url() ?>upload/images/bukti_transfer/<?=$transaksi->foto ?>" id="img" width="100" height="100">
+																	<img src="<?= base_url() ?>upload/images/bukti_transfer/<?= $transaksi->foto ?>" id="img" width="100" height="100">
 																</div>
 																<div>
 																	<input class="form-control" type="hidden" name="id_transaksi" id="id_transaksi" value="<?= $transaksi->id_transaksi ?>">
 
-																	<input type="file" id="file" name="file" />
+																	<input type="file" id="file" name="file" accept="image/png, image/gif, image/jpeg" />
 																	<input type="button" class="button" value="Upload" id="but_upload">
 																</div>
 															</form>
@@ -328,9 +337,18 @@
 		</div>
 	</div>
 	<hr>
+	<!-- <script>
+		(function($) {
+			console.log("wddwdw")
+
+		})(jQuery);
+	</script> -->
+
 	<script type="text/javascript">
-		$(document).ready(function() {
+		$(window).on("load", function() {
+
 			$("#but_upload").click(function() {
+				console.log("oke di tekan!");
 				var fd = new FormData();
 				var files = $('#file')[0].files;
 				var id_trans = $('#id_transaksi').val();
@@ -359,7 +377,7 @@
 									console.log(response)
 
 									if (response != 0) {
-										
+
 									} else {
 										alert('file not uploaded');
 									}
@@ -371,10 +389,10 @@
 									title: "Foto Bukti Sudah Di Upload, Muhon Tunggu Sesaat...",
 									showConfirmButton: false,
 									timer: 1500
-								});									
-							setTimeout(() => {
-								window.location.href = "<?= $bu ?>user/Pesanan/";							
-							}, 2000);
+								});
+								setTimeout(() => {
+									window.location.href = "<?= $bu ?>user/Pesanan/";
+								}, 2000);
 
 							}).fail(function(e) {
 								console.log(e);
@@ -390,6 +408,29 @@
 						}
 					}
 				});
-			})
+			});
+			loadCart()
+
+			function loadCart() {
+				var id_user = '<?= $id_user ?>'
+				$.ajax({
+					type: "POST",
+					dataType: 'json',
+					url: "<?= $bu; ?>User/getCartById",
+					data: {
+						id_user: id_user
+					},
+				}).done(function(e) {
+					console.log(e);
+					if (e.status) {
+						$('.keranjing').html(e.data);
+					} else {
+						$('.keranjing').html(0);
+
+					}
+				}).fail(function(e) {
+					console.log(e);
+				});
+			}
 		});
 	</script>

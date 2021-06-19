@@ -97,51 +97,52 @@
 							</a>
 						</div>
 
-
-						<div class="row">
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<div data-aut-id="collapsible_price" class="_3icuH">
-									<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#demo" class="ij2tb">
-										<span class="_2CdLo">Harga</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
-											<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
-										</svg>
-									</div>
-									<div class="_3bdzO">
-										<div id="demo" class="collapse">
-											<input name="price|min" id="min" type="number" data-aut-id="filterTextbox" placeholder="Min" min="0" max="9223372036854776000" class="range-input-min" value="">
-
-											<input name="price|max" type="number" data-aut-id="filterTextbox" id="max" placeholder="Max" min="0" max="9223372036854776000" class="range-input-max" value="">
-
-
-											<a class="VZrYe" rel="" data-aut-id="range" id="go">
-												<svg width="16px" height="16px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
-													<path class="rui-vUQO_" d="M277.333 85.333v60.331l366.336 366.336-366.336 366.336v60.331h60.331l409.003-408.981v-35.307l-409.003-409.045z"></path>
-												</svg></a>
+						<div class="container">
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<div data-aut-id="collapsible_price" class="_3icuH">
+										<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#demo" class="ij2tb">
+											<span class="_2CdLo">Harga</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+												<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
+											</svg>
 										</div>
+										<div class="_3bdzO">
+											<div id="demo" class="collapse">
+												<input name="price|min" id="min" type="number" data-aut-id="filterTextbox" placeholder="Min" min="0" max="9223372036854776000" class="range-input-min" value="">
 
+												<input name="price|max" type="number" data-aut-id="filterTextbox" id="max" placeholder="Max" min="0" max="9223372036854776000" class="range-input-max" value="">
+
+
+												<a class="VZrYe" rel="" data-aut-id="range" id="go">
+													<svg width="16px" height="16px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+														<path class="rui-vUQO_" d="M277.333 85.333v60.331l366.336 366.336-366.336 366.336v60.331h60.331l409.003-408.981v-35.307l-409.003-409.045z"></path>
+													</svg></a>
+											</div>
+
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<div data-aut-id="collapsible_price" class="_3icuH">
-									<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#perhal" class="ij2tb">
-										<span class="_2CdLo">Urutkan Berdasarkan</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
-											<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
-										</svg>
-									</div>
-
-									<div class="_3bdzO">
-										<div id="perhal" class="collapse">
-											<select class="form-select" id="sortir" aria-label="Default select example">
-												<option value="0">Pilih </option>
-												<option value="1">Harga Terndah</option>
-												<option value="2">Harga Teratas</option>
-												<option value="3">Tanggal Terbaru</option>
-												<option value="4">Tanggal Terlama</option>
-											</select>
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<div data-aut-id="collapsible_price" class="_3icuH">
+										<div data-aut-id="collapsibleAction" data-toggle="collapse" data-target="#perhal" class="ij2tb">
+											<span class="_2CdLo">Urutkan Berdasarkan</span><svg width="18px" height="18px" viewBox="0 0 1024 1024" data-aut-id="icon" class="" fill-rule="evenodd">
+												<path class="rui-77aaa" d="M85.392 746.667h60.331l366.336-366.336 366.336 366.336h60.331v-60.331l-408.981-409.003h-35.307l-409.045 409.003z"></path>
+											</svg>
 										</div>
-									</div>
 
+										<div class="_3bdzO">
+											<div id="perhal" class="collapse">
+												<select class="form-select" id="sortir" aria-label="Default select example">
+													<option value="0">Pilih </option>
+													<option value="1">Harga Terndah</option>
+													<option value="2">Harga Teratas</option>
+													<option value="3">Tanggal Terbaru</option>
+													<option value="4">Tanggal Terlama</option>
+												</select>
+											</div>
+										</div>
+
+									</div>
 								</div>
 							</div>
 						</div>
@@ -149,12 +150,12 @@
 
 
 
-						<!-- <div class="banner">
+							<!-- <div class="banner">
 							<div class="container">
 								<h3>Electronic Store, <span>Special Offers</span></h3>
 							</div>
 						</div> -->
-						<!-- <div class="w3ls_mobiles_grid_right_grid2_right">
+							<!-- <div class="w3ls_mobiles_grid_right_grid2_right">
 							<select name="select_item" class="select_item">
 								<option value="0">Default sorting</option>
 								<option value="1">Sort by popularity</option>
@@ -164,26 +165,26 @@
 								<option value="5">9-0</option>
 							</select>
 						</div> -->
+							<div class="clearfix"> </div>
+						</div>
+
+						<div id="produk">
+
+						</div>
+
+
 						<div class="clearfix"> </div>
-					</div>
 
-					<div id="produk">
+						<div class="text-center">
+						</div>
+						<div class="text-center">
+							<nav aria-label="Page navigation example" class="example">
+								<input type="hidden" id="_page" value=1></input>
+								<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
 
-					</div>
-
-
-					<div class="clearfix"> </div>
-
-					<div class="text-center">
-					</div>
-					<div class="text-center">
-						<nav aria-label="Page navigation example" class="example">
-							<input type="hidden" id="_page" value=1></input>
-							<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
-
-							</ul>
-						</nav>
-					</div>
+								</ul>
+							</nav>
+						</div>
 					</div>
 					</div>
 					</div>
@@ -412,7 +413,7 @@
 
 
 							function generateProduk(produk) {
-								var bu = '<?=base_url()?>'
+								var bu = '<?= base_url() ?>'
 								// console.log(produk);
 								// console.log(bu+"upload/images/produk" + produk.foto);
 								if (produk.link_foto != null) {
@@ -461,7 +462,7 @@
 									'</div>' +
 									'</div>' +
 
-									'<h5><a href="'+bu+'user/detailproduk/' + produk.link + '" > ' +
+									'<h5><a href="' + bu + 'user/detailproduk/' + produk.link + '" > ' +
 									'' + produk.nama_produk.substring(0, 30) + '....</a></h5> ' +
 									'<i class="item_price">' + convertToRupiah(produk.harga) + '</i>' +
 									'</p>' +

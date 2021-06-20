@@ -338,13 +338,16 @@ if (isset($_SESSION['id_user'])) {
 				formatUang(produk.jumlah) +
 				'			</div>' +
 				'				<span>'
-			if (produk.foto != "") {
+			if (produk.sudah_bayar==1) {
 				output +=
 					'	Status Pembayaran : <b> Sedang Di Verifikasi</b>';
-			} else {
+			} if (produk.sudah_bayar==0) {
 				output +=
 					'	Status Pembayaran : <b> Belum Mengirim</b>';
-
+			}
+			 if (produk.sudah_bayar==2) {
+				output +=
+					'	Status Pembayaran : <b> Sudah Di Bayar</b>';
 			}
 			'				</span>';
 			'				</span>' +

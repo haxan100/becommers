@@ -852,6 +852,7 @@ class Admin extends CI_Controller {
 
 			$in = array(
 				'status' => 1,
+				'sudah_bayar' => 2,
 			);
 
 			$this->TransaksiModel->edit_Transaksi($id_transaksi,$in);

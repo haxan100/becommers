@@ -11,5 +11,6 @@ ALTER TABLE `transaksi` CHANGE `kurir` `kurir` VARCHAR(255) NOT NULL DEFAULT '0'
 
 ALTER TABLE `produk` ADD `created_at` DATETIME NULL AFTER `link_foto`;
 
+ALTER TABLE `transaksi` ADD `sudah_bayar` INT(1) NOT NULL DEFAULT '0' AFTER `bayar_at`;
 
 

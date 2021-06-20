@@ -734,7 +734,8 @@ public function getMyBidBundlingList()
 				$fileName = $this->upload->data()["file_name"];
 				$foto = array(
 					'foto' => $fileName,
-					'bayar_at' => date("Y-m-d-H-i-s") ,
+					'bayar_at' => date("Y-m-d-H-i-s"),
+					'sudah_bayar' => 1,
 				);
 				if($this->SemuaModel->ubah('transaksi','id_transaksi',$id_transaksi,$foto)){
 					$message = "Berhasil Mengupload Bukti Transaksi , Mohon Lihat Detail Transaksi Anda ";

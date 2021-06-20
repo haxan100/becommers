@@ -11,6 +11,12 @@ transaksi :
 	0: belum bayar
 	1: sudah bayar
 	2:transaksi selesai
+
+-sudah bayar
+	0: belum bayar
+	1: Sedang Di verif admin
+	2: sudah bayar (sudah di verif admin)
+	
 -method:
 	1: bca
 	2: bri

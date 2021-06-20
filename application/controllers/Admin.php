@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 		$this->load->model('ProdukModel');
 		$this->load->model('UserModel');
 		$this->load->model('TransaksiModel');
+		$this->load->model('VoucherModel');
 
 		$this->load->model('AdminModel', 'admin');
 		$this->load->library('form_validation');
@@ -1303,6 +1304,52 @@ class Admin extends CI_Controller {
 		$data['admin'] = $this->admin->getAdminByID($id);
 		$data['content'] = 'Admin/detail_admin';
 		$this->load->view('templates/index', $data);
+	}
+	public function master_voucher()
+	{
+		$this->cekLogin();
+		$data['content'] = 'Admin/data_voucher';
+		$this->load->view('templates/index', $data);
+	}
+	public function getAllVoucher()
+	{
+		$dt = $this->VoucherModel->data_AllV($_POST);
+		$bu = base_url();
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		$status = "";
+		foreach ($dt['data']->result() as $row) {
+			
+			$fields = array($no++);
+			$fields[] = $row->kode_vocher . '<br>';
+			$fields[] = $this->formatUang($row->harga) . '<br>';
+			$fields[] = $row->qty . '<br>';
+			$fields[] = $row->expired_at . '<br>';
+			$fields[] = '
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-id_vocher="' . $row->id_vocher . '" 
+			data-kode_vocher="' . $row->kode_vocher . '" 
+			data-harga="' . $row->harga . '" 
+			data-expired_at="' . $row->expired_at . '" 
+			data-status="' . $row->status . '"	
+			></i> Ubah</button>
+        <button class="btn btn-round btn-danger hapus" data-id_vocher="' . $row->id_vocher . '" data-kode_vocher="' . $row->kode_vocher . '"
+        >Hapus</button>              
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
 	}
 	
 

@@ -52,7 +52,8 @@
 
 			?>
 
-				<a href="<?php echo base_url() . "templates/user/"; ?>#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+				<a href="<?php echo base_url() . "login/"; ?>#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+				<!-- <a href="<?php echo base_url() . "templates/user/"; ?>#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a> -->
 
 
 			<?php
@@ -69,8 +70,8 @@
 			<div class="search_form">
 
 				<!-- <form action="<?php echo base_url() . "user/"; ?>" method="post"> -->
-					<input type="text" name="Search" id="cari" placeholder="Search...">
-					<input type="submit" value="Send">
+				<input type="text" name="Search" id="cari" placeholder="Search...">
+				<input type="submit" value="Send">
 				<!-- </form> -->
 
 
@@ -78,7 +79,7 @@
 		</div>
 		<div class="cart cart box_1">
 			<!-- <form action="#" method="post" class="last"> -->
-	
+
 		</div>
 	</div>
 </div>
@@ -142,14 +143,14 @@
 					<?php
 					?>
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
-					<?php 
-					if($jml>0){
+					<?php
+					if ($jml > 0) {
 					?>
-					<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge keranjing"><?= $jml ?></span></i></a></li>
+						<li><a href="<?php echo base_url() . "user/"; ?>keranjang"><i class="fa fa-cart-arrow-down" aria-hidden="true">Cart <span class="badge keranjing"><?= $jml ?></span></i></a></li>
 
 
 					<?php
-						}
+					}
 					if (!empty($_SESSION['login_user'])) {
 
 					?>

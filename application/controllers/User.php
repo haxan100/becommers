@@ -46,8 +46,6 @@ public function index()
 }
 	public function produk($id_kategori="")
 {	
-		// var_dump($_POST);die;
-		// var_dump($cari);die;
 		if(empty($_SESSION['id_user'])){
 			$data['jml']=0;
 		}else{

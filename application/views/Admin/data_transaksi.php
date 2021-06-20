@@ -13,6 +13,12 @@
 					max-width: 100px;
 					max-height: 100px;
 				}
+
+				#gambarnya {
+						max-width: 494px!important;
+						max-height: 800px!important;
+					
+				}
 			</style>
 
 
@@ -169,11 +175,66 @@
 		<!-- modal akhir  -->
 
 
+		<div class="modal" tabindex="-1" role="dialog" id="modalBukti">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Bukti</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="tab-pane fade active show" id="tabBidder" role="tabpanel">
+						<div class="table-responsive">
+							<table id="detailList" class="table table-striped table-bordered">
+								<thead>
+									<tr>
+										<th>Bukti</th>
+										<div id="buktiGambar"></div>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function(event) {
 
+				function loadImage(path, width, height, target) {
+					$('<img id="gambarnya" src="' + path + '">').load(function() {
+						$(this).appendTo(target);
+					});
+				}
+				$('body').on('click', '.lihatBukti', function() {
+					$('#modalBukti').modal('show');
+
+					var id_transaksi = $(this).data('id_transaksi');
+					$.ajax({
+						type: "post",
+						url: "<?= base_url() ?>/admin/getBuktiByID",
+						data: {
+							id_transaksi
+						},
+						dataType: "json",
+						success: function(res) {
+							var gambr = res.data.foto
+							console.log(gambr);
+
+							var imgPath = '<?= base_url() ?>upload/images/bukti_transfer/' + gambr
+							loadImage(imgPath, 800, 800, '#buktiGambar');
+
+						}
+					});
+
+				});
 
 				$('#datepicker').datepicker({
 					numberOfMonths: 1,
@@ -200,8 +261,6 @@
 						$(this).data().datepicker.inline = false;
 					}
 				});
-
-
 				$('body').on('click', '.btn_Konfirmasi', function() {
 
 					var kode_transaksi = $(this).data('kode_transaksi');
@@ -254,8 +313,6 @@
 
 
 				});
-
-
 				$('body').on('click', '.btnInputResi', function() {
 					$('#kode_transaksi').val($(this).attr('data-kode_transaksi'));
 					// console.log("ssssss");
@@ -267,8 +324,6 @@
 					$('#btnInputResi').modal('show');
 					$('#modalMetodPeng').modal('show');
 				});
-
-
 				$('#btnSaves').on('click', function() {
 
 					var id_transaksi = $('#id_transaksi').val();
@@ -325,7 +380,6 @@
 					}
 
 				});
-
 				$('body').on('click', '.confirmBarang', function() {
 
 					var kode_transaksi = $(this).data('kode_transaksi');
@@ -383,12 +437,6 @@
 					window.location = '<?= $ba; ?>Transaksi_detail/' + $(this).data('id_user') +
 						'/' + $(this).data('id_transaksi');
 				});
-
-
-
-
-
-
 
 				$("body").children().first().before($(".modal"));
 
@@ -859,6 +907,8 @@
 					var status = $('#dt_filter_status').val();
 					datatable.ajax.reload();
 				});
+
+
 
 
 

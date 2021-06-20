@@ -800,11 +800,14 @@ class Admin extends CI_Controller {
 
 			}
 			if ($row->id_method == 1) {
-				$bank = '<div class="badge badge-success">Transfer BCA</div>';
+				$bank = '<div class="badge badge-success lihatBukti" data-id_transaksi="' . $row->id_transaksi . '" 
+				>Transfer BCA</div>';
 			} else if ($row->id_method == 0) {
-				$bank = '<div class="badge badge-success">Transfer BRI </div>';
+				$bank = '<div class="badge badge-success lihatBukti" data-id_transaksi="' . $row->id_transaksi . '" 
+				>Transfer BRI </div>';
 			} else {
-				$bank = '<div class="badge badge-success">Transfer  Mandiri</div>';
+				$bank = '<div class="badge badge-success lihatBukti" data-id_transaksi="' . $row->id_transaksi . '" 
+				>Transfer  Mandiri</div>';
 			}
 			$kodTrans = ' <a href="#" class="tomboldetail"  data-id_transaksi="' . $row->id_transaksi . '"data-id_user="' . $row->id_user . '">
 		' . $row->kode_transaksi . '
@@ -1469,6 +1472,16 @@ class Admin extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 		));
+	}
+	public function getBuktiByID()
+	{
+		$id = $this->input->post('id_transaksi');
+		$data = $this->TransaksiModel->getTransaksiById($id);
+		// var_dump($data);die;
+		echo json_encode(array(
+			'data' => $data[0],
+		));
+		# code...
 	}
 	
 

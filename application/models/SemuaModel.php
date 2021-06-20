@@ -53,11 +53,6 @@ class SemuaModel extends CI_Model {
 		$this->db->where($nama_field, $id);
 		return $this->db->update($tabel, $data);
 	}
-
-  // ------------------------------------------------------------------------
-
-
-  // ------------------------------------------------------------------------
   public function index()
   {
     // 

@@ -1335,6 +1335,7 @@ class Admin extends CI_Controller {
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 			data-id_vocher="' . $row->id_vocher . '" 
 			data-kode_vocher="' . $row->kode_vocher . '" 
+			data-qty="' . $row->qty . '" 
 			data-harga="' . $row->harga . '" 
 			data-expired_at="' . $row->expired_at . '" 
 			data-status="' . $row->status . '"	
@@ -1354,6 +1355,7 @@ class Admin extends CI_Controller {
 	}
 	public function tambah_voucher_proses()
 	{	
+		// var_dump($_POST);die;
 		$kode_vocher = $this->input->post('kode_vocher', TRUE);
 		$harga = $this->input->post('harga', TRUE);
 		$qty = $this->input->post('qty', TRUE);
@@ -1398,67 +1400,49 @@ class Admin extends CI_Controller {
 		));
 	}
 	public function ubah_vocher_proses()
-	{		var_dump($this->input->post());die;
-		$nama = $this->input->post('nama', TRUE);
-		$id_user = $this->input->post('id_user', TRUE);
-		$Email = $this->input->post('Email', TRUE);
-		$password = $this->input->post('password', TRUE);
-		$noTelp = $this->input->post('noTelp', TRUE);
+	{		
+		// var_dump($this->input->post());die;
+		$id_vocher = $this->input->post('id_vocher', TRUE);
+		$kode_vocher = $this->input->post('kode_vocher', TRUE);
+		$harga = $this->input->post('harga', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		$expired = $this->input->post('expired', TRUE);
 		$ST = $this->input->post('status', TRUE);
 
-		$cekPasswordOld = $this->UserModel->cekPasswordOld($id_user)->password;
-		$cekPWLama = $cekPasswordOld == $password;
-
-		// var_dump($cekPasswordOld == $password);die;
-		$message = 'Gagal mengedit data User!<br>Silahkan lengkapi data yang diperlukan.';
+		$message = 'Gagal mengedit data !<br>Silahkan lengkapi data yang diperlukan.';
 
 		$errorInputs = array();
 		$status = true;
-		if ($cekPWLama) {
 
-			$in = array(  // jika password lama dengan edit user yng baru , maka password tidak terupdate
-				'nama_lengkap' => $nama,
-				'email' => $Email,
-				'no_phone' => $noTelp,
-				'status' => $ST,
-			);
-		} else {  //jika password lama di ubah , maka password  terupdate
-
-			$in = array(
-				'nama_lengkap' => $nama,
-				'email' => $Email,
-				'no_phone' => $noTelp,
-				'status' => $ST,
-				'password' => md5($password),
-			);
-		}
+		$in = array(
+			'kode_vocher' => $kode_vocher,
+			'harga' => $harga,
+			'qty' => $qty,
+			'status' => $ST,
+			'expired_at' => $expired,
+		);
 
 
-		if (empty($nama)) {
+		if (empty($kode_vocher)) {
 			$status = false;
-			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+			$errorInputs[] = array('#kode_vocher', 'Silahkan Isi kode_vocher');
 		}
-		if (empty($Email)) {
+		if (empty($harga)) {
 			$status = false;
-			$errorInputs[] = array('#email', 'Silahkan Isi Email');
+			$errorInputs[] = array('#harga', 'Silahkan Isi harga');
 		}
-		if (empty($noTelp)) {
+		if (empty($qty)) {
 			$status = false;
-			$errorInputs[] = array('#no$noTelp', 'Silahkan Isi No Telp');
-		}
-		if (empty($password)) {
-			$status = false;
-			$errorInputs[] = array('#password', 'Silahkan Isi Password');
+			$errorInputs[] = array('#qty', 'Silahkan Isi ');
 		}
 
 		if ($status) {
 
-			if ($this->UserModel->edit_user($in, $id_user)) {
-
-				$message = "Berhasil Mengubah User #1";
+			if ($this->SemuaModel->editDataByID("vocher","id_vocher", $id_vocher,$in)) {
+				$message = "Berhasil Mengubah Data #1";
 			}
 		} else {
-			$message = "Gagal Mengubah User #1";
+			$message = "Gagal Mengubah Data #1";
 		}
 
 		echo json_encode(array(

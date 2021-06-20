@@ -346,29 +346,29 @@
 
 						$('body').on('click', '.btn_edit', function() {
 							url_form = url_form_ubah;
-							var id_user = $(this).data('id_user');
-							var nama_lengkap = $(this).data('nama_lengkap');
-							var email = $(this).data('email');
-							var no_phone = $(this).data('no_phone');
-							var password = $(this).data('password');
-							var status = $(this).data('status');
-							console.log(password)
 
-							$('#nama').val(nama_lengkap);
-							$('#Email').val(email);
-							$('#noTelp').val(no_phone);
+							var id_vocher = $(this).data('id_vocher');
+							var kode_vocher = $(this).data('kode_vocher');
+							var harga = $(this).data('harga');
+							var date = $(this).data('expired_at');
+							var status = $(this).data('status');
+							var qty = $(this).data('qty');
+							var newdate = moment.utc(date).format('YYYY-MM-DD')
+							// console.log(newdate)
+							// console.log(moment.utc(date).format('YYY-MM-DD'));
+
+							$('#id_vocher').val(id_vocher);
+							$('#kode_vocher').val(kode_vocher);
+							$('#harga').val(harga);
+							$('#qty').val(qty);
 							$('#status').val(status);
-							$('#password').val(password);
-							$('#id_user').val(id_user);
-							// $('#status').val(status_produk);
-							// $('#deskripsi').val(deskripsi);
-							// $('#id_kategori').val(id_kategori);
+							$('#expired').val(newdate);
 
 							$('#modalUser').modal('show');
 
 
 
-							$('#tambah_act').hide();
+							$('#btnTambah').hide();
 							$('#Edit').show();
 						});
 

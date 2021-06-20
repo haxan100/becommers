@@ -39,7 +39,7 @@
 	<script type='text/javascript' src='https://raw.githack.com/jamiebicknell/Toggle-Switch/master/jquery.toggleswitch.js'></script>
 	<link href="https://raw.githack.com/jamiebicknell/Toggle-Switch/master/toggleswitch.css" rel="stylesheet" />
 
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script type='text/javascript' src='https://www.jqueryscript.net/demo/Custom-On-Off-Toggle-Switch-Plugin-For-jQuery-on-off-switch-js/js/on-off-switch.js'></script>
 	<script type='text/javascript' src='https://www.jqueryscript.net/demo/Custom-On-Off-Toggle-Switch-Plugin-For-jQuery-on-off-switch-js/js/on-off-switch-onload.js'></script>
 

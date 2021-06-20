@@ -130,7 +130,7 @@
 						// $('#modalUser').modal('show');
 						$("body").children().first().before($(".modal"));
 						var bu = '<?= base_url(); ?>';
-						var url_form_tambah = bu + 'admin/tambah_user_proses';
+						var url_form_tambah = bu + 'admin/tambah_voucher_proses';
 						var url_form_ubah = bu + 'admin/ubah_user_proses';
 
 						$('body').on('click', '.btn_tambah', function() {
@@ -448,13 +448,10 @@
 							var _qty = cekQTY();
 
 							if (
-
 								_kode_vocher && _harga && _qty
 							) {
-								// console.log("disini");
 								$('#draft').val("1");
 								$("#form").submit();
-								// $("#form").reset();
 
 							}
 							$('#btnTambah').show();

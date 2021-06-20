@@ -1351,6 +1351,50 @@ class Admin extends CI_Controller {
 
 		exit();
 	}
+	public function tambah_voucher_proses()
+	{	
+		$kode_vocher = $this->input->post('kode_vocher', TRUE);
+		$harga = $this->input->post('harga', TRUE);
+		$qty = $this->input->post('qty', TRUE);
+		$expired = $this->input->post('expired', TRUE);
+		$st = $this->input->post('status', TRUE);
+		$message = 'Gagal menambah Data!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;	
+
+		if (empty($qty)) {
+			$status = false;
+			$errorInputs[] = array('#qty', 'Silahkan Isi');
+		}
+		if (empty($kode_vocher)) {
+			$status = false;
+			$errorInputs[] = array('#kode_vocher', 'Silahkan Isi');
+		}
+		if (empty($harga)) {
+			$status = false;
+			$errorInputs[] = array('#harga', 'Silahkan isi harga');
+		}
+
+
+		$in = array(
+			'kode_vocher' => $kode_vocher,
+			'harga' => $harga,
+			'status' => $st,
+			'qty' => $qty,
+			'expired_at' => $expired,
+		);
+		if ($this->ProdukModel->tambah($in, "vocher")) {
+
+			$message = "Berhasil Menambah Data #1";
+		} else {
+			$message = "Gagal menambah Data #1";
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
 	
 
 }

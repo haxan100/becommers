@@ -9,6 +9,7 @@ class Admin extends CI_Controller {
 		$this->load->model('UserModel');
 		$this->load->model('TransaksiModel');
 		$this->load->model('VoucherModel');
+		$this->load->model('SemuaModel');
 
 		$this->load->model('AdminModel', 'admin');
 		$this->load->library('form_validation');
@@ -1383,9 +1384,10 @@ class Admin extends CI_Controller {
 			'qty' => $qty,
 			'expired_at' => $expired,
 		);
+
 		if ($this->ProdukModel->tambah($in, "vocher")) {
 
-			$message = "Berhasil Menambah Data #1";
+		$message = "Berhasil Menambah Data #1";
 		} else {
 			$message = "Gagal menambah Data #1";
 		}
@@ -1393,6 +1395,95 @@ class Admin extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 			'errorInputs' => $errorInputs
+		));
+	}
+	public function ubah_vocher_proses()
+	{		var_dump($this->input->post());die;
+		$nama = $this->input->post('nama', TRUE);
+		$id_user = $this->input->post('id_user', TRUE);
+		$Email = $this->input->post('Email', TRUE);
+		$password = $this->input->post('password', TRUE);
+		$noTelp = $this->input->post('noTelp', TRUE);
+		$ST = $this->input->post('status', TRUE);
+
+		$cekPasswordOld = $this->UserModel->cekPasswordOld($id_user)->password;
+		$cekPWLama = $cekPasswordOld == $password;
+
+		// var_dump($cekPasswordOld == $password);die;
+		$message = 'Gagal mengedit data User!<br>Silahkan lengkapi data yang diperlukan.';
+
+		$errorInputs = array();
+		$status = true;
+		if ($cekPWLama) {
+
+			$in = array(  // jika password lama dengan edit user yng baru , maka password tidak terupdate
+				'nama_lengkap' => $nama,
+				'email' => $Email,
+				'no_phone' => $noTelp,
+				'status' => $ST,
+			);
+		} else {  //jika password lama di ubah , maka password  terupdate
+
+			$in = array(
+				'nama_lengkap' => $nama,
+				'email' => $Email,
+				'no_phone' => $noTelp,
+				'status' => $ST,
+				'password' => md5($password),
+			);
+		}
+
+
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}
+		if (empty($Email)) {
+			$status = false;
+			$errorInputs[] = array('#email', 'Silahkan Isi Email');
+		}
+		if (empty($noTelp)) {
+			$status = false;
+			$errorInputs[] = array('#no$noTelp', 'Silahkan Isi No Telp');
+		}
+		if (empty($password)) {
+			$status = false;
+			$errorInputs[] = array('#password', 'Silahkan Isi Password');
+		}
+
+		if ($status) {
+
+			if ($this->UserModel->edit_user($in, $id_user)) {
+
+				$message = "Berhasil Mengubah User #1";
+			}
+		} else {
+			$message = "Gagal Mengubah User #1";
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+		public function hapusVocher()
+	{
+		$id_vocher = $this->input->post('id_vocher', TRUE);
+		$data = $this->SemuaModel->getDataByID("vocher","id_vocher",$id_vocher);
+
+		$status = false;
+		$message = 'Gagal menghapus Data!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Data yang dimaksud.';
+		} else {
+			$this->SemuaModel->HapusDataByID("vocher","id_vocher",$id_vocher);;
+			$status = true;
+			$message = 'Berhasil menghapus Data: <b>' . $data[0]->kode_vocher . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
 		));
 	}
 	

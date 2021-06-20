@@ -33,6 +33,21 @@ class SemuaModel extends CI_Model {
 		
 		# code...
 	}
+	public function getDataByID($tabel, $nama_field,$id)
+	{
+		$this->db->select('*');
+		$this->db->where($nama_field, $id);
+		$query = $this->db->get($tabel);
+		return $query->result();
+		# code...
+	}
+	public function HapusDataByID($tabel, $nama_field,$id)
+	{
+		$this->db->where($nama_field, $id);
+		$this->db->delete($tabel);
+		$query = $this->db->get($tabel);
+		return $query->result();	
+	}
 
   // ------------------------------------------------------------------------
 

@@ -131,7 +131,7 @@
 						$("body").children().first().before($(".modal"));
 						var bu = '<?= base_url(); ?>';
 						var url_form_tambah = bu + 'admin/tambah_voucher_proses';
-						var url_form_ubah = bu + 'admin/ubah_user_proses';
+						var url_form_ubah = bu + 'admin/ubah_vocher_proses';
 
 						$('body').on('click', '.btn_tambah', function() {
 							url_form = url_form_tambah;
@@ -389,11 +389,11 @@
 
 						$('body').on('click', '.hapus', function() {
 
-							var id_user = $(this).data('id_user');
-							var nama = $(this).data('nama_lengkap');
+							var id_vocher = $(this).data('id_vocher');
+							var nama = $(this).data('kode_vocher');
 							Swal.fire({
 								title: 'Apakah Anda Yakin ?',
-								text: "Anda akan Menghapus Produk: " + nama,
+								text: "Anda akan Menghapus Vocher: " + nama,
 								icon: 'warning',
 								showCancelButton: true,
 								confirmButtonColor: '#3085d6',
@@ -403,11 +403,11 @@
 
 								if (result.value) {
 									$.ajax({
-										url: bu + 'Admin/hapusUser',
+										url: bu + 'Admin/hapusVocher',
 										dataType: 'json',
 										method: 'POST',
 										data: {
-											id_user: id_user
+											id_vocher: id_vocher
 										}
 									}).done(function(e) {
 										// console.log(e);

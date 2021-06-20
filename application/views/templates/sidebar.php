@@ -40,9 +40,9 @@
 							</a>
 						</li>
 						<li>
-							<a href="elements-badges-labels.html">
+							<a href="<?= $ba; ?>master_voucher">
 								<i class="metismenu-icon">
-								</i>-
+								</i>Voucher
 							</a>
 						</li>
 						<li>

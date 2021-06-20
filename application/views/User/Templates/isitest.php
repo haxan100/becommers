@@ -6,7 +6,10 @@
 					if (isset($_SESSION['id_user'])) {
 						$id_user = $_SESSION['id_user'];
 					}
-					// var_dump($_SESSION);
+
+					$uri = $this->uri->segment(3);
+
+					// var_dump($uri);
 
 					?>
 
@@ -150,12 +153,12 @@
 
 
 
-							<!-- <div class="banner">
+						<!-- <div class="banner">
 							<div class="container">
 								<h3>Electronic Store, <span>Special Offers</span></h3>
 							</div>
 						</div> -->
-							<!-- <div class="w3ls_mobiles_grid_right_grid2_right">
+						<!-- <div class="w3ls_mobiles_grid_right_grid2_right">
 							<select name="select_item" class="select_item">
 								<option value="0">Default sorting</option>
 								<option value="1">Sort by popularity</option>
@@ -165,26 +168,26 @@
 								<option value="5">9-0</option>
 							</select>
 						</div> -->
-							<div class="clearfix"> </div>
-						</div>
-
-						<div id="produk">
-
-						</div>
-
-
 						<div class="clearfix"> </div>
+					</div>
 
-						<div class="text-center">
-						</div>
-						<div class="text-center">
-							<nav aria-label="Page navigation example" class="example">
-								<input type="hidden" id="_page" value=1></input>
-								<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
+					<div id="produk">
 
-								</ul>
-							</nav>
-						</div>
+					</div>
+
+
+					<div class="clearfix"> </div>
+
+					<div class="text-center">
+					</div>
+					<div class="text-center">
+						<nav aria-label="Page navigation example" class="example">
+							<input type="hidden" id="_page" value=1></input>
+							<ul class="pagination" id="pagination-wrapper" style="font-size: 150%">
+
+							</ul>
+						</nav>
+					</div>
 					</div>
 					</div>
 					</div>
@@ -413,8 +416,8 @@
 
 
 							function generateProduk(produk) {
-								var bu = '<?= base_url() ?>'
 								// console.log(produk);
+								var bu = '<?= base_url() ?>'
 								// console.log(bu+"upload/images/produk" + produk.foto);
 								if (produk.link_foto != null) {
 									var make_link = true;
@@ -536,10 +539,11 @@
 
 
 							function loadProduk() {
-
+								var id_kate = '<?= $uri ?>';
 								var min = $('#min').val()
 								var max = $('#max').val()
 								var sortir = $('#sortir').val()
+								// console.log(id_kate)
 								$.ajax({
 									type: "POST",
 									dataType: 'json',
@@ -548,23 +552,48 @@
 										cari: $('#cari').val(),
 										page: $('#_page').val(),
 										id_tipe_bid: '2',
-
 										min: min,
 										max: max,
 										sortir: sortir,
+										id_kate: id_kate
 									},
 								}).done(function(e) {
 									// console.log(e);
 									$('#produk').html('');
 									if (e.status) {
-										// console.log(e.data)
+										console.log(e.data == 0)
 										var berapa = e.data.length;
+										if (e.data == 0) {
+
+											var html = '<!-- no produk -->' +
+												'	<div class="box-kosong px-3 py-2">' +
+												'		<div class="col biz-bg-w-2 biz-rad-10 p-3 mb-4">' +
+												'			<div class="text-center">' +
+												'				<span class="biz-text-17 biz-text-w-5 font-weight-bold">Belum Ada Produk Tersedia Disini</span>' +
+												'			</div>' +
+												'		</div>' +
+												'	</div>';
+											$('#produk').html(html);
+										}
 										$.each(e.data, function(key, val) {
+											// console.log(berapa)
 											$('#produk').append(generateProduk(val));
-											// console.log(e.data);
+											console.log(berapa);
 											if (berapa >= 1) {
 												generatePagination(e.page);
-											} else {}
+											} else {
+
+
+												var html = '<!-- no produk -->' +
+													'	<div class="box-kosong px-3 py-2">' +
+													'		<div class="col biz-bg-w-2 biz-rad-10 p-3 mb-4">' +
+													'			<div class="text-center">' +
+													'				<span class="biz-text-17 biz-text-w-5 font-weight-bold">Belum Ada Produk Lelang Tersedia</span>' +
+													'			</div>' +
+													'		</div>' +
+													'	</div>';
+												$('#produk').html(html);
+											}
 
 										});
 									} else {
@@ -595,7 +624,7 @@
 										id_user: id_user
 									},
 								}).done(function(e) {
-									console.log(e);
+									// console.log(e);
 									if (e.status) {
 										$('.keranjing').html(e.data);
 									} else {
@@ -675,8 +704,8 @@
 							$('#go').click(function(e) {
 								var min = $('#min').val()
 								var max = $('#max').val()
-
 								var sortir = $('#sortir').val()
+								var id_kate = '<?= $uri ?>';
 								$.ajax({
 									type: "POST",
 									dataType: 'json',
@@ -687,6 +716,7 @@
 										min: min,
 										max: max,
 										sortir: sortir,
+										id_kate: id_kate,
 
 									},
 								}).done(function(e) {

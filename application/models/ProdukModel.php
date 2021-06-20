@@ -383,15 +383,13 @@ class ProdukModel extends CI_Model
         $this->db->where('id_produk', $id);
         return $this->db->update('produk', $in);
     }
-    public function getProduk($page = 1, $cari, $min, $max, $sortir)
+    public function getProduk($page = 1, $cari, $min, $max, $sortir,$id_kate)
     {
-        // var_dump($min != null or $min == "");die;
-
-        // $page = intval($this->input->post('page', true));
+		// var_dump($id_kate==null);die;
         $perHal = 9;
         $start = ($page - 1) * $perHal;
         $length = $start + $perHal;
-        $total = $this->getProdukCount($cari, $min, $max);
+        $total = $this->getProdukCount($cari, $min, $max,$id_kate);
         $pages = ceil($total / $perHal);
         $this->db->select("*")
             ->from('produk p')
@@ -400,8 +398,9 @@ class ProdukModel extends CI_Model
             $this->db->where('p.harga>=', $min);
         }
         if ($max != null) {
-            $this->db->where('p.harga<=', $max);
+			$this->db->where('p.harga<=', $max);
         }
+	
         switch ($sortir) {
 			case '1':				
 				$this->db->order_by("harga", "asc");
@@ -422,6 +421,9 @@ class ProdukModel extends CI_Model
 			
                 break;
         }
+		if ($id_kate != null) {
+			$this->db->where('p.id_kategori', $id_kate);
+		}
 
         if ($cari != '') {
             $array_search = array(
@@ -449,7 +451,7 @@ class ProdukModel extends CI_Model
         );
         return $output;
     }
-    public function getProdukCount($cari, $min, $max)
+    public function getProdukCount($cari, $min, $max,$id_kate)
     {
         $table_spek = 'spek_handphone s';
         $col_search = 's.e';
@@ -464,6 +466,9 @@ class ProdukModel extends CI_Model
         if ($max != null) {
             $this->db->where('p.harga<=', $max);
         }
+		if ($id_kate != null) {
+			$this->db->where('p.id_kategori', $id_kate);
+		}
         if ($cari != '') {
             $array_search = array(
                 'p.nama_produk' => $cari,

@@ -143,6 +143,17 @@
 					<?php
 					?>
 					<li><a href="<?php echo base_url() . "user/"; ?>hubungi">Hubungi Kami</a></li>
+
+					<li>
+						<label for='opt1'>Slider</label> <br>
+						<button class="btn btn-primary" type="button" id="sliderHide">Hide</button>
+						<button class="btn btn-primary" type="button" id="sliderShow">Show</button>
+
+					</li>
+
+
+
+
 					<?php
 					if ($jml > 0) {
 					?>
@@ -193,5 +204,40 @@
 	</div>
 </div>
 <script>
+	jQuery(document).ready(function($) {
+		$('#sliderShow').hide();
 
+		new DG.OnOffSwitch({
+			el: '#on-off-switch',
+			textOn: 'Sync On',
+			textOff: 'Off',
+			listener: function(name, checked) {
+				var hah = $('#on-off-switch').val("off")
+
+			}
+		});
+		var hah = $('#on-off-switch').val()
+		var slider = 1;
+		slideraktif = true;
+
+		console.log(hah)
+		$('#sliderHide').click(function(e) {
+			$('#sliderShow').hide();
+			$('#sliderHide').hide();
+			$('#sliderShow').show();
+			$('#tes-carousel').hide();
+		});
+		$('#sliderShow').click(function(e) {
+			$('#sliderShow').show();
+			$('#sliderHide').show();
+			$('#sliderShow').hide();
+			$('#tes-carousel').show();
+		});
+
+		// console.log(slideraktif)
+
+
+
+
+	});
 </script>

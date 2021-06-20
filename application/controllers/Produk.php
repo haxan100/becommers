@@ -26,8 +26,9 @@ public function produk()
 	$min = $this->input->post('min');
 	$max = $this->input->post('max');
 	$sortir = $this->input->post('sortir');
+	$id_kate = $this->input->post('id_kate');
 	
-	$data = $this->ProdukModel->getProduk($page,$cari,$min,$max,$sortir);
+	$data = $this->ProdukModel->getProduk($page,$cari,$min,$max,$sortir,$id_kate);
 		echo json_encode(array(
 			'status' => true,
 			'data' => $data['data'],
@@ -36,7 +37,5 @@ public function produk()
 }
         
 }
-        
-    /* End of file  Produk.php */
         
                             

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +21,7 @@
 	<!-- Custom Theme files -->
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 
-	
+
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo base_url() . "templates/user/"; ?>css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
@@ -37,6 +36,17 @@
 	<!-- web fonts -->
 	<link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<script type='text/javascript' src='https://raw.githack.com/jamiebicknell/Toggle-Switch/master/jquery.toggleswitch.js'></script>
+	<link href="https://raw.githack.com/jamiebicknell/Toggle-Switch/master/toggleswitch.css" rel="stylesheet" />
+
+
+	<script type='text/javascript' src='https://www.jqueryscript.net/demo/Custom-On-Off-Toggle-Switch-Plugin-For-jQuery-on-off-switch-js/js/on-off-switch.js'></script>
+	<script type='text/javascript' src='https://www.jqueryscript.net/demo/Custom-On-Off-Toggle-Switch-Plugin-For-jQuery-on-off-switch-js/js/on-off-switch-onload.js'></script>
+
+	<link href="https://www.jqueryscript.net/demo/Custom-On-Off-Toggle-Switch-Plugin-For-jQuery-on-off-switch-js/css/on-off-switch.css" rel="stylesheet" />
+
+
+
 	<!-- //web fonts -->
 	<!-- start-smooth-scrolling -->
 	<script type="text/javascript">

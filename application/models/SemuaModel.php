@@ -48,6 +48,11 @@ class SemuaModel extends CI_Model {
 		$query = $this->db->get($tabel);
 		return $query->result();	
 	}
+	public function editDataByID($tabel, $nama_field,$id,$data)
+	{
+		$this->db->where($nama_field, $id);
+		return $this->db->update($tabel, $data);
+	}
 
   // ------------------------------------------------------------------------
 

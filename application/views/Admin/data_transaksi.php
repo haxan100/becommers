@@ -15,9 +15,9 @@
 				}
 
 				#gambarnya {
-						max-width: 494px!important;
-						max-height: 800px!important;
-					
+					max-width: 494px !important;
+					max-height: 800px !important;
+
 				}
 			</style>
 
@@ -56,7 +56,7 @@
 										<th>Harga + Ongkir</th>
 										<th>Total</th>
 										<th>Status</th>
-										<th>Methode</th>
+										<th>Methode ||Req Kurir</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -210,7 +210,7 @@
 
 				function loadImage(path, width, height, target) {
 					$('<img id="gambarnya" src="' + path + '">').load(function() {
-						$(this).appendTo(target);
+						$(this).val(target);
 					});
 				}
 				$('body').on('click', '.lihatBukti', function() {
@@ -226,9 +226,15 @@
 						dataType: "json",
 						success: function(res) {
 							var gambr = res.data.foto
-							console.log(gambr);
+							console.log(gambr == "");
+							if (gambr == "") {
+								imgPath = "https://2.bp.blogspot.com/-AvAJLntGQ_c/V46KzgF3cdI/AAAAAAAAF4w/l40dpsd-aMwS92RS31zz8r0uKHh1r1kagCLcB/s1600/Transaksi%2BAntar%2BBank.png"
+							}else{
 
-							var imgPath = '<?= base_url() ?>upload/images/bukti_transfer/' + gambr
+								var imgPath = '<?= base_url() ?>upload/images/bukti_transfer/' + gambr
+							}
+
+
 							loadImage(imgPath, 800, 800, '#buktiGambar');
 
 						}

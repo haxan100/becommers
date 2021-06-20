@@ -730,6 +730,23 @@ class Admin extends CI_Controller {
 		$no = $start + 1;
 		$status = "";
 		foreach ($dt['data']->result() as $row) {
+
+			switch ($row->kurir) {
+				case '1':				
+					$kurir = '<div class="badge badge-info">JNE</div>';
+					break;
+				case '2':				
+					$kurir = '<div class="badge badge-info">TIKI</div>';
+				break;
+				case '3':				
+					$kurir = '<div class="badge badge-info">POS</div>';
+				break;
+				
+				default:				
+					$kurir = '<div class="badge badge-info">JNE</div>';
+					break;
+			}
+			// var_dump($kurir);die;
 			if ($row->status == 1) {
 				$status = '<div class="badge badge-success">Sudah Bayar</div>';
 				$tombol ='
@@ -820,7 +837,7 @@ class Admin extends CI_Controller {
 			$fields[] = $this->formatUang($row->bayar) . 				'<br>' . 										$this->formatUang($row->ongkir);
 			$fields[] = $this->formatUang($row->jumlah) . 				'<br>';
 			$fields[] = $status . '<br>';
-			$fields[] = $bank . '<br>';
+			$fields[] = $bank . '<br>'.$kurir;
 			$fields[] = $tombol;
 			$datatable['data'][] = $fields;
 		}

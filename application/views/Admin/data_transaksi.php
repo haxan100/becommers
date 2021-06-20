@@ -14,7 +14,7 @@
 					max-height: 100px;
 				}
 
-				#gambarnya {
+				#buktiGambar {
 					max-width: 494px !important;
 					max-height: 800px !important;
 
@@ -191,7 +191,9 @@
 								<thead>
 									<tr>
 										<th>Bukti</th>
-										<div id="buktiGambar"></div>
+										<!-- <div id="buktiGambar"></div> -->
+										<img id="buktiGambar" src="first.jpg" />
+
 									</tr>
 								</thead>
 							</table>
@@ -209,9 +211,13 @@
 			document.addEventListener("DOMContentLoaded", function(event) {
 
 				function loadImage(path, width, height, target) {
-					$('<img id="gambarnya" src="' + path + '">').load(function() {
-						$(this).val(target);
-					});
+					console.log(path);
+					// $('#buktiGambar').attr(path);
+					$("#buktiGambar").attr("src", path);
+
+					// $('<img id="gambarnya" src="' + path + '">').load(function() {
+					// 	$(this).val(target);
+					// });
 				}
 				$('body').on('click', '.lihatBukti', function() {
 					$('#modalBukti').modal('show');
@@ -229,7 +235,7 @@
 							console.log(gambr == "");
 							if (gambr == "") {
 								imgPath = "https://2.bp.blogspot.com/-AvAJLntGQ_c/V46KzgF3cdI/AAAAAAAAF4w/l40dpsd-aMwS92RS31zz8r0uKHh1r1kagCLcB/s1600/Transaksi%2BAntar%2BBank.png"
-							}else{
+							} else {
 
 								var imgPath = '<?= base_url() ?>upload/images/bukti_transfer/' + gambr
 							}

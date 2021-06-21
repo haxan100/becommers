@@ -20,7 +20,7 @@
 		<div class="container">
 			<div class="w3ls_about_grids">
 				<div class="col-md-6 w3ls_about_grid_left">
-					<p>BEECOMERS adalah Web online yang merupakan distributor spesialis penjualan barang barang elektronik rumah tangga yang telah melayani toko-toko Grosir, Semi Grosir dan Retail di seluruh Jabotabek sejak tahun 1999, Kami Dapat melayani penjualan Retail, Grosir dan Corporate secara online di seluruh Indonesia.</p>
+					<p>Veronica Cloth Adalah Web Online Yang Menjual Produk Kain Kain Yang berkualitas.</p>
 					<div class="col-xs-2 w3ls_about_grid_left1">
 						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</div>
@@ -32,7 +32,7 @@
 						<span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
 					</div>
 					<div class="col-xs-10 w3ls_about_grid_left2">
-						<p>Kecepatan adalah syarat utama Kami membuka Beecomers</p>
+						<p>Kecepatan adalah syarat utama Kami membuka Veronica Cloth</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
@@ -51,8 +51,8 @@
 			<h3>Meet Our Team</h3>
 			<div class="wthree_team_grids">
 				<div class="col-md-3 wthree_team_grid">
-					<img src="<?php echo base_url() . "templates/user/"; ?>images/t4.png" alt=" " class="img-responsive" />
-					<h4>Smith Allen <span>Manager</span></h4>
+					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<h4>Hasan<span>Manager</span></h4>
 					<div class="agileits_social_button">
 						<ul>
 							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
@@ -63,8 +63,8 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="<?php echo base_url() . "templates/user/"; ?>images/t5.png" alt=" " class="img-responsive" />
-					<h4>Laura James <span>Designer</span></h4>
+					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<h4>Abdul<span>Designer</span></h4>
 					<div class="agileits_social_button">
 						<ul>
 							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
@@ -75,8 +75,8 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="<?php echo base_url() . "templates/user/"; ?>images/t6.png" alt=" " class="img-responsive" />
-					<h4>Crisp Doe <span>Director</span></h4>
+					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<h4>Bedoel <span>Director</span></h4>
 					<div class="agileits_social_button">
 						<ul>
 							<li><a href="<?php echo base_url() . "templates/user/"; ?>#" class="facebook"> </a></li>
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="<?php echo base_url() . "templates/user/"; ?>images/t7.png" alt=" " class="img-responsive" />
+					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
 					<h4>Linda Rosy <span>Quality Checker</span></h4>
 					<div class="agileits_social_button">
 						<ul>

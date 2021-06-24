@@ -51,7 +51,7 @@
 			<h3>Meet Our Team</h3>
 			<div class="wthree_team_grids">
 				<div class="col-md-3 wthree_team_grid">
-					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<img src="http://heyiamhasan.com/assets/img/about/1.jpg" alt=" " class="img-responsive" />
 					<h4>Hasan<span>Manager</span></h4>
 					<div class="agileits_social_button">
 						<ul>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<img src="http://heyiamhasan.com/assets/img/about/1.jpg" alt=" " class="img-responsive" />
 					<h4>Abdul<span>Designer</span></h4>
 					<div class="agileits_social_button">
 						<ul>
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<img src="http://heyiamhasan.com/assets/img/about/1.jpg" alt=" " class="img-responsive" />
 					<h4>Bedoel <span>Director</span></h4>
 					<div class="agileits_social_button">
 						<ul>
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 wthree_team_grid">
-					<img src="http://heyiamhasan.com/assets/img/about/600x700.jpg" alt=" " class="img-responsive" />
+					<img src="http://heyiamhasan.com/assets/img/about/1.jpg" alt=" " class="img-responsive" />
 					<h4>Linda Rosy <span>Quality Checker</span></h4>
 					<div class="agileits_social_button">
 						<ul>
